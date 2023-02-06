@@ -1,6 +1,9 @@
+import { setEditingId } from "@features/context-slice"
+import { setFields } from "@features/fields-slice"
 import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
-import { removeFruitFromCache } from "./utils"
+import { useDispatch } from "react-redux"
+import { removeFruitFromCache } from "../utils"
 
 export const baseURL = "http://localhost:3000/fruits"
 
@@ -13,6 +16,7 @@ export interface Fruit {
 
 export function Fruits() {
   const queryClient = useQueryClient()
+  const dispatch = useDispatch()
 
   const {
     data: fruits,
@@ -34,6 +38,14 @@ export function Fruits() {
     axios.delete(`${baseURL}/${fruitId}`)
   }
 
+  function handleEditFruit(fruitId: string) {
+    const fruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const { fruit_name, note } = fruitsInCache.find((fruit) => fruit.id === fruitId)!
+    dispatch(setEditingId(fruitId))
+    console.log({fruit_name, note})
+    dispatch(setFields({ fruit_name, note }))
+  }
+
   if (isLoading) {
     return (
       <div className="flex justify-center p-3">
@@ -47,15 +59,19 @@ export function Fruits() {
       {fruits?.map((fruit) => (
         <div
           key={fruit.id}
-          className="border-b-zinc-300 border-b mb-3 flex flex-col">
+          className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5">
           <div className="flex gap-2 items-center">
             <div
               onClick={() => handleDeleteFruit(fruit.id)}
               className="text-white font-black cursor-pointer bg-red-700 rounded-full w-3 h-3 relative"
             />
+            <div
+              onClick={() => handleEditFruit(fruit.id)}
+              className="text-white font-black cursor-pointer bg-blue-600 rounded-full w-3 h-3 relative"
+            />
             <p>{fruit.fruit_name}</p>
           </div>
-          <p className="text-zinc-400 text-xs ml-8">{String(fruit.created_at)}</p>
+          <p className="text-zinc-400 text-xs">{String(fruit.created_at)}</p>
         </div>
       ))}
     </div>
