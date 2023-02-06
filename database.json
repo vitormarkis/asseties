@@ -1,0 +1,16 @@
+{
+  "fruits": [
+    {
+      "id": "4K71Q5F",
+      "fruit_name": "Melancia",
+      "note": "9",
+      "created_at": "Mon Feb 06 2023 12:03:19 GMT-0300 (Horário Padrão de Brasília)"
+    },
+    {
+      "id": "2EXSKN6",
+      "fruit_name": "PineApple",
+      "note": "90",
+      "created_at": "Mon Feb 06 2023 12:14:14 GMT-0300 (Horário Padrão de Brasília)"
+    }
+  ]
+}
