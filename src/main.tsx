@@ -4,8 +4,9 @@ import { QueryClientProvider } from "react-query"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "§/index.css"
 
+import { Form } from "@components/Form"
 import Home from "@routes/root"
-import { Fruits } from "@routes/fruitsList"
+import TagsForm from "@routes/tagsForm"
 import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
@@ -16,13 +17,14 @@ const router = createBrowserRouter([
     element: <Home />,
     children: [
       {
-        index: true,
-        element: <Fruits />,
-      },
-      {
-        path: "/add/tags",
+        path: "/edit",
+        element: <Form />,
       },
     ],
+  },
+  {
+    path: "/addTags/:id",
+    element: <TagsForm />,
   },
 ])
 

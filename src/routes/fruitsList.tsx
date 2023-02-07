@@ -3,6 +3,7 @@ import { setFields } from "@features/fields-slice"
 import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { removeFruitFromCache } from "../utils"
 
 export const baseURL = "http://localhost:3000/fruits"
@@ -17,6 +18,7 @@ export interface Fruit {
 export function Fruits() {
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const {
     data: fruits,
@@ -46,6 +48,14 @@ export function Fruits() {
     dispatch(setFields({ fruit_name, note }))
   }
 
+  function handleAddTags(fruitId: string) {
+    const getFruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const fruit = getFruitsInCache.find((fruit) => fruit.id === fruitId)
+  
+    navigate(`/addTags/${fruitId}`, {state: { fruit }})
+  }
+  
+
   if (isLoading) {
     return (
       <div className="flex justify-center p-3">
@@ -70,6 +80,10 @@ export function Fruits() {
               className="text-white font-black cursor-pointer bg-blue-600 rounded-full w-3 h-3 relative"
             />
             <p>{fruit.fruit_name}</p>
+            <div
+              onClick={() => handleAddTags(fruit.id)}
+              className="text-white font-black cursor-pointer bg-green-600 ml-auto rounded-full w-3 h-3 relative"
+            />
           </div>
           <p className="text-zinc-400 text-xs">{String(fruit.created_at)}</p>
         </div>

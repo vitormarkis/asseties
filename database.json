@@ -17,6 +17,18 @@
       "fruit_name": "Orange",
       "note": "5",
       "created_at": "Mon Feb 06 2023 17:50:59 GMT-0300 (Horário Padrão de Brasília)"
+    },
+    {
+      "id": "WTJLWJQ",
+      "fruit_name": "Lemon",
+      "note": "9",
+      "created_at": "Mon Feb 06 2023 20:31:15 GMT-0300 (Horário Padrão de Brasília)"
+    },
+    {
+      "id": "2IZZGAE",
+      "fruit_name": "Watermelon",
+      "note": "5.3",
+      "created_at": "Mon Feb 06 2023 20:31:48 GMT-0300 (Horário Padrão de Brasília)"
     }
   ]
 }
