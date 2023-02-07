@@ -22,7 +22,7 @@
       "@utils/*": ["./src/utils/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@routes/*": ["./src/routes/*"],
-      "@types/*": ["./src/types/*"],
+      "@myTypes/*": ["src/myTypes/*"],
       "@features/*": ["./src/features/*"],
       "§/*": ["./src/*"]
     }

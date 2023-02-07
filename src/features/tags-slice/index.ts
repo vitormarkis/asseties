@@ -1,25 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Fields, SetProps } from "./types"
+import { SetProps, TagFields } from "./types"
 
-export const initialState: Fields = {
-  fruit_name: "",
-  note: "",
+export const initialState: TagFields = {
+  tag_name: "",
+  category: "",
 }
 
-export const fieldsSlicer = createSlice({
-  name: "fields",
+export const tagFieldsSlicer = createSlice({
+  name: "tagFields",
   initialState,
   reducers: {
-    setOneField: (state, action: PayloadAction<SetProps>) => {
+    setOneTagField: (state, action: PayloadAction<SetProps>) => {
       const { key, value } = action.payload
       state[key] = value
     },
-    setFields: (_, action: PayloadAction<Fields>) => {
+    setTagFields: (_, action: PayloadAction<TagFields>) => {
       return action.payload
     },
   },
 })
 
-export const { setOneField, setFields } = fieldsSlicer.actions
+export const { setOneTagField, setTagFields } = tagFieldsSlicer.actions
 
-export const fieldsReducer = fieldsSlicer.reducer
+export const tagFieldsReducer = tagFieldsSlicer.reducer

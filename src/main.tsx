@@ -10,12 +10,17 @@ import TagsForm from "@routes/tagsForm"
 import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
+import { HomeOutlet } from "@components/HomeOutlet"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
     children: [
+      {
+        index: true,
+        element: <HomeOutlet />
+      },
       {
         path: "/edit",
         element: <Form />,

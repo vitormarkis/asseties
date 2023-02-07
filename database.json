@@ -1,34 +1,98 @@
 {
   "fruits": [
     {
-      "id": "TJ0JNF3",
-      "fruit_name": "Pineapple",
-      "note": "8.4",
-      "created_at": "Mon Feb 06 2023 17:50:44 GMT-0300 (Horário Padrão de Brasília)"
-    },
-    {
-      "id": "58FAGBY",
+      "id": "P2WL7PF",
       "fruit_name": "Apple",
-      "note": "2",
-      "created_at": "Mon Feb 06 2023 17:50:52 GMT-0300 (Horário Padrão de Brasília)"
+      "note": "10",
+      "created_at": "Mon Feb 06 2023 22:27:23 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "0M2G2T7",
+          "tag_name": "Sweet",
+          "category": "Flavor",
+          "created_at": "Mon Feb 06 2023 22:27:43 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "4HIIGSQ",
+          "tag_name": "heavy",
+          "category": "weight",
+          "created_at": "Mon Feb 06 2023 22:31:37 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "I4HF9Y7",
+          "tag_name": "Light",
+          "category": "weight",
+          "created_at": "Mon Feb 06 2023 22:32:20 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "K3B3QQ3",
+          "tag_name": "Red",
+          "category": "color",
+          "created_at": "Mon Feb 06 2023 22:33:05 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "OKAF2NC",
+          "tag_name": "Sweet",
+          "category": "",
+          "created_at": "Mon Feb 06 2023 22:33:50 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "J3X3ZUI",
+          "tag_name": "red",
+          "category": "",
+          "created_at": "Mon Feb 06 2023 22:34:46 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "0RK78FF",
+          "tag_name": "Heavy",
+          "category": "weight",
+          "created_at": "Mon Feb 06 2023 22:36:07 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
     },
     {
-      "id": "WUPDTEA",
-      "fruit_name": "Orange",
-      "note": "5",
-      "created_at": "Mon Feb 06 2023 17:50:59 GMT-0300 (Horário Padrão de Brasília)"
-    },
-    {
-      "id": "WTJLWJQ",
+      "id": "0AVYLAH",
       "fruit_name": "Lemon",
-      "note": "9",
-      "created_at": "Mon Feb 06 2023 20:31:15 GMT-0300 (Horário Padrão de Brasília)"
-    },
-    {
-      "id": "2IZZGAE",
-      "fruit_name": "Watermelon",
-      "note": "5.3",
-      "created_at": "Mon Feb 06 2023 20:31:48 GMT-0300 (Horário Padrão de Brasília)"
+      "note": "20",
+      "created_at": "Mon Feb 06 2023 22:28:25 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "HLFDDGG",
+          "tag_name": "Sweet",
+          "category": "flavor",
+          "created_at": "Mon Feb 06 2023 22:29:44 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "6UNC8DU",
+          "tag_name": "Heavy",
+          "category": "weight",
+          "created_at": "Mon Feb 06 2023 22:34:00 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "JONI4YU",
+          "tag_name": "Salty",
+          "category": "flavor",
+          "created_at": "Mon Feb 06 2023 22:36:39 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "2M9OTV4",
+          "tag_name": "Sweet",
+          "category": "flavor",
+          "created_at": "Mon Feb 06 2023 22:37:37 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "EMR2TTH",
+          "tag_name": "Sweet",
+          "category": "",
+          "created_at": "Mon Feb 06 2023 22:38:28 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "M5XAYHX",
+          "tag_name": "AMazing",
+          "category": "",
+          "created_at": "Mon Feb 06 2023 22:39:08 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
     }
   ]
 }

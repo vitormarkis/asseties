@@ -1,6 +1,6 @@
 import { resetEditingId } from "@features/context-slice"
 import { setFields, setOneField } from "@features/fields-slice"
-import { KeyofFields } from "@features/fields-slice/types"
+import { Fruit, KeyofFields } from "@features/fields-slice/types"
 import { useAppSelector } from "@features/store"
 import {
   addNewFruitToCache,
@@ -13,7 +13,7 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
-import { baseURL, Fruit } from "../routes/fruitsList"
+import { baseURL } from "../routes/fruitsList"
 
 export function Form() {
   const dispatch = useDispatch()

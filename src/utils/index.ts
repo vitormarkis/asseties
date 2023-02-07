@@ -1,6 +1,6 @@
+import { Fields, Fruit } from "@features/fields-slice/types"
+import { Tag, TagFields } from "@features/tags-slice/types"
 import { QueryClient } from "react-query"
-import { Fruit } from "../routes/fruitsList"
-import { Fields } from "@features/fields-slice/types"
 
 export function getQueryData<T>(cacheKey: string, queryClient: QueryClient) {
   return queryClient.getQueryData<T>(cacheKey)
@@ -14,6 +14,17 @@ export function addNewFruitToCache(newFruit: Fruit, queryClient: QueryClient) {
   queryClient.setQueryData("fruits", newQueryData)
 }
 
+export function addNewTagInCache(fruitId: string, newTag: Tag, queryClient: QueryClient) {
+  const fruits = getQueryData<Fruit[]>("fruits", queryClient)
+  if (!fruits) return
+  const fruitsWithTagAdded = fruits.map((fruit) =>
+    fruit.id === fruitId ? { ...fruit, tags: [...fruit.tags, newTag] } : { ...fruit }
+  )
+
+  // queryClient.invalidateQueries('fruits')
+  queryClient.setQueryData("fruits", fruitsWithTagAdded)
+}
+
 export function removeFruitFromCache(fruidId: string, queryClient: QueryClient) {
   const previousFruits = getQueryData<Fruit[]>("fruits", queryClient)
   if (!previousFruits) return
@@ -21,7 +32,7 @@ export function removeFruitFromCache(fruidId: string, queryClient: QueryClient) 
   queryClient.setQueryData("fruits", newQueryData)
 }
 
-export function eraseFields(fields: Fields): Fields {
+export function eraseFields(fields: any): any {
   const valuesChanged = Object.entries(fields).map((keyPair) => [keyPair[0], ""])
   return Object.fromEntries(valuesChanged)
 }
@@ -45,8 +56,21 @@ export function checkDifference({ fruit_name, note }: Fields, fields: Fields) {
   }, false)
 }
 
-export function generateNewFruit(fields: Fields): Fruit {
+export const generateId = () => {
   const id = Math.random().toString(36).substring(2, 9).toUpperCase()
   const created_at = String(new Date())
-  return { id, ...fields, created_at }
+  return {
+    id,
+    created_at,
+  }
+}
+
+export function generateNewFruit(fields: Fields): Fruit {
+  const { created_at, id } = generateId()
+  return { id, ...fields, created_at, tags: [] }
+}
+export function generateNewTag(tagFields: TagFields): Tag {
+  const { created_at, id } = generateId()
+  const { category } = tagFields
+  return { id, ...tagFields, created_at, category: category.toLocaleLowerCase() }
 }

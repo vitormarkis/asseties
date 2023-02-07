@@ -1,11 +1,15 @@
-export interface Fields {
-    fruit_name: string
-    note: string
-  }
+import { IdentificationProps } from "@myTypes/index"
 
-  export type KeyofFields = keyof Fields
+export interface TagFields {
+  tag_name: string
+  category: string
+}
 
-  export interface SetProps {
-    key: KeyofFields
-    value: string
-  }
+export type KeyofTagFields = keyof TagFields
+
+export interface SetProps {
+  key: KeyofTagFields
+  value: string
+}
+
+export interface Tag extends IdentificationProps, TagFields {}

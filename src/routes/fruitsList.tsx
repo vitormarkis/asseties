@@ -1,5 +1,6 @@
 import { setEditingId } from "@features/context-slice"
 import { setFields } from "@features/fields-slice"
+import { Fruit } from "@features/fields-slice/types"
 import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
@@ -7,13 +8,6 @@ import { useNavigate } from "react-router-dom"
 import { removeFruitFromCache } from "../utils"
 
 export const baseURL = "http://localhost:3000/fruits"
-
-export interface Fruit {
-  id: string
-  created_at: string
-  fruit_name: string
-  note: string
-}
 
 export function Fruits() {
   const queryClient = useQueryClient()
@@ -86,6 +80,11 @@ export function Fruits() {
             />
           </div>
           <p className="text-zinc-400 text-xs">{String(fruit.created_at)}</p>
+          <div className="my-2 flex gap-2">
+          {fruit.tags.map(tag => (
+            <div className="leading-none p-1 rounded-sm bg-zinc-600 text-xs text-white" key={tag.id}>{tag.tag_name}</div>
+          ))}
+          </div>
         </div>
       ))}
     </div>
