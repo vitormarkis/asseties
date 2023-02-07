@@ -5,7 +5,7 @@ export function HomeOutlet() {
 
   return (
     <div>
-      <button className="px-3 py-1 rounded-full bg-cyan-600 font-bold text-white" onClick={() => navigate("/edit")}>+ Novo</button>
+      <button className="px-3 py-1 rounded-full bg-emerald-500 font-thin shadow-sm shadow-black/30 text-white" onClick={() => navigate("/edit")}>+ Novo</button>
     </div>
   )
 }

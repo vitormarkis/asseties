@@ -74,3 +74,18 @@ export function generateNewTag(tagFields: TagFields): Tag {
   const { category } = tagFields
   return { id, ...tagFields, created_at, category: category.toLocaleLowerCase() }
 }
+
+export function removeTag(fruitId: string, tagId: string, fruits: Fruit[]) {
+  const fruit = fruits.find((fruit) => fruit.id === fruitId)
+  if (!fruit) return
+  const tagsWithoutExcludedOne = fruit.tags.filter((tag) => tag.id !== tagId)
+  const fruitWithoutTag = {...fruit, tags: tagsWithoutExcludedOne}
+  const updatedFruits = fruits.map((fruit) =>
+    fruit.id === fruitId ? { ...fruit, tags: tagsWithoutExcludedOne } : { ...fruit }
+  )
+  return {
+    fruits: updatedFruits,
+    tags: tagsWithoutExcludedOne,
+    fruit: fruitWithoutTag,
+  }
+}
