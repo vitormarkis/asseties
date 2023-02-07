@@ -1,6 +1,6 @@
+import { setAssetFormFields, setOneTagField } from "@features/asset-slice"
+import { Asset, KeyofAssetFormFields } from "@features/asset-slice/types"
 import { resetEditingId } from "@features/context-slice"
-import { setFields, setOneField } from "@features/fields-slice"
-import { Fruit, KeyofFields } from "@features/fields-slice/types"
 import { useAppSelector } from "@features/store"
 import {
   addNewFruitToCache,
@@ -22,7 +22,7 @@ export function Form() {
   const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
 
-  const fruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+  const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
 
   useEffect(() => {
     if (!fruitsInCache) return
@@ -36,23 +36,23 @@ export function Form() {
     if (!context.editing_id) {
       const newFruit = generateNewFruit(fields)
       addNewFruitToCache(newFruit, queryClient)
-      dispatch(setFields(eraseFields(fields)))
+      dispatch(setAssetFormFields(eraseFields(fields)))
       await axios.post(baseURL, newFruit)
     } else {
       axios.patch(baseURL + "/" + context.editing_id, { ...fields })
       updateFruitInCache(context.editing_id, queryClient, { ...fields })
       dispatch(resetEditingId())
-      dispatch(setFields(eraseFields(fields)))
+      dispatch(setAssetFormFields(eraseFields(fields)))
     }
   }
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.currentTarget
-    dispatch(setOneField({ key: name as KeyofFields, value }))
+    dispatch(setOneTagField({ key: name as KeyofAssetFormFields, value }))
   }
 
   function handleBackButton() {
     dispatch(resetEditingId())
-    dispatch(setFields(eraseFields(fields)))
+    dispatch(setAssetFormFields(eraseFields(fields)))
   }
 
   return (

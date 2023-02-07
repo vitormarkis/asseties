@@ -1,7 +1,7 @@
-import { Fruit } from "@features/fields-slice/types"
+import { Asset } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
-import { setOneTagField, setTagFields } from "@features/tags-slice"
-import { KeyofTagFields, Tag } from "@features/tags-slice/types"
+import { setOneTagFormField, setTagFormFields } from "@features/tag-slice"
+import { KeyofTagFormFields, Tag } from "@features/tag-slice/types"
 import { addNewTagInCache, eraseFields, generateNewTag, removeTag } from "@utils/index"
 import axios from "axios"
 import { useState } from "react"
@@ -14,8 +14,8 @@ const categories = ["Color", "Weight", "Flavor"]
 
 export default function TagsForm() {
   const { state } = useLocation()
-  const { fruit: rawFruit } = state as { fruit: Fruit }
-  const [fruit, setFruit] = useState<Fruit>(rawFruit)
+  const { fruit: rawFruit } = state as { fruit: Asset }
+  const [fruit, setFruit] = useState<Asset>(rawFruit)
   const navigate = useNavigate()
   const { tagFields } = useAppSelector((state) => state)
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ export default function TagsForm() {
 
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
     const { name, value } = e.currentTarget
-    dispatch(setOneTagField({ key: name as KeyofTagFields, value }))
+    dispatch(setOneTagFormField({ key: name as KeyofTagFormFields, value }))
   }
 
   async function handleSendClick() {
@@ -33,23 +33,23 @@ export default function TagsForm() {
     axios.patch(baseURL + "/" + fruit.id, fruitWithTagAdded)
     // await queryClient.invalidateQueries("fruits")
     navigate(-1)
-    dispatch(setTagFields(eraseFields(tagFields)))
+    dispatch(setTagFormFields(eraseFields(tagFields)))
   }
 
   function handleDeleteTag(fruitId: string, tag: Tag) {
     const { id: tagId } = tag
-    const fruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
     const { fruits, fruit } = removeTag(fruitId, tagId, fruitsInCache)!
-    queryClient.invalidateQueries('fruits')
+    queryClient.invalidateQueries("fruits")
     queryClient.setQueryData("fruits", fruits)
-    
+
     setFruit(fruit)
     axios.put(`${baseURL}/${fruitId}`, fruit)
   }
 
   function handleBackClick() {
     navigate(-1)
-    dispatch(setTagFields(eraseFields(tagFields)))
+    dispatch(setTagFormFields(eraseFields(tagFields)))
   }
 
   return (
@@ -61,18 +61,18 @@ export default function TagsForm() {
         </div>
         <p className="text-zinc-400 text-xs">{fruit.created_at}</p>
         <div className="my-2 flex gap-2 flex-wrap">
-            {fruit.tags.map((tag) => (
-              <div
-                className="leading-none p-1 rounded-sm bg-zinc-600 text-xs text-white flex gap-2 items-center"
-                key={tag.id}>
-                <p>{tag.tag_name}</p>
-                <p
-                  onClick={() => handleDeleteTag(fruit.id, tag)}
-                  className="cursor-pointer p-1 rounded-full bg-zinc-700 mr-1 w-2.5 h-2.5"
-                />
-              </div>
-            ))}
-          </div>
+          {fruit.tags.map((tag) => (
+            <div
+              className="leading-none p-1 rounded-sm bg-zinc-600 text-xs text-white flex gap-2 items-center"
+              key={tag.id}>
+              <p>{tag.tag_name}</p>
+              <p
+                onClick={() => handleDeleteTag(fruit.id, tag)}
+                className="cursor-pointer p-1 rounded-full bg-zinc-700 mr-1 w-2.5 h-2.5"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="w-[480px] flex [&_span]:w-[110px] flex-col gap-3">
@@ -99,7 +99,6 @@ export default function TagsForm() {
               <option key={category}>{category}</option>
             ))}
           </select>
-          
         </div>
         <div className="flex justify-end gap-2">
           <button

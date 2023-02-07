@@ -1,14 +1,14 @@
+import { setAssetFormFields } from "@features/asset-slice"
+import { Asset } from "@features/asset-slice/types"
 import { setEditingId } from "@features/context-slice"
-import { setFields } from "@features/fields-slice"
-import { Fruit } from "@features/fields-slice/types"
-import { Tag } from "@features/tags-slice/types"
+import { Tag } from "@features/tag-slice/types"
 import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { removeFruitFromCache, removeTag } from "../utils"
 
-export const baseURL = "http://localhost:3000/fruits"
+export const baseURL = "http://localhost:3000/assets"
 
 export function Fruits() {
   const queryClient = useQueryClient()
@@ -19,7 +19,7 @@ export function Fruits() {
     data: fruits,
     isLoading,
     isError,
-  } = useQuery<Fruit[]>(
+  } = useQuery<Asset[]>(
     "fruits",
     async () => {
       const res = await axios.get(baseURL)
@@ -36,15 +36,15 @@ export function Fruits() {
   }
 
   function handleEditFruit(fruitId: string) {
-    const fruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
     const { fruit_name, note } = fruitsInCache.find((fruit) => fruit.id === fruitId)!
     dispatch(setEditingId(fruitId))
     console.log({ fruit_name, note })
-    dispatch(setFields({ fruit_name, note }))
+    dispatch(setAssetFormFields({ fruit_name, note }))
   }
 
   function handleAddTags(fruitId: string) {
-    const getFruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const getFruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
     const fruit = getFruitsInCache.find((fruit) => fruit.id === fruitId)
 
     navigate(`/addTags/${fruitId}`, { state: { fruit } })
@@ -52,7 +52,7 @@ export function Fruits() {
 
   function handleDeleteTag(fruitId: string, tag: Tag) {
     const { id: tagId } = tag
-    const fruitsInCache = queryClient.getQueryData<Fruit[]>("fruits")!
+    const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
     const { fruits, fruit, tags } = removeTag(fruitId, tagId, fruitsInCache)!
     queryClient.setQueryData("fruits", fruits)
     axios.put(`${baseURL}/${fruitId}`, fruit)

@@ -1,10 +1,10 @@
 {
-  "fruits": [
+  "assets": [
     {
       "id": "E3N8JJE",
-      "fruit_name": "Apple",
-      "note": "20",
+      "asset_name": "Apple",
       "created_at": "Tue Feb 07 2023 16:48:38 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 07 2023 16:48:38 GMT-0300 (Horário Padrão de Brasília)",
       "tags": []
     }
   ]

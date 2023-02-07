@@ -1,13 +1,13 @@
-import { Fields, Fruit } from "@features/fields-slice/types"
-import { Tag, TagFields } from "@features/tags-slice/types"
+import { Asset, AssetState } from "@features/asset-slice/types"
+import { Tag, TagState } from "@features/tag-slice/types"
 import { QueryClient } from "react-query"
 
 export function getQueryData<T>(cacheKey: string, queryClient: QueryClient) {
   return queryClient.getQueryData<T>(cacheKey)
 }
 
-export function addNewFruitToCache(newFruit: Fruit, queryClient: QueryClient) {
-  const previousFruits = getQueryData<Fruit[]>("fruits", queryClient)
+export function addNewFruitToCache(newFruit: Asset, queryClient: QueryClient) {
+  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)
   if (!previousFruits) return
   const newQueryData = [...previousFruits, newFruit]
 
@@ -15,7 +15,7 @@ export function addNewFruitToCache(newFruit: Fruit, queryClient: QueryClient) {
 }
 
 export function addNewTagInCache(fruitId: string, newTag: Tag, queryClient: QueryClient) {
-  const fruits = getQueryData<Fruit[]>("fruits", queryClient)
+  const fruits = getQueryData<Asset[]>("fruits", queryClient)
   if (!fruits) return
   const fruitsWithTagAdded = fruits.map((fruit) =>
     fruit.id === fruitId ? { ...fruit, tags: [...fruit.tags, newTag] } : { ...fruit }
@@ -26,7 +26,7 @@ export function addNewTagInCache(fruitId: string, newTag: Tag, queryClient: Quer
 }
 
 export function removeFruitFromCache(fruidId: string, queryClient: QueryClient) {
-  const previousFruits = getQueryData<Fruit[]>("fruits", queryClient)
+  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)
   if (!previousFruits) return
   const newQueryData = previousFruits.filter((fruit) => fruit.id !== fruidId)
   queryClient.setQueryData("fruits", newQueryData)
@@ -37,17 +37,17 @@ export function eraseFields(fields: any): any {
   return Object.fromEntries(valuesChanged)
 }
 
-export function updateFruitInCache(fruitId: string, queryClient: QueryClient, updatedFields: Fields) {
-  const previousFruits = getQueryData<Fruit[]>("fruits", queryClient)!
+export function updateFruitInCache(fruitId: string, queryClient: QueryClient, updatedFields: AssetState) {
+  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)!
   const updatedQueryData = previousFruits.map((fruit) =>
     fruit.id === fruitId ? { ...fruit, ...updatedFields } : { ...fruit }
   )
   queryClient.setQueryData("fruits", updatedQueryData)
 }
 
-export function checkDifference({ fruit_name, note }: Fields, fields: Fields) {
+export function checkDifference({ fruit_name, note }: AssetState, fields: AssetState) {
   return Object.entries({ fruit_name, note }).reduce((isDifferent, fruit) => {
-    const [key, value]: [keyof Fields, string] = fruit as [keyof Fields, string]
+    const [key, value]: [keyof AssetState, string] = fruit as [keyof AssetState, string]
 
     if (fields[key] !== value) {
       isDifferent = true
@@ -65,21 +65,21 @@ export const generateId = () => {
   }
 }
 
-export function generateNewFruit(fields: Fields): Fruit {
+export function generateNewFruit(fields: AssetState): Asset {
   const { created_at, id } = generateId()
   return { id, ...fields, created_at, tags: [] }
 }
-export function generateNewTag(tagFields: TagFields): Tag {
+export function generateNewTag(tagFields: TagState): Tag {
   const { created_at, id } = generateId()
   const { category } = tagFields
   return { id, ...tagFields, created_at, category: category.toLocaleLowerCase() }
 }
 
-export function removeTag(fruitId: string, tagId: string, fruits: Fruit[]) {
+export function removeTag(fruitId: string, tagId: string, fruits: Asset[]) {
   const fruit = fruits.find((fruit) => fruit.id === fruitId)
   if (!fruit) return
   const tagsWithoutExcludedOne = fruit.tags.filter((tag) => tag.id !== tagId)
-  const fruitWithoutTag = {...fruit, tags: tagsWithoutExcludedOne}
+  const fruitWithoutTag = { ...fruit, tags: tagsWithoutExcludedOne }
   const updatedFruits = fruits.map((fruit) =>
     fruit.id === fruitId ? { ...fruit, tags: tagsWithoutExcludedOne } : { ...fruit }
   )

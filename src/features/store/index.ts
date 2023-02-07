@@ -1,14 +1,14 @@
-import { tagFieldsReducer } from "@features/tags-slice"
+import { assetReducer } from "@features/asset-slice"
+import { contextReducer } from "@features/context-slice"
+import { tagReducer } from "@features/tag-slice"
 import { configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useSelector } from "react-redux"
-import { contextReducer } from "../context-slice"
-import { fieldsReducer } from "../fields-slice"
 
 export const store = configureStore({
   reducer: {
-    fields: fieldsReducer,
+    asset: assetReducer,
+    tag: tagReducer,
     context: contextReducer,
-    tagFields: tagFieldsReducer
   },
 })
 

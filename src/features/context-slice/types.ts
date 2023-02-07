@@ -1,3 +1,3 @@
-export interface Context {
-    editing_id: string | null
+export interface ContextState {
+  editing_id: string | null
 }

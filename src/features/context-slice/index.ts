@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Context } from "./types"
+import { ContextState } from "./types"
 
-export const initialState: Context = {
+export const initialState: ContextState = {
   editing_id: null,
 }
 
-export const contextSlicer = createSlice({
+export const contextSlice = createSlice({
   name: "context",
   initialState,
   reducers: {
@@ -18,6 +18,6 @@ export const contextSlicer = createSlice({
   },
 })
 
-export const { setEditingId, resetEditingId } = contextSlicer.actions
+export const { setEditingId, resetEditingId } = contextSlice.actions
 
-export const contextReducer = contextSlicer.reducer
+export const contextReducer = contextSlice.reducer
