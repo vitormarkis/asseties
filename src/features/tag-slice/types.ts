@@ -8,7 +8,7 @@ export interface TagState {
   fields: TagFormFields
 }
 
-export interface Tag extends IdentificationProps, TagState {}
+export interface Tag extends IdentificationProps, TagFormFields {}
 
 /**
  * Complementaries

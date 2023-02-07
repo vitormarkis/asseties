@@ -4,13 +4,13 @@ import { QueryClientProvider } from "react-query"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "§/index.css"
 
-import { Form } from "@components/Form"
+import { AssetForm } from "@components/AssetForm"
+import { HomeOutlet } from "@components/HomeOutlet"
 import Home from "@routes/root"
 import TagsForm from "@routes/tagsForm"
 import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
-import { HomeOutlet } from "@components/HomeOutlet"
 
 const router = createBrowserRouter([
   {
@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomeOutlet />
+        element: <HomeOutlet />,
       },
       {
         path: "/edit",
-        element: <Form />,
+        element: <AssetForm />,
       },
     ],
   },

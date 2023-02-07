@@ -1,55 +1,59 @@
-import { Asset, AssetState } from "@features/asset-slice/types"
-import { Tag, TagState } from "@features/tag-slice/types"
+import { Asset, AssetFormFields, KeyofAssetFormFields } from "@features/asset-slice/types"
+import { Tag, TagFormFields } from "@features/tag-slice/types"
 import { QueryClient } from "react-query"
 
 export function getQueryData<T>(cacheKey: string, queryClient: QueryClient) {
   return queryClient.getQueryData<T>(cacheKey)
 }
 
-export function addNewFruitToCache(newFruit: Asset, queryClient: QueryClient) {
-  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)
-  if (!previousFruits) return
-  const newQueryData = [...previousFruits, newFruit]
+export function addNewAssetToCache(newAsset: Asset, queryClient: QueryClient) {
+  const previousAssets = getQueryData<Asset[]>("assets", queryClient)
+  if (!previousAssets) return
+  const newQueryData = [...previousAssets, newAsset]
 
-  queryClient.setQueryData("fruits", newQueryData)
+  queryClient.setQueryData("assets", newQueryData)
 }
 
-export function addNewTagInCache(fruitId: string, newTag: Tag, queryClient: QueryClient) {
-  const fruits = getQueryData<Asset[]>("fruits", queryClient)
-  if (!fruits) return
-  const fruitsWithTagAdded = fruits.map((fruit) =>
-    fruit.id === fruitId ? { ...fruit, tags: [...fruit.tags, newTag] } : { ...fruit }
+export function addNewTagInCache(assetId: string, newTag: Tag, queryClient: QueryClient) {
+  const assets = getQueryData<Asset[]>("assets", queryClient)
+  if (!assets) return
+  const assetsWithTagAdded = assets.map((asset) =>
+    asset.id === assetId ? { ...asset, tags: [...asset.tags, newTag] } : { ...asset }
   )
 
   // queryClient.invalidateQueries('fruits')
-  queryClient.setQueryData("fruits", fruitsWithTagAdded)
+  queryClient.setQueryData("assets", assetsWithTagAdded)
 }
 
-export function removeFruitFromCache(fruidId: string, queryClient: QueryClient) {
-  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)
-  if (!previousFruits) return
-  const newQueryData = previousFruits.filter((fruit) => fruit.id !== fruidId)
-  queryClient.setQueryData("fruits", newQueryData)
+export function removeAssetFromCache(assetId: string, queryClient: QueryClient) {
+  const previousAssets = getQueryData<Asset[]>("assets", queryClient)
+  if (!previousAssets) return
+  const assetsWithoutExcludedOne = previousAssets.filter((asset) => asset.id !== assetId)
+  queryClient.setQueryData("fruits", assetsWithoutExcludedOne)
 }
 
-export function eraseFields(fields: any): any {
-  const valuesChanged = Object.entries(fields).map((keyPair) => [keyPair[0], ""])
-  return Object.fromEntries(valuesChanged)
+export function eraseFields<T>(fields: T): T {
+  const resetedValues = Object.entries(fields!).map((keyPair) => [keyPair[0], ""])
+  return Object.fromEntries(resetedValues)
 }
 
-export function updateFruitInCache(fruitId: string, queryClient: QueryClient, updatedFields: AssetState) {
-  const previousFruits = getQueryData<Asset[]>("fruits", queryClient)!
-  const updatedQueryData = previousFruits.map((fruit) =>
-    fruit.id === fruitId ? { ...fruit, ...updatedFields } : { ...fruit }
+export function updateAssetInCache(
+  assetId: string,
+  queryClient: QueryClient,
+  updatedFields: AssetFormFields
+) {
+  const previousAssets = getQueryData<Asset[]>("assets", queryClient)!
+  const assetsWithUpdatedOne = previousAssets.map((asset) =>
+    asset.id === assetId ? { ...asset, ...updatedFields } : { ...asset }
   )
-  queryClient.setQueryData("fruits", updatedQueryData)
+  queryClient.setQueryData("assets", assetsWithUpdatedOne)
 }
 
-export function checkDifference({ fruit_name, note }: AssetState, fields: AssetState) {
-  return Object.entries({ fruit_name, note }).reduce((isDifferent, fruit) => {
-    const [key, value]: [keyof AssetState, string] = fruit as [keyof AssetState, string]
+export function checkDifference(oldAssetFields: AssetFormFields, newAssetFields: AssetFormFields) {
+  return Object.entries(oldAssetFields).reduce((isDifferent, asset) => {
+    const [key, value] = asset as [KeyofAssetFormFields, string]
 
-    if (fields[key] !== value) {
+    if (newAssetFields[key] !== value) {
       isDifferent = true
     }
     return isDifferent
@@ -59,33 +63,35 @@ export function checkDifference({ fruit_name, note }: AssetState, fields: AssetS
 export const generateId = () => {
   const id = Math.random().toString(36).substring(2, 9).toUpperCase()
   const created_at = String(new Date())
+  const updated_at = String(new Date())
   return {
     id,
     created_at,
+    updated_at,
   }
 }
 
-export function generateNewFruit(fields: AssetState): Asset {
-  const { created_at, id } = generateId()
-  return { id, ...fields, created_at, tags: [] }
+export function generateNewAsset(assetValues: AssetFormFields): Asset {
+  const { created_at, id, updated_at } = generateId()
+  return { id, ...assetValues, created_at, updated_at, tags: [] }
 }
-export function generateNewTag(tagFields: TagState): Tag {
-  const { created_at, id } = generateId()
+export function generateNewTag(tagFields: TagFormFields): Tag {
+  const { created_at, id, updated_at } = generateId()
   const { category } = tagFields
-  return { id, ...tagFields, created_at, category: category.toLocaleLowerCase() }
+  return { id, ...tagFields, created_at, updated_at, category: category.toLocaleLowerCase() }
 }
 
-export function removeTag(fruitId: string, tagId: string, fruits: Asset[]) {
-  const fruit = fruits.find((fruit) => fruit.id === fruitId)
-  if (!fruit) return
-  const tagsWithoutExcludedOne = fruit.tags.filter((tag) => tag.id !== tagId)
-  const fruitWithoutTag = { ...fruit, tags: tagsWithoutExcludedOne }
-  const updatedFruits = fruits.map((fruit) =>
-    fruit.id === fruitId ? { ...fruit, tags: tagsWithoutExcludedOne } : { ...fruit }
+export function removeTag(assetId: string, tagId: string, assets: Asset[]) {
+  const asset = assets.find((asset) => asset.id === assetId)
+  if (!asset) return
+  const tagsWithoutExcludedOne = asset.tags.filter((tag) => tag.id !== tagId)
+  const assetWithoutTag = { ...asset, tags: tagsWithoutExcludedOne }
+  const updatedAssets = assets.map((asset) =>
+    asset.id === assetId ? { ...asset, tags: tagsWithoutExcludedOne } : { ...asset }
   )
   return {
-    fruits: updatedFruits,
+    assets: updatedAssets,
     tags: tagsWithoutExcludedOne,
-    fruit: fruitWithoutTag,
+    asset: assetWithoutTag,
   }
 }

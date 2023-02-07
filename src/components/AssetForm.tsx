@@ -1,13 +1,13 @@
-import { setAssetFormFields, setOneTagField } from "@features/asset-slice"
+import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
 import { Asset, KeyofAssetFormFields } from "@features/asset-slice/types"
 import { resetEditingId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
-  addNewFruitToCache,
+  addNewAssetToCache,
   checkDifference,
   eraseFields,
-  generateNewFruit,
-  updateFruitInCache,
+  generateNewAsset,
+  updateAssetInCache,
 } from "@utils/index"
 import axios from "axios"
 import React, { useEffect, useState } from "react"
@@ -15,44 +15,46 @@ import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { baseURL } from "../routes/fruitsList"
 
-export function Form() {
+export function AssetForm() {
+  const { asset, context } = useAppSelector((state) => state)
   const dispatch = useDispatch()
-  const { fields, context } = useAppSelector((state) => state)
 
   const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
 
-  const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
+  const assetsInCache = queryClient.getQueryData<Asset[]>("assets")!
 
   useEffect(() => {
-    if (!fruitsInCache) return
-    const editingFruit = fruitsInCache.find((fruit) => fruit.id === context.editing_id)
-    if (!editingFruit) return
-    const isDifferentValue = checkDifference(editingFruit, fields)
+    if (!assetsInCache) return
+    const editingAsset = assetsInCache.find((asset) => asset.id === context.editing_id)
+    if (!editingAsset) return
+    const isDifferentValue = checkDifference(editingAsset, asset.fields)
     setIsDifferent(isDifferentValue)
-  }, [fields])
+  }, [asset.fields])
 
   async function handleClickButton() {
     if (!context.editing_id) {
-      const newFruit = generateNewFruit(fields)
-      addNewFruitToCache(newFruit, queryClient)
-      dispatch(setAssetFormFields(eraseFields(fields)))
-      await axios.post(baseURL, newFruit)
+      // Add new asset
+      const newAsset = generateNewAsset(asset.fields)
+      addNewAssetToCache(newAsset, queryClient)
+      dispatch(setAssetFormFields(eraseFields(asset.fields)))
+      await axios.post(baseURL, newAsset)
     } else {
-      axios.patch(baseURL + "/" + context.editing_id, { ...fields })
-      updateFruitInCache(context.editing_id, queryClient, { ...fields })
+      // Update asset fields
+      axios.patch(baseURL + "/" + context.editing_id, { ...asset.fields })
+      updateAssetInCache(context.editing_id, queryClient, { ...asset.fields })
       dispatch(resetEditingId())
-      dispatch(setAssetFormFields(eraseFields(fields)))
+      dispatch(setAssetFormFields(eraseFields(asset.fields)))
     }
   }
   function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.currentTarget
-    dispatch(setOneTagField({ key: name as KeyofAssetFormFields, value }))
+    dispatch(setOneAssetFormField({ key: name as KeyofAssetFormFields, value }))
   }
 
   function handleBackButton() {
     dispatch(resetEditingId())
-    dispatch(setAssetFormFields(eraseFields(fields)))
+    dispatch(setAssetFormFields(eraseFields(asset.fields)))
   }
 
   return (
@@ -60,23 +62,12 @@ export function Form() {
       <div className="flex text-sm [&_span]:w-[80px] items-center">
         <span>Fruit:</span>
         <input
-          name="fruit_name"
+          name="asset_name"
           className="w-full py-1 px-3 rounded-sm shadow-sh"
           type="text"
-          placeholder="Pineapple"
+          placeholder="Insira o nome de algo..."
           onChange={handleOnChangeInput}
-          value={fields.fruit_name}
-        />
-      </div>
-      <div className="flex text-sm [&_span]:w-[80px] items-center">
-        <span>Note:</span>
-        <input
-          name="note"
-          className="w-full py-1 px-3 rounded-sm shadow-sh"
-          type="text"
-          placeholder="8.7"
-          onChange={handleOnChangeInput}
-          value={fields.note}
+          value={asset.fields.asset_name}
         />
       </div>
       <div className="flex justify-end gap-2">

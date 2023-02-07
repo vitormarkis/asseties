@@ -6,7 +6,7 @@ import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { removeFruitFromCache, removeTag } from "../utils"
+import { removeAssetFromCache, removeTag } from "../utils"
 
 export const baseURL = "http://localhost:3000/assets"
 
@@ -31,7 +31,7 @@ export function Fruits() {
   )
 
   function handleDeleteFruit(fruitId: string) {
-    removeFruitFromCache(fruitId, queryClient)
+    removeAssetFromCache(fruitId, queryClient)
     axios.delete(`${baseURL}/${fruitId}`)
   }
 
@@ -53,7 +53,7 @@ export function Fruits() {
   function handleDeleteTag(fruitId: string, tag: Tag) {
     const { id: tagId } = tag
     const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
-    const { fruits, fruit, tags } = removeTag(fruitId, tagId, fruitsInCache)!
+    const { assets: fruits, asset: fruit, tags } = removeTag(fruitId, tagId, fruitsInCache)!
     queryClient.setQueryData("fruits", fruits)
     axios.put(`${baseURL}/${fruitId}`, fruit)
   }

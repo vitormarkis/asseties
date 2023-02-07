@@ -39,7 +39,7 @@ export default function TagsForm() {
   function handleDeleteTag(fruitId: string, tag: Tag) {
     const { id: tagId } = tag
     const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
-    const { fruits, fruit } = removeTag(fruitId, tagId, fruitsInCache)!
+    const { assets: fruits, asset: fruit } = removeTag(fruitId, tagId, fruitsInCache)!
     queryClient.invalidateQueries("fruits")
     queryClient.setQueryData("fruits", fruits)
 
