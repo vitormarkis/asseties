@@ -1,6 +1,6 @@
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
-import { Asset, KeyofAssetFormFields } from "@features/asset-slice/types"
+import { AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
 import { resetEditingId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import Button from "./atoms/Button"
+import { Input } from "./atoms/Input"
 
 export function AssetForm() {
   const { asset, context } = useAppSelector((state) => state)
@@ -23,7 +24,7 @@ export function AssetForm() {
   const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
 
-  const assetsInCache = queryClient.getQueryData<Asset[]>("assets")!
+  const assetsInCache = queryClient.getQueryData<AssetType[]>("assets")!
 
   useEffect(() => {
     if (!assetsInCache) return
@@ -62,10 +63,8 @@ export function AssetForm() {
     <div className="flex flex-col gap-3">
       <div className="flex text-sm [&_span]:w-[220px] items-center">
         <span>Nome do asset:</span>
-        <input
+        <Input
           name="asset_name"
-          className="w-full py-1 px-3 rounded-sm shadow-sh"
-          type="text"
           placeholder="Insira o nome um asset..."
           onChange={handleOnChangeInput}
           value={asset.fields.asset_name}
@@ -74,8 +73,8 @@ export function AssetForm() {
       <div className="flex justify-end gap-2">
         {context.editing_id && (
           <Button
-          onClick={handleBackButton}
-          bg="green"
+            onClick={handleBackButton}
+            bg="green"
             rounded="full"
             color="white"
             value="Voltar"

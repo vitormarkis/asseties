@@ -1,26 +1,26 @@
+import Tag from "@components/atoms/Tag"
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields } from "@features/asset-slice"
-import { Asset } from "@features/asset-slice/types"
+import { AssetType } from "@features/asset-slice/types"
 import { setEditingId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
-import { Tag } from "@features/tag-slice/types"
 import axios from "axios"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { removeAssetFromCache, removeTag } from "../utils"
+import { removeAssetFromCache } from "../utils"
 
 export function AssetList() {
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { context } = useAppSelector((state) => state)
+  const { context } = useAppSelector(state => state)
 
   const {
     data: assets,
     isLoading,
     isError,
-  } = useQuery<Asset[]>(
+  } = useQuery<AssetType[]>(
     "assets",
     async () => {
       const res = await axios.get(baseURL)
@@ -37,8 +37,8 @@ export function AssetList() {
   }
 
   function handleEditAsset(assetId: string) {
-    const assets = queryClient.getQueryData<Asset[]>("assets")!
-    const { asset_name } = assets.find((asset) => asset.id === assetId)!
+    const assets = queryClient.getQueryData<AssetType[]>("assets")!
+    const { asset_name } = assets.find(asset => asset.id === assetId)!
 
     dispatch(setEditingId(assetId))
     dispatch(setAssetFormFields({ asset_name }))
@@ -46,18 +46,10 @@ export function AssetList() {
   }
 
   function handleAddTags(assetId: string) {
-    const assets = queryClient.getQueryData<Asset[]>("assets")!
-    const asset = assets.find((asset) => asset.id === assetId)
+    const assets = queryClient.getQueryData<AssetType[]>("assets")!
+    const asset = assets.find(asset => asset.id === assetId)
 
     navigate(`/addTags/${assetId}`, { state: { asset } })
-  }
-
-  function handleDeleteTag(assetId: string, tag: Tag) {
-    const { id: tagId } = tag
-    const assetsInCache = queryClient.getQueryData<Asset[]>("assets")!
-    const { assets, asset } = removeTag(assetId, tagId, assetsInCache)!
-    queryClient.setQueryData("assets", assets)
-    axios.put(`${baseURL}/${assetId}`, asset)
   }
 
   if (isLoading) {
@@ -70,7 +62,7 @@ export function AssetList() {
 
   return (
     <div className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit">
-      {assets?.map((asset) => (
+      {assets?.map(asset => (
         <div
           id="assets-list"
           key={asset.id}
@@ -92,16 +84,14 @@ export function AssetList() {
           </div>
           <p className="text-zinc-400 text-xs">{String(asset.created_at)}</p>
           <div className="my-2 flex gap-2 flex-wrap">
-            {asset.tags.map((tag) => (
-              <div
-                className="leading-none p-1 rounded-sm bg-zinc-600 text-xs text-white flex gap-2 items-center"
-                key={tag.id}>
-                <p>{tag.tag_name}</p>
-                <p
-                  onClick={() => handleDeleteTag(asset.id, tag)}
-                  className="cursor-pointer p-1 rounded-full bg-zinc-700 mr-1 w-2.5 h-2.5"
-                />
-              </div>
+            {asset.tags.map(tag => (
+              <Tag
+                key={tag.id}
+                bg="crimson"
+                color="white"
+                tag={tag}
+                assetId={asset.id}
+              />
             ))}
           </div>
         </div>

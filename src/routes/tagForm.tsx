@@ -1,9 +1,10 @@
 import Button from "@components/atoms/Button"
+import { Input } from "@components/atoms/Input"
 import { baseURL, categories } from "@constants/constants"
-import { Asset } from "@features/asset-slice/types"
+import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { setOneTagFormField, setTagFormFields } from "@features/tag-slice"
-import { KeyofTagFormFields, Tag } from "@features/tag-slice/types"
+import { KeyofTagFormFields, TagType } from "@features/tag-slice/types"
 import { addNewTagInCache, eraseFields, generateNewTag, removeTag } from "@utils/index"
 import axios from "axios"
 import { useState } from "react"
@@ -13,8 +14,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 
 export default function TagsForm() {
   const { state } = useLocation()
-  const { asset: rawAsset } = state as { asset: Asset }
-  const [asset, setAsset] = useState<Asset>(rawAsset)
+  const { asset: rawAsset } = state as { asset: AssetType }
+  const [asset, setAsset] = useState<AssetType>(rawAsset)
   const navigate = useNavigate()
   const { fields: tagFields } = useAppSelector((state) => state.tag)
   const dispatch = useDispatch()
@@ -41,9 +42,9 @@ export default function TagsForm() {
     dispatch(setTagFormFields(eraseFields(tagFields)))
   }
 
-  function handleDeleteTag(assetId: string, tag: Tag) {
+  function handleDeleteTag(assetId: string, tag: TagType) {
     const { id: tagId } = tag
-    const assetsInCache = queryClient.getQueryData<Asset[]>("assets")!
+    const assetsInCache = queryClient.getQueryData<AssetType[]>("assets")!
     const { assets, asset } = removeTag(assetId, tagId, assetsInCache)!
     setAsset(asset)
 
@@ -83,10 +84,8 @@ export default function TagsForm() {
       <div className="w-[480px] flex [&_span]:w-[110px] flex-col gap-3">
         <div className="flex text-sm items-center">
           <span>Tag name:</span>
-          <input
+          <Input
             name="tag_name"
-            className="grow py-1 px-3 rounded-sm shadow-sh"
-            type="text"
             placeholder="Vermelha"
             value={tagFields.tag_name}
             onChange={handleOnChangeInput}

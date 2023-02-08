@@ -1,21 +1,21 @@
-import { Asset, AssetFormFields, KeyofAssetFormFields } from "@features/asset-slice/types"
-import { Tag, TagFormFields } from "@features/tag-slice/types"
+import { AssetFormFields, AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
+import { TagFormFields, TagType } from "@features/tag-slice/types"
 import { QueryClient } from "react-query"
 
 export function getQueryData<T>(cacheKey: string, queryClient: QueryClient) {
   return queryClient.getQueryData<T>(cacheKey)
 }
 
-export function addNewAssetToCache(newAsset: Asset, queryClient: QueryClient) {
-  const previousAssets = getQueryData<Asset[]>("assets", queryClient)
+export function addNewAssetToCache(newAsset: AssetType, queryClient: QueryClient) {
+  const previousAssets = getQueryData<AssetType[]>("assets", queryClient)
   if (!previousAssets) return
   const newQueryData = [...previousAssets, newAsset]
 
   queryClient.setQueryData("assets", newQueryData)
 }
 
-export function addNewTagInCache(assetId: string, newTag: Tag, queryClient: QueryClient) {
-  const assets = getQueryData<Asset[]>("assets", queryClient)
+export function addNewTagInCache(assetId: string, newTag: TagType, queryClient: QueryClient) {
+  const assets = getQueryData<AssetType[]>("assets", queryClient)
   if (!assets) return
   const assetsWithTagAdded = assets.map((asset) =>
     asset.id === assetId ? { ...asset, tags: [...asset.tags, newTag] } : { ...asset }
@@ -26,7 +26,7 @@ export function addNewTagInCache(assetId: string, newTag: Tag, queryClient: Quer
 }
 
 export function removeAssetFromCache(assetId: string, queryClient: QueryClient) {
-  const previousAssets = getQueryData<Asset[]>("assets", queryClient)
+  const previousAssets = getQueryData<AssetType[]>("assets", queryClient)
   if (!previousAssets) return
   const assetsWithoutExcludedOne = previousAssets.filter((asset) => asset.id !== assetId)
   queryClient.setQueryData("assets", assetsWithoutExcludedOne)
@@ -42,14 +42,14 @@ export function updateAssetInCache(
   queryClient: QueryClient,
   updatedFields: AssetFormFields
 ) {
-  const previousAssets = getQueryData<Asset[]>("assets", queryClient)!
+  const previousAssets = getQueryData<AssetType[]>("assets", queryClient)!
   const assetsWithUpdatedOne = previousAssets.map((asset) =>
     asset.id === assetId ? { ...asset, ...updatedFields } : { ...asset }
   )
   queryClient.setQueryData("assets", assetsWithUpdatedOne)
 }
 
-export function checkDifference({ asset_name }: Asset, userAssetFields: AssetFormFields) {
+export function checkDifference({ asset_name }: AssetType, userAssetFields: AssetFormFields) {
   return Object.entries({ asset_name }).reduce((isDifferent, assetKeyPair) => {
     const [key, value] = assetKeyPair as [KeyofAssetFormFields, string]
     if (userAssetFields[key] !== value) {
@@ -70,17 +70,17 @@ export const generateId = () => {
   }
 }
 
-export function generateNewAsset(assetValues: AssetFormFields): Asset {
+export function generateNewAsset(assetValues: AssetFormFields): AssetType {
   const { created_at, id, updated_at } = generateId()
   return { id, ...assetValues, created_at, updated_at, tags: [] }
 }
-export function generateNewTag(tagFields: TagFormFields): Tag {
+export function generateNewTag(tagFields: TagFormFields): TagType {
   const { created_at, id, updated_at } = generateId()
   const { category } = tagFields
   return { id, ...tagFields, created_at, updated_at, category: category.toLocaleLowerCase() }
 }
 
-export function removeTag(assetId: string, tagId: string, assets: Asset[]) {
+export function removeTag(assetId: string, tagId: string, assets: AssetType[]) {
   const asset = assets.find((asset) => asset.id === assetId)
   if (!asset) return
   const tagsWithoutExcludedOne = asset.tags.filter((tag) => tag.id !== tagId)

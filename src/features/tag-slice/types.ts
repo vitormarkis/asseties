@@ -8,7 +8,7 @@ export interface TagState {
   fields: TagFormFields
 }
 
-export interface Tag extends IdentificationProps, TagFormFields {}
+export interface TagType extends IdentificationProps, TagFormFields {}
 
 /**
  * Complementaries
@@ -20,4 +20,3 @@ export interface TagFormFields {
 }
 
 export type KeyofTagFormFields = keyof TagFormFields
-
