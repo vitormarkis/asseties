@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom"
-import { Fruits } from "./fruitsList"
+import { AssetList } from "./assetList"
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen w-screen gap-12">
+    <div className="flex flex-col items-center bg-zinc-100 w-screen h-screen gap-12">
       <Outlet />
-      <Fruits />
+      <AssetList />
     </div>
   )
 }

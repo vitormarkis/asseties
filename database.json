@@ -1,11 +1,119 @@
 {
   "assets": [
     {
-      "id": "E3N8JJE",
-      "asset_name": "Apple",
-      "created_at": "Tue Feb 07 2023 16:48:38 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Tue Feb 07 2023 16:48:38 GMT-0300 (Horário Padrão de Brasília)",
-      "tags": []
+      "id": "DVYKSYB",
+      "asset_name": "system-tags-with-react",
+      "created_at": "Tue Feb 07 2023 18:56:44 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 07 2023 18:56:44 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "OTALZFY",
+          "tag_name": "context-api",
+          "category": "",
+          "created_at": "Tue Feb 07 2023 19:16:17 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Tue Feb 07 2023 19:16:17 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
+    },
+    {
+      "id": "SXOVX0T",
+      "asset_name": "2temp-user-form",
+      "created_at": "Tue Feb 07 2023 18:58:16 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Wed Feb 08 2023 12:01:19 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "dsfklhdjxqs",
+          "tag_name": "react query",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:54:15 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:54:15 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "pmu7v0l8wmo",
+          "tag_name": "react router dom",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:54:30 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:54:30 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "h3tjhxsr599",
+          "tag_name": "redux",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:54:47 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:54:47 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "sone21dz6j",
+          "tag_name": "redux toolkit",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:54:51 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:54:51 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "zd4dm5915ni",
+          "tag_name": "typescript paths [vite fixed]",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:55:14 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:55:14 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "4824nlutxvl",
+          "tag_name": "typescript",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:56:21 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:56:21 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "cqzy0006rin",
+          "tag_name": "tailwind",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:58:40 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:58:40 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "sn8vgjxpvxn",
+          "tag_name": "postcss",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:58:47 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:58:47 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "yk3otgupq7e",
+          "tag_name": "autoprefixer",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:58:54 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:58:54 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "ha2ykhk9op",
+          "tag_name": "cacheamento",
+          "category": "",
+          "created_at": "Wed Feb 08 2023 11:59:14 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 11:59:14 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "k8jcd9rvi5i",
+          "tag_name": "rotas",
+          "category": "weight",
+          "created_at": "Wed Feb 08 2023 12:01:19 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 08 2023 12:01:19 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
+    },
+    {
+      "id": "5J53TMA",
+      "asset_name": "hotel-website-login-screen",
+      "created_at": "Tue Feb 07 2023 18:59:05 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 07 2023 18:59:05 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "XVM8BJC",
+          "tag_name": "framer-motion",
+          "category": "",
+          "created_at": "Tue Feb 07 2023 18:59:13 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Tue Feb 07 2023 18:59:13 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
     }
   ]
 }

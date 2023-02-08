@@ -29,7 +29,7 @@ export function removeAssetFromCache(assetId: string, queryClient: QueryClient) 
   const previousAssets = getQueryData<Asset[]>("assets", queryClient)
   if (!previousAssets) return
   const assetsWithoutExcludedOne = previousAssets.filter((asset) => asset.id !== assetId)
-  queryClient.setQueryData("fruits", assetsWithoutExcludedOne)
+  queryClient.setQueryData("assets", assetsWithoutExcludedOne)
 }
 
 export function eraseFields<T>(fields: T): T {
@@ -49,11 +49,10 @@ export function updateAssetInCache(
   queryClient.setQueryData("assets", assetsWithUpdatedOne)
 }
 
-export function checkDifference(oldAssetFields: AssetFormFields, newAssetFields: AssetFormFields) {
-  return Object.entries(oldAssetFields).reduce((isDifferent, asset) => {
-    const [key, value] = asset as [KeyofAssetFormFields, string]
-
-    if (newAssetFields[key] !== value) {
+export function checkDifference({ asset_name }: Asset, userAssetFields: AssetFormFields) {
+  return Object.entries({ asset_name }).reduce((isDifferent, assetKeyPair) => {
+    const [key, value] = assetKeyPair as [KeyofAssetFormFields, string]
+    if (userAssetFields[key] !== value) {
       isDifferent = true
     }
     return isDifferent
@@ -61,7 +60,7 @@ export function checkDifference(oldAssetFields: AssetFormFields, newAssetFields:
 }
 
 export const generateId = () => {
-  const id = Math.random().toString(36).substring(2, 9).toUpperCase()
+  const id = Math.random().toString(36).substring(2, 18)
   const created_at = String(new Date())
   const updated_at = String(new Date())
   return {

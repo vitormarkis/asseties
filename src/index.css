@@ -9,3 +9,9 @@
 * {
     outline: none;
 }
+
+#assets-list p.editing {
+    font-weight: 600;
+    letter-spacing: .4px;
+    color: #222;
+}

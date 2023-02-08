@@ -1,3 +1,5 @@
+import Button from "@components/atoms/Button"
+import { baseURL, categories } from "@constants/constants"
 import { Asset } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { setOneTagFormField, setTagFormFields } from "@features/tag-slice"
@@ -8,16 +10,13 @@ import { useState } from "react"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
-import { baseURL } from "./fruitsList"
-
-const categories = ["Color", "Weight", "Flavor"]
 
 export default function TagsForm() {
   const { state } = useLocation()
-  const { fruit: rawFruit } = state as { fruit: Asset }
-  const [fruit, setFruit] = useState<Asset>(rawFruit)
+  const { asset: rawAsset } = state as { asset: Asset }
+  const [asset, setAsset] = useState<Asset>(rawAsset)
   const navigate = useNavigate()
-  const { tagFields } = useAppSelector((state) => state)
+  const { fields: tagFields } = useAppSelector((state) => state.tag)
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
 
@@ -28,23 +27,30 @@ export default function TagsForm() {
 
   async function handleSendClick() {
     const newTag = generateNewTag(tagFields)
-    const fruitWithTagAdded = { tags: [...fruit.tags, newTag] }
-    addNewTagInCache(fruit.id, newTag, queryClient)
-    axios.patch(baseURL + "/" + fruit.id, fruitWithTagAdded)
+    const updatedTagArray = { tags: [...asset.tags, newTag] }
+    const updated_at = String(new Date())
+    const updatedAsset = { ...updatedTagArray, updated_at }
+    setAsset((prevAsset) => ({ ...prevAsset, ...updatedAsset }))
+
+    addNewTagInCache(asset.id, newTag, queryClient)
+    // setAsset(asset)
+
+    axios.patch(baseURL + "/" + asset.id, updatedAsset)
+
     // await queryClient.invalidateQueries("fruits")
-    navigate(-1)
     dispatch(setTagFormFields(eraseFields(tagFields)))
   }
 
-  function handleDeleteTag(fruitId: string, tag: Tag) {
+  function handleDeleteTag(assetId: string, tag: Tag) {
     const { id: tagId } = tag
-    const fruitsInCache = queryClient.getQueryData<Asset[]>("fruits")!
-    const { assets: fruits, asset: fruit } = removeTag(fruitId, tagId, fruitsInCache)!
-    queryClient.invalidateQueries("fruits")
-    queryClient.setQueryData("fruits", fruits)
+    const assetsInCache = queryClient.getQueryData<Asset[]>("assets")!
+    const { assets, asset } = removeTag(assetId, tagId, assetsInCache)!
+    setAsset(asset)
 
-    setFruit(fruit)
-    axios.put(`${baseURL}/${fruitId}`, fruit)
+    queryClient.invalidateQueries("assets")
+    queryClient.setQueryData("assets", assets)
+
+    axios.put(`${baseURL}/${assetId}`, asset)
   }
 
   function handleBackClick() {
@@ -53,21 +59,20 @@ export default function TagsForm() {
   }
 
   return (
-    <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen w-screen gap-12">
-      <div>
+    <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen gap-12">
+      <div className=" w-[560px]">
         <div className="flex items-center justify-between">
-          <h1 className="text-lg drop-shadow-md">{fruit.fruit_name}</h1>
-          <p className="italic text-zinc-600">{fruit.note}</p>
+          <h1 className="text-lg drop-shadow-md">{asset.asset_name}</h1>
         </div>
-        <p className="text-zinc-400 text-xs">{fruit.created_at}</p>
+        <p className="text-zinc-400 text-xs">{asset.created_at}</p>
         <div className="my-2 flex gap-2 flex-wrap">
-          {fruit.tags.map((tag) => (
+          {asset.tags.map((tag) => (
             <div
               className="leading-none p-1 rounded-sm bg-zinc-600 text-xs text-white flex gap-2 items-center"
               key={tag.id}>
               <p>{tag.tag_name}</p>
               <p
-                onClick={() => handleDeleteTag(fruit.id, tag)}
+                onClick={() => handleDeleteTag(asset.id, tag)}
                 className="cursor-pointer p-1 rounded-full bg-zinc-700 mr-1 w-2.5 h-2.5"
               />
             </div>
@@ -101,16 +106,20 @@ export default function TagsForm() {
           </select>
         </div>
         <div className="flex justify-end gap-2">
-          <button
+          <Button
             onClick={handleBackClick}
-            className="py-2 px-4 rounded-full bg-emerald-600 font-base text-sm text-white">
-            Voltar
-          </button>
-          <button
+            bg="green"
+            color="white"
+            rounded="full"
+            value="Voltar"
+          />
+          <Button
             onClick={handleSendClick}
-            className="py-2 px-4 rounded-full bg-blue-600 font-base text-sm text-white">
-            Enviar
-          </button>
+            bg="blue"
+            color="white"
+            rounded="full"
+            value="Enviar"
+          />
         </div>
       </div>
     </div>

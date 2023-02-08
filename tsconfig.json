@@ -24,6 +24,7 @@
       "@routes/*": ["./src/routes/*"],
       "@myTypes/*": ["src/myTypes/*"],
       "@features/*": ["./src/features/*"],
+      "@constants/*": ["./src/constants/*"],
       "§/*": ["./src/*"]
     }
   },

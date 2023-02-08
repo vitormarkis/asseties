@@ -1,3 +1,4 @@
+import { baseURL } from "@constants/constants"
 import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
 import { Asset, KeyofAssetFormFields } from "@features/asset-slice/types"
 import { resetEditingId } from "@features/context-slice"
@@ -13,7 +14,7 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
-import { baseURL } from "../routes/fruitsList"
+import Button from "./atoms/Button"
 
 export function AssetForm() {
   const { asset, context } = useAppSelector((state) => state)
@@ -58,32 +59,36 @@ export function AssetForm() {
   }
 
   return (
-    <div className="w-[480px] flex flex-col gap-3">
-      <div className="flex text-sm [&_span]:w-[80px] items-center">
-        <span>Fruit:</span>
+    <div className="flex flex-col gap-3">
+      <div className="flex text-sm [&_span]:w-[220px] items-center">
+        <span>Nome do asset:</span>
         <input
           name="asset_name"
           className="w-full py-1 px-3 rounded-sm shadow-sh"
           type="text"
-          placeholder="Insira o nome de algo..."
+          placeholder="Insira o nome um asset..."
           onChange={handleOnChangeInput}
           value={asset.fields.asset_name}
         />
       </div>
       <div className="flex justify-end gap-2">
         {context.editing_id && (
-          <button
-            onClick={handleBackButton}
-            className="py-2 px-4 rounded-full bg-emerald-600 font-base text-sm text-white">
-            Voltar
-          </button>
+          <Button
+          onClick={handleBackButton}
+          bg="green"
+            rounded="full"
+            color="white"
+            value="Voltar"
+          />
         )}
         {(!context.editing_id || isDifferent) && (
-          <button
+          <Button
             onClick={handleClickButton}
-            className="py-2 px-4 rounded-full bg-blue-600 font-base text-sm text-white">
-            {context.editing_id ? "Atualizar" : "Enviar"}
-          </button>
+            bg="blue"
+            rounded="full"
+            color="white"
+            value={context.editing_id ? "Atualizar" : "Enviar"}
+          />
         )}
       </div>
     </div>
