@@ -5,7 +5,8 @@ import { IdentificationProps } from "@myTypes/index"
  */
 
 export interface TagState {
-  fields: TagFormFields
+  formFields: TagFormFields
+  editFields: TagEditFields
 }
 
 export interface TagType extends IdentificationProps, TagFormFields {}
@@ -19,4 +20,7 @@ export interface TagFormFields {
   category: string
 }
 
+export interface TagEditFields extends TagFormFields {}
+
 export type KeyofTagFormFields = keyof TagFormFields
+export type KeyofTagEditFields = keyof TagEditFields

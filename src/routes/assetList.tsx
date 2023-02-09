@@ -2,10 +2,10 @@ import Tag from "@components/atoms/Tag"
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields } from "@features/asset-slice"
 import { AssetType } from "@features/asset-slice/types"
-import { setEditingId } from "@features/context-slice"
+import { setEditingAssetId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import axios from "axios"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -42,7 +42,7 @@ export function AssetList() {
     const assets = queryClient.getQueryData<AssetType[]>("assets")!
     const { asset_name } = assets.find(asset => asset.id === assetId)!
 
-    dispatch(setEditingId(assetId))
+    dispatch(setEditingAssetId(assetId))
     dispatch(setAssetFormFields({ asset_name }))
     navigate("/edit")
   }
@@ -63,12 +63,16 @@ export function AssetList() {
   }
 
   return (
-    <div ref={setContainer} className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit overflow-y-scroll">
+    <div
+      ref={setContainer}
+      className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit overflow-y-scroll"
+    >
       {assets?.map(asset => (
         <div
           id="assets-list"
           key={asset.id}
-          className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5">
+          className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5"
+        >
           <div className="flex gap-2 items-center">
             <div
               onClick={() => handleDeleteAsset(asset.id)}
@@ -78,15 +82,14 @@ export function AssetList() {
               onClick={() => handleEditAsset(asset.id)}
               className="text-white font-black cursor-pointer bg-blue-600 rounded-full w-3 h-3 relative"
             />
-            <p className={context.editing_id === asset.id ? "editing" : ""}>{asset.asset_name}</p>
+            <p className={context.editing_asset_id === asset.id ? "editing" : ""}>{asset.asset_name}</p>
             <div
               onClick={() => handleAddTags(asset.id)}
               className="text-white font-black cursor-pointer bg-green-600 ml-auto rounded-full w-3 h-3 relative"
             />
           </div>
           <p className="text-zinc-400 text-xs">{String(asset.created_at)}</p>
-          <div
-            className="my-2 flex gap-2 flex-wrap">
+          <div className="my-2 flex gap-2 flex-wrap">
             {asset.tags.map(tag => (
               <Tag
                 container={container}

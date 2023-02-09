@@ -17,7 +17,7 @@ export default function TagsForm() {
   const { asset: rawAsset } = state as { asset: AssetType }
   const [asset, setAsset] = useState<AssetType>(rawAsset)
   const navigate = useNavigate()
-  const { fields: tagFields } = useAppSelector((state) => state.tag)
+  const { formFields: tagFields } = useAppSelector((state) => state.tag)
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
 

@@ -4,12 +4,14 @@ import clsx from 'clsx'
 type BackgroundColors = 'blue' | 'red' | 'green'
 type RoundedSizes = 'md' | 'full'
 type TextColor = 'black' | 'white'
+type FontSize = 'small' | 'normal' | 'extra-small'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   value: string
   bg: BackgroundColors
   rounded: RoundedSizes
   color: TextColor
+  fontSize?: FontSize
 }
 
 const Button: React.FC<Props> = (props) => {
@@ -25,6 +27,9 @@ const Button: React.FC<Props> = (props) => {
         'rounded-xl': props.rounded == 'full',
         'text-black': props.color == 'black',
         'text-white': props.color == 'white',
+        'text-base': props.fontSize == 'normal',
+        'text-sm': props.fontSize == 'small',
+        'text-xs': props.fontSize == 'extra-small',
       })}
       {...rest}>
       {value}

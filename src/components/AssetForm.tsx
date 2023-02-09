@@ -1,7 +1,7 @@
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
 import { AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
-import { resetEditingId } from "@features/context-slice"
+import { resetEditingAssetId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
   addNewAssetToCache,
@@ -18,7 +18,7 @@ import Button from "./atoms/Button"
 import { Input } from "./atoms/Input"
 
 export function AssetForm() {
-  const { asset, context } = useAppSelector((state) => state)
+  const { asset, context } = useAppSelector(state => state)
   const dispatch = useDispatch()
 
   const queryClient = useQueryClient()
@@ -28,14 +28,14 @@ export function AssetForm() {
 
   useEffect(() => {
     if (!assetsInCache) return
-    const editingAsset = assetsInCache.find((asset) => asset.id === context.editing_id)
+    const editingAsset = assetsInCache.find(asset => asset.id === context.editing_asset_id)
     if (!editingAsset) return
     const isDifferentValue = checkDifference(editingAsset, asset.fields)
     setIsDifferent(isDifferentValue)
   }, [asset.fields])
 
   async function handleClickButton() {
-    if (!context.editing_id) {
+    if (!context.editing_asset_id) {
       // Add new asset
       const newAsset = generateNewAsset(asset.fields)
       addNewAssetToCache(newAsset, queryClient)
@@ -43,9 +43,9 @@ export function AssetForm() {
       await axios.post(baseURL, newAsset)
     } else {
       // Update asset fields
-      axios.patch(baseURL + "/" + context.editing_id, { ...asset.fields })
-      updateAssetInCache(context.editing_id, queryClient, { ...asset.fields })
-      dispatch(resetEditingId())
+      axios.patch(baseURL + "/" + context.editing_asset_id, { ...asset.fields })
+      updateAssetInCache(context.editing_asset_id, queryClient, { ...asset.fields })
+      dispatch(resetEditingAssetId())
       dispatch(setAssetFormFields(eraseFields(asset.fields)))
     }
   }
@@ -55,7 +55,7 @@ export function AssetForm() {
   }
 
   function handleBackButton() {
-    dispatch(resetEditingId())
+    dispatch(resetEditingAssetId())
     dispatch(setAssetFormFields(eraseFields(asset.fields)))
   }
 
@@ -71,7 +71,7 @@ export function AssetForm() {
         />
       </div>
       <div className="flex justify-end gap-2">
-        {context.editing_id && (
+        {context.editing_asset_id && (
           <Button
             onClick={handleBackButton}
             bg="green"
@@ -80,13 +80,13 @@ export function AssetForm() {
             value="Voltar"
           />
         )}
-        {(!context.editing_id || isDifferent) && (
+        {(!context.editing_asset_id || isDifferent) && (
           <Button
             onClick={handleClickButton}
             bg="blue"
             rounded="full"
             color="white"
-            value={context.editing_id ? "Atualizar" : "Enviar"}
+            value={context.editing_asset_id ? "Atualizar" : "Enviar"}
           />
         )}
       </div>

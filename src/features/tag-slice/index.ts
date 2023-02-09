@@ -1,9 +1,13 @@
 import { SetKeyValue } from "@myTypes/index"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { KeyofTagFormFields, TagFormFields, TagState } from "./types"
+import { KeyofTagEditFields, KeyofTagFormFields, TagEditFields, TagFormFields, TagState } from "./types"
 
 export const initialState: TagState = {
-  fields: {
+  formFields: {
+    tag_name: "",
+    category: "",
+  },
+  editFields: {
     tag_name: "",
     category: "",
   },
@@ -15,14 +19,21 @@ export const tagSlice = createSlice({
   reducers: {
     setOneTagFormField: (state, action: PayloadAction<SetKeyValue<KeyofTagFormFields, string>>) => {
       const { key, value } = action.payload
-      state.fields[key] = value
+      state.formFields[key] = value
     },
     setTagFormFields: (state, action: PayloadAction<TagFormFields>) => {
-      state.fields = action.payload
+      state.formFields = action.payload
+    },
+    setOneTagEditField: (state, action: PayloadAction<SetKeyValue<KeyofTagEditFields, string>>) => {
+      const { key, value } = action.payload
+      state.editFields[key] = value
+    },
+    setTagEditFields: (state, action: PayloadAction<TagEditFields>) => {
+      state.editFields = action.payload
     },
   },
 })
 
-export const { setOneTagFormField, setTagFormFields } = tagSlice.actions
+export const { setOneTagFormField, setTagFormFields, setOneTagEditField, setTagEditFields } = tagSlice.actions
 
 export const tagReducer = tagSlice.reducer

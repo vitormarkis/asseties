@@ -3,12 +3,17 @@ import { AssetType } from "@features/asset-slice/types"
 import { TagType } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
-import { removeTag } from "@utils/index"
+import { eraseFields, removeTag } from "@utils/index"
 import axios from "axios"
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, useEffect, useRef, useState } from "react"
 
+import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
+import { resetEditingTagId, setEditingTagId } from "@features/context-slice"
+import { useAppSelector } from "@features/store"
+import { setTagEditFields } from "@features/tag-slice"
 import * as Popover from "@radix-ui/react-popover"
+import { useDispatch } from "react-redux"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   bg?: `#${string}` | NamedColor
@@ -20,6 +25,16 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 const Tag: React.FC<Props> = props => {
   const { bg, color, tag, assetId, container, ...rest } = props
+  const dispatch = useDispatch()
+  const { editFields } = useAppSelector(state => state.tag)
+  // const TriggerPopover = useRef<HTMLDivElement>(null)
+
+  const actionAttributes = {
+    edit: {
+      title: "Editar a tag",
+      description: "Insira as novas informações da tag...",
+    },
+  }
 
   function handleDeleteTag(assetId: string, tag: TagType) {
     const { id: tagId } = tag
@@ -29,10 +44,18 @@ const Tag: React.FC<Props> = props => {
     axios.put(`${baseURL}/${assetId}`, asset)
   }
 
-  // console.log(container)
+  function handleClickDownOutside() {
+    dispatch(resetEditingTagId())
+    dispatch(setTagEditFields(eraseFields(editFields)))
+  }
+  // useEffect(() => console.log(TriggerPopover), [TriggerPopover])
+
+  function handleCloseAutoFocus() {
+    
+  } 
 
   return (
-    <Popover.Root>
+    <Popover.Root onOpenChange={isOpen => console.log({isOpen})}>
       <Popover.Trigger>
         <div
           className="leading-none p-1 rounded-sm text-xs flex gap-2 items-center"
@@ -51,7 +74,7 @@ const Tag: React.FC<Props> = props => {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          onPointerDownOutside={e => console.log(e, "Joker!")}
+          onPointerDownOutside={handleClickDownOutside}
           side="right"
           align="center"
           sticky="always"
@@ -59,25 +82,24 @@ const Tag: React.FC<Props> = props => {
           collisionPadding={{ left: 16 }}
           hideWhenDetached={true}
           className="plate py-2 rounded-md bg-slate-800 shadow-md shadow-black/20 flex flex-col text-xs"
-          // style={{
-          //   backgroundColor: bg ?? "#52525B",
-          //   color: color ?? "#fff",
-          // }}
         >
           <PopoverButton
-            title="Excluir"
+            action="Excluir"
             event={() => handleDeleteTag(assetId, tag)}
           />
           <PopoverButton
-            title="Renomear"
-            event={() => {}}
-          />
-          <PopoverButton
-            title="Trocar categoria"
-            event={() => {}}
+            action="Editar"
+            event={() => dispatch(setEditingTagId(tag.id))}
+            element={
+              <EditTag
+                actionAttrs={actionAttributes.edit}
+                tag={tag}
+                handleCloseAutoFocus={handleCloseAutoFocus}
+              />
+            }
           />
           <Popover.Arrow
-          fill="#1E293B"
+            fill="#1E293B"
             width={4}
             height={4}
           />
