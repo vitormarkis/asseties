@@ -15,3 +15,9 @@
     letter-spacing: .4px;
     color: #222;
 }
+
+.plate {
+    box-shadow:
+        inset 0 -1px 0 1px #00000030,
+        inset 0 1px 0 1px #ffffff20;
+}

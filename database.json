@@ -57,13 +57,6 @@
           "updated_at": "Wed Feb 08 2023 11:55:14 GMT-0300 (Horário Padrão de Brasília)"
         },
         {
-          "id": "4824nlutxvl",
-          "tag_name": "typescript",
-          "category": "",
-          "created_at": "Wed Feb 08 2023 11:56:21 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 08 2023 11:56:21 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
           "id": "cqzy0006rin",
           "tag_name": "tailwind",
           "category": "",
@@ -112,6 +105,35 @@
           "category": "",
           "created_at": "Tue Feb 07 2023 18:59:13 GMT-0300 (Horário Padrão de Brasília)",
           "updated_at": "Tue Feb 07 2023 18:59:13 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
+    },
+    {
+      "id": "th4vv3s0w",
+      "asset_name": "system-tags-with-react",
+      "created_at": "Thu Feb 09 2023 11:25:29 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Thu Feb 09 2023 11:25:39 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "daeidkdg1a",
+          "tag_name": "Sweet",
+          "category": "flavor",
+          "created_at": "Thu Feb 09 2023 11:25:34 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Thu Feb 09 2023 11:25:34 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "5xrtzs0bwcj",
+          "tag_name": "Red",
+          "category": "",
+          "created_at": "Thu Feb 09 2023 11:25:36 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Thu Feb 09 2023 11:25:36 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "5n1qo94v3kr",
+          "tag_name": "Heavy",
+          "category": "flavor",
+          "created_at": "Thu Feb 09 2023 11:25:39 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Thu Feb 09 2023 11:25:39 GMT-0300 (Horário Padrão de Brasília)"
         }
       ]
     }

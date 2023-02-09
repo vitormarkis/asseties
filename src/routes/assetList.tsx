@@ -5,6 +5,7 @@ import { AssetType } from "@features/asset-slice/types"
 import { setEditingId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import axios from "axios"
+import { useRef, useState } from "react"
 import { useQuery, useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -15,6 +16,7 @@ export function AssetList() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)
+  const [container, setContainer] = useState<null | Element>(null)
 
   const {
     data: assets,
@@ -61,7 +63,7 @@ export function AssetList() {
   }
 
   return (
-    <div className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit">
+    <div ref={setContainer} className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit overflow-y-scroll">
       {assets?.map(asset => (
         <div
           id="assets-list"
@@ -83,9 +85,11 @@ export function AssetList() {
             />
           </div>
           <p className="text-zinc-400 text-xs">{String(asset.created_at)}</p>
-          <div className="my-2 flex gap-2 flex-wrap">
+          <div
+            className="my-2 flex gap-2 flex-wrap">
             {asset.tags.map(tag => (
               <Tag
+                container={container}
                 key={tag.id}
                 bg="crimson"
                 color="white"
