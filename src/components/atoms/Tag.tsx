@@ -5,7 +5,7 @@ import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
 import { eraseFields, removeTag } from "@utils/index"
 import axios from "axios"
-import { HTMLAttributes, useEffect, useRef, useState } from "react"
+import { HTMLAttributes, useEffect, useState } from "react"
 
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
@@ -24,10 +24,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Tag: React.FC<Props> = props => {
-  const { bg, color, tag, assetId, container, ...rest } = props
   const dispatch = useDispatch()
   const { editFields } = useAppSelector(state => state.tag)
-  // const TriggerPopover = useRef<HTMLDivElement>(null)
+  const { bg, color, tag, assetId, container, ...rest } = props
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
     edit: {
@@ -48,14 +48,16 @@ const Tag: React.FC<Props> = props => {
     dispatch(resetEditingTagId())
     dispatch(setTagEditFields(eraseFields(editFields)))
   }
-  // useEffect(() => console.log(TriggerPopover), [TriggerPopover])
 
-  function handleCloseAutoFocus() {
-    
-  } 
+  useEffect(() => {
+    console.log(isPopoverOpen)
+  }, [isPopoverOpen])
 
   return (
-    <Popover.Root onOpenChange={isOpen => console.log({isOpen})}>
+    <Popover.Root
+      open={isPopoverOpen}
+      onOpenChange={setIsPopoverOpen}
+    >
       <Popover.Trigger>
         <div
           className="leading-none p-1 rounded-sm text-xs flex gap-2 items-center"
@@ -94,7 +96,7 @@ const Tag: React.FC<Props> = props => {
               <EditTag
                 actionAttrs={actionAttributes.edit}
                 tag={tag}
-                handleCloseAutoFocus={handleCloseAutoFocus}
+                setIsPopoverOpen={setIsPopoverOpen}
               />
             }
           />
