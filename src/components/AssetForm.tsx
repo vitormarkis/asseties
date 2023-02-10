@@ -1,6 +1,6 @@
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
-import { AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
+import { AssetFormFields, AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
 import { resetEditingAssetId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
@@ -12,14 +12,16 @@ import {
 } from "@utils/index"
 import axios from "axios"
 import React, { useEffect, useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
+import { Input } from "./atoms"
 import Button from "./atoms/Button"
-import { Input } from "./atoms/Input"
 
 export function AssetForm() {
   const { asset, context } = useAppSelector(state => state)
   const dispatch = useDispatch()
+  const { register, handleSubmit } = useForm<AssetFormFields>()
 
   const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
@@ -49,25 +51,27 @@ export function AssetForm() {
       dispatch(setAssetFormFields(eraseFields(asset.fields)))
     }
   }
-  function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { name, value } = e.currentTarget
-    dispatch(setOneAssetFormField({ key: name as KeyofAssetFormFields, value }))
-  }
 
   function handleBackButton() {
     dispatch(resetEditingAssetId())
     dispatch(setAssetFormFields(eraseFields(asset.fields)))
   }
 
+  const onSubmit: SubmitHandler<AssetFormFields> = (data) => {
+    console.log(data)
+  }
+
   return (
-    <div className="flex flex-col gap-3">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-3"
+    >
       <div className="flex text-sm [&_span]:w-[220px] items-center">
         <span>Nome do asset:</span>
         <Input
-          name="asset_name"
+          register={register}
+          field="asset_name"
           placeholder="Insira o nome um asset..."
-          onChange={handleOnChangeInput}
-          value={asset.fields.asset_name}
         />
       </div>
       <div className="flex justify-end gap-2">
@@ -76,7 +80,7 @@ export function AssetForm() {
             onClick={handleBackButton}
             bg="green"
             rounded="full"
-            color="white"
+            _color="white"
             value="Voltar"
           />
         )}
@@ -85,11 +89,11 @@ export function AssetForm() {
             onClick={handleClickButton}
             bg="blue"
             rounded="full"
-            color="white"
+            _color="white"
             value={context.editing_asset_id ? "Atualizar" : "Enviar"}
           />
         )}
       </div>
-    </div>
+    </form>
   )
 }

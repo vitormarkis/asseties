@@ -1,13 +1,9 @@
 import { categories } from "@constants/constants"
-import { setOneTagEditField } from "@features/tag-slice"
-import { KeyofTagEditFields, TagEditFields, TagType } from "@features/tag-slice/types"
+import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
-import React, { Dispatch, FormEvent, SetStateAction, useCallback, useRef } from "react"
+import React, { Dispatch, SetStateAction } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
-import Button from "./atoms/Button"
-import { Input } from "./atoms/Input"
-import { Select } from "./atoms/Select"
+import { Button, Input, Select } from "./atoms"
 
 export interface ActionAttributes {
   title: string
@@ -21,14 +17,7 @@ interface Props {
 }
 
 const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
-  const dispatch = useDispatch()
   const { register, handleSubmit } = useForm<TagEditFields>()
-  const selectRef = useRef<HTMLSelectElement | null>(null)
-
-  // function handleOnChangeInput(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-  //   const { name, value } = e.currentTarget
-  //   dispatch(setOneTagEditField({ key: name as KeyofTagEditFields, value }))
-  // }
 
   const onSubmit: SubmitHandler<TagEditFields> = (d: any) => {
     setIsPopoverOpen(false)
@@ -40,7 +29,6 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
       <Dialog.Overlay className="inset-0 fixed bg-black/20" />
 
       <Dialog.Content
-      
         onCloseAutoFocus={() => setIsPopoverOpen(false)}
         className="
           fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
@@ -60,7 +48,6 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
             field="tag_name"
             defaultValue={tag.tag_name}
             placeholder="react native"
-            // onChange={handleOnChangeInput}
           />
 
           <Select
@@ -75,7 +62,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
               <Button
                 onClick={() => console.log("executou")}
                 bg="red"
-                color="white"
+                _color="white"
                 rounded="md"
                 value="Fechar"
                 fontSize="extra-small"
@@ -84,7 +71,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
             <Button
               type="submit"
               bg="green"
-              color="white"
+              _color="white"
               rounded="md"
               value="Salvar"
               fontSize="extra-small"

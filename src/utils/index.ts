@@ -74,10 +74,11 @@ export function generateNewAsset(assetValues: AssetFormFields): AssetType {
   const { created_at, id, updated_at } = generateId()
   return { id, ...assetValues, created_at, updated_at, tags: [] }
 }
-export function generateNewTag(tagFields: TagFormFields): TagType {
+export function generateNewTag(tagFields: TagFormFields, updatedAt?: {updated_at: string}): TagType {
   const { created_at, id, updated_at } = generateId()
   const { category } = tagFields
-  return { id, ...tagFields, created_at, updated_at, category: category.toLocaleLowerCase() }
+  const lastUpdate = () => (updatedAt ?? {})
+  return { id, ...tagFields, created_at, updated_at, category: category.toLocaleLowerCase(), ...lastUpdate() }
 }
 
 export function removeTag(assetId: string, tagId: string, assets: AssetType[]) {

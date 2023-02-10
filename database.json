@@ -4,8 +4,16 @@
       "id": "DVYKSYB",
       "asset_name": "system-tags-with-react",
       "created_at": "Tue Feb 07 2023 18:56:44 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Thu Feb 09 2023 15:28:00 GMT-0300 (Horário Padrão de Brasília)",
-      "tags": []
+      "updated_at": "Fri Feb 10 2023 14:39:04 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": [
+        {
+          "id": "bhvfvigsqt",
+          "tag_name": "react router dom",
+          "category": "weight",
+          "created_at": "Fri Feb 10 2023 14:47:48 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 10 2023 14:47:48 GMT-0300 (Horário Padrão de Brasília)"
+        }
+      ]
     },
     {
       "id": "SXOVX0T",
@@ -26,13 +34,6 @@
           "category": "",
           "created_at": "Wed Feb 08 2023 11:54:30 GMT-0300 (Horário Padrão de Brasília)",
           "updated_at": "Wed Feb 08 2023 11:54:30 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
-          "id": "h3tjhxsr599",
-          "tag_name": "redux",
-          "category": "",
-          "created_at": "Wed Feb 08 2023 11:54:47 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 08 2023 11:54:47 GMT-0300 (Horário Padrão de Brasília)"
         },
         {
           "id": "sone21dz6j",

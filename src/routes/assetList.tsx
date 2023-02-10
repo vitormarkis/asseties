@@ -92,12 +92,13 @@ export function AssetList() {
           <div className="my-2 flex gap-2 flex-wrap">
             {asset.tags.map(tag => (
               <Tag
-                container={container}
                 key={tag.id}
-                bg="crimson"
-                color="white"
-                tag={tag}
-                assetId={asset.id}
+                _container={container}
+                _bg="darkturquoise"
+                _color="white"
+                _tag={tag}
+                _assetId={asset.id}
+                _popover
               />
             ))}
           </div>

@@ -16,17 +16,26 @@ import * as Popover from "@radix-ui/react-popover"
 import { useDispatch } from "react-redux"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  bg?: `#${string}` | NamedColor
-  color?: `#${string}` | NamedColor
-  tag: TagType
-  assetId: string
-  container: Element | null
+  _bg?: `#${string}` | NamedColor
+  _color?: `#${string}` | NamedColor
+  _tag: TagType
+  _assetId: string
+  _container?: Element | null
+  _popover: boolean
 }
 
 const Tag: React.FC<Props> = props => {
   const dispatch = useDispatch()
   const { editFields } = useAppSelector(state => state.tag)
-  const { bg, color, tag, assetId, container, ...rest } = props
+  const {
+    _bg: bg,
+    _color: color,
+    _tag: tag,
+    _assetId: assetId,
+    _container: container,
+    _popover: popover,
+    ...rest
+  } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
@@ -74,40 +83,42 @@ const Tag: React.FC<Props> = props => {
           />
         </div>
       </Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Content
-          onPointerDownOutside={handleClickDownOutside}
-          side="right"
-          align="center"
-          sticky="always"
-          collisionBoundary={container}
-          collisionPadding={{ left: 16 }}
-          hideWhenDetached={true}
-          className="plate py-2 rounded-md bg-slate-800 shadow-md shadow-black/20 flex flex-col text-xs"
-        >
-          <PopoverButton
-            action="Excluir"
-            event={() => handleDeleteTag(assetId, tag)}
-          />
-          <PopoverButton
-            action="Editar"
-            event={() => dispatch(setEditingTagId(tag.id))}
-            element={
-              <EditTag
-                actionAttrs={actionAttributes.edit}
-                tag={tag}
-                setIsPopoverOpen={setIsPopoverOpen}
-              />
-            }
-          />
-          <Popover.Arrow
-            fill="#1E293B"
-            width={4}
-            height={4}
-          />
-          {/* <Popover.Close>XIS</Popover.Close> */}
-        </Popover.Content>
-      </Popover.Portal>
+      {popover && (
+        <Popover.Portal>
+          <Popover.Content
+            onPointerDownOutside={handleClickDownOutside}
+            side="right"
+            align="center"
+            sticky="always"
+            collisionBoundary={container}
+            collisionPadding={{ left: 16 }}
+            hideWhenDetached={true}
+            className="plate py-2 rounded-md bg-slate-800 shadow-md shadow-black/20 flex flex-col text-xs"
+          >
+            <PopoverButton
+              action="Excluir"
+              event={() => handleDeleteTag(assetId, tag)}
+            />
+            <PopoverButton
+              action="Editar"
+              event={() => dispatch(setEditingTagId(tag.id))}
+              element={
+                <EditTag
+                  actionAttrs={actionAttributes.edit}
+                  tag={tag}
+                  setIsPopoverOpen={setIsPopoverOpen}
+                />
+              }
+            />
+            <Popover.Arrow
+              fill="#1E293B"
+              width={4}
+              height={4}
+            />
+            {/* <Popover.Close>XIS</Popover.Close> */}
+          </Popover.Content>
+        </Popover.Portal>
+      )}
     </Popover.Root>
   )
 }

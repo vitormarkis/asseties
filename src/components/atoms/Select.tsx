@@ -1,17 +1,16 @@
-import { KeyofTagEditFields, TagEditFields } from "@features/tag-slice/types"
-import { HTMLAttributes, InputHTMLAttributes } from "react"
-import { UseFormRegister } from "react-hook-form"
+import { HTMLAttributes } from "react"
+import { FieldPath, FieldValues, UseFormRegister } from "react-hook-form"
 import FormFieldBox from "./FormFieldBox"
 
-interface Props extends InputHTMLAttributes<HTMLSelectElement> {
+interface Props<T extends FieldValues> extends HTMLAttributes<HTMLSelectElement> {
   parentAttrs?: HTMLAttributes<HTMLDivElement>
-  options: any[]
-  field: KeyofTagEditFields
-  register: UseFormRegister<TagEditFields>
-  // register: <T>(value: T) => UseFormRegisterReturn<T>
+  options: string[]
+  register: UseFormRegister<T>
+  field: FieldPath<T>
 }
 
-export const Select: React.FC<Props> = ({ parentAttrs, options, field, register, ...rest }) => {
+function Select<T extends FieldValues>(props: Props<T>) {
+  const { parentAttrs, options, field, register, ...rest } = props
   return (
     <FormFieldBox parentAttrs={parentAttrs}>
       <select
@@ -26,3 +25,5 @@ export const Select: React.FC<Props> = ({ parentAttrs, options, field, register,
     </FormFieldBox>
   )
 }
+
+export default Select

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import Button from "./atoms/Button"
+import { Button } from "./atoms"
 
 export function HomeOutlet() {
   const navigate = useNavigate()
@@ -8,7 +8,7 @@ export function HomeOutlet() {
     <div>
       <Button
         onClick={() => navigate("/edit")}
-        color="white"
+        _color="white"
         bg="green"
         rounded="full"
         value="+ Novo"
