@@ -94,7 +94,7 @@ export function AssetList() {
               <Tag
                 key={tag.id}
                 _container={container}
-                _bg="darkturquoise"
+                _bg="blueviolet"
                 _color="white"
                 _tag={tag}
                 _assetId={asset.id}

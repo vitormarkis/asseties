@@ -21,7 +21,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   _tag: TagType
   _assetId: string
   _container?: Element | null
-  _popover: boolean
+  _popover?: boolean
 }
 
 const Tag: React.FC<Props> = props => {

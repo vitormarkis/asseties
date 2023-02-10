@@ -4,7 +4,7 @@
       "id": "DVYKSYB",
       "asset_name": "system-tags-with-react",
       "created_at": "Tue Feb 07 2023 18:56:44 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Fri Feb 10 2023 14:39:04 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Fri Feb 10 2023 17:13:03 GMT-0300 (Horário Padrão de Brasília)",
       "tags": [
         {
           "id": "bhvfvigsqt",
@@ -12,6 +12,34 @@
           "category": "weight",
           "created_at": "Fri Feb 10 2023 14:47:48 GMT-0300 (Horário Padrão de Brasília)",
           "updated_at": "Fri Feb 10 2023 14:47:48 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "sosiz3jim9",
+          "tag_name": "react queryx",
+          "category": "color",
+          "created_at": "Fri Feb 10 2023 17:10:33 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 10 2023 17:10:33 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "sd35p65lv3",
+          "tag_name": "rotas",
+          "category": "color",
+          "created_at": "Fri Feb 10 2023 17:11:40 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 10 2023 17:11:40 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "pxk9n39d7tc",
+          "tag_name": "autoprefixer",
+          "category": "color",
+          "created_at": "Fri Feb 10 2023 17:12:25 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 10 2023 17:12:25 GMT-0300 (Horário Padrão de Brasília)"
+        },
+        {
+          "id": "6hfxk8jvccv",
+          "tag_name": "react queryx",
+          "category": "color",
+          "created_at": "Fri Feb 10 2023 17:12:44 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 10 2023 17:12:44 GMT-0300 (Horário Padrão de Brasília)"
         }
       ]
     },
