@@ -79,47 +79,11 @@
       ]
     },
     {
-      "id": "5J53TMA",
-      "asset_name": "projeto",
-      "created_at": "Tue Feb 07 2023 18:59:05 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sat Feb 11 2023 10:45:17 GMT-0300 (Horário Padrão de Brasília)",
-      "tags": [
-        {
-          "id": "souevur1bf",
-          "tag_name": "react router dom",
-          "category": "design_pattern",
-          "created_at": "Sat Feb 11 2023 10:41:39 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sat Feb 11 2023 10:41:39 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
-          "id": "1xlgnnio0vj",
-          "tag_name": "react query",
-          "category": "framework",
-          "created_at": "Sat Feb 11 2023 10:42:57 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sat Feb 11 2023 10:42:57 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
-          "id": "qikmf9lfpi",
-          "tag_name": "react router dom",
-          "category": "design pattern",
-          "created_at": "Sat Feb 11 2023 10:43:01 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sat Feb 11 2023 10:43:01 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
-          "id": "62tgdfjbdft",
-          "tag_name": "react router dom",
-          "category": "design_pattern",
-          "created_at": "Sat Feb 11 2023 10:45:10 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sat Feb 11 2023 10:45:10 GMT-0300 (Horário Padrão de Brasília)"
-        },
-        {
-          "id": "pl76yy0yso",
-          "tag_name": "dfsdf",
-          "category": "design_pattern",
-          "created_at": "Sat Feb 11 2023 10:45:17 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sat Feb 11 2023 10:45:17 GMT-0300 (Horário Padrão de Brasília)"
-        }
-      ]
+      "id": "wdmblfuyal",
+      "asset_name": "",
+      "created_at": "Sat Feb 11 2023 18:28:26 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Sat Feb 11 2023 18:28:26 GMT-0300 (Horário Padrão de Brasília)",
+      "tags": []
     }
   ]
 }

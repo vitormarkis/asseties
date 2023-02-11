@@ -7,7 +7,7 @@ export function HomeOutlet() {
   return (
     <div>
       <Button
-        onClick={() => navigate("/edit")}
+        onClick={() => navigate("/add")}
         _color="white"
         bg="green"
         rounded="full"

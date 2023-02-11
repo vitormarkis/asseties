@@ -11,6 +11,7 @@ import TagsForm from "@routes/tagForm"
 import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
+import { NewAssetForm } from "@routes/NewAssetForm"
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/edit",
         element: <AssetForm />,
+      },
+      {
+        path: "/add",
+        element: <NewAssetForm />,
       },
     ],
   },

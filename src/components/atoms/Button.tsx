@@ -16,11 +16,11 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: React.FC<Props> = props => {
-  const { value, bg, rounded, _color: color, ...rest } = props
+  const { value, bg, rounded, _color: color, className, ...rest } = props
   return (
     <button
       className={clsx(
-        `py-1 px-5 font-base text-sm font-thin tracking-wider
+        `${className} py-1 px-5 font-base text-sm font-thin tracking-wider
       `,
         {
           "bg-blue-600": props.bg == "blue",

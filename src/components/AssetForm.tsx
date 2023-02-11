@@ -16,6 +16,7 @@ import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { Input } from "./atoms"
 import Button from "./atoms/Button"
 
@@ -23,6 +24,7 @@ export function AssetForm() {
   const { asset, context } = useAppSelector(state => state)
   const dispatch = useDispatch()
   const { register, handleSubmit } = useForm<AssetFormFields>()
+  const navigate = useNavigate()
 
   const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
@@ -49,6 +51,7 @@ export function AssetForm() {
       addNewAssetToCache(newAsset, queryClient)
       dispatch(setAssetFormFields(eraseFields(asset.fields)))
       await axios.post(baseURL, newAsset)
+      navigate('/')
     } else {
       // Update asset fields
       const updatedAsset = getUpdatedAsset(context.current_asset, assetFormFields)

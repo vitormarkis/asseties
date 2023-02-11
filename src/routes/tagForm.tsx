@@ -29,8 +29,8 @@ export default function TagsForm() {
   } = useForm<TagFormFields>()
 
   async function handleBackButton() {
-    new Promise(resolve => setTimeout(() => resolve(navigate(-1)), 0))
-    new Promise(resolve => setTimeout(() => resolve(dispatch(resetCurrentAsset())), 10))
+    navigate(-1)
+    dispatch(resetCurrentAsset())
   }
 
   const onSubmit: SubmitHandler<TagFormFields> = (tagFields: TagFormFields) => {
