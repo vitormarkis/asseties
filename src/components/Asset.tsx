@@ -31,7 +31,7 @@ export function Asset({ container, asset }: Props) {
     if (!asset) throw new Error("Não foi possível encontrar o asset desejado.")
 
     dispatch(setCurrentAsset(asset))
-    navigate("/edit")
+    navigate("/edit/" + assetId)
   }
 
   function handleAddTags(assetId: string) {

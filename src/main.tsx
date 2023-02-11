@@ -12,6 +12,7 @@ import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
 import { NewAssetForm } from "@routes/NewAssetForm"
+import { EditAssetForm, loader as editAssetFormLoader } from "@routes/EditAssetForm"
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,9 @@ const router = createBrowserRouter([
         element: <HomeOutlet />,
       },
       {
-        path: "/edit",
-        element: <AssetForm />,
+        path: "/edit/:id",
+        element: <EditAssetForm />,
+        loader: editAssetFormLoader,
       },
       {
         path: "/add",
