@@ -5,17 +5,20 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   action: React.ReactNode | string
   event?: () => void
   element?: React.ReactNode
+  type?: "button" | "submit" | "reset"
 }
 const PopoverButton = React.forwardRef<HTMLButtonElement, Props>(function PopoverButton(props, ref) {
-  const { action, event, element } = props
+  const { action, event, element, type = "button" } = props
 
   return (
     <Dialog.Root>
       <Dialog.Trigger
+        type={type}
+        onClick={event}
         ref={ref}
         className="text-sm px-2 py-1 text-slate-200 border-t-slate-700 border-t text-left flex items-center last-of-type:border-b border-b-slate-700 hover:bg-slate-700"
       >
-        <button onClick={event}>{action}</button>
+        <div>{action}</div>
       </Dialog.Trigger>
       {element && <Dialog.Portal>{element}</Dialog.Portal>}
     </Dialog.Root>

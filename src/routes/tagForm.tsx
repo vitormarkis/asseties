@@ -1,22 +1,24 @@
 import { Button, Input, Select, Tag } from "@components/atoms"
 import { baseURL, categories } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
+import { resetCurrentAsset, setCurrentAsset } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
-import { setTagFormFields } from "@features/tag-slice"
+import { tagReducer } from "@features/tag-slice"
 import { TagFormFields } from "@features/tag-slice/types"
-import { addNewTagInCache, eraseFields, generateNewTag, updateAssetInCache } from "@utils/index"
+import { formatFields, getUpdatedAssetByNewTag, updateAssetInCache } from "@utils/index"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
-import { useHref, useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function TagsForm() {
-  const { state: { asset: rawAsset } } = useLocation() as { state: { asset: AssetType } }
-  const [asset, setAsset] = useState<AssetType>(rawAsset)
   const navigate = useNavigate()
-  const { formFields: tagFields } = useAppSelector(state => state.tag)
+  const { context } = useAppSelector(state => state)
+  const asset = context.current_asset
+
+  console.log({ asset })
+
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
   const {
@@ -26,47 +28,46 @@ export default function TagsForm() {
     formState: { isSubmitSuccessful },
   } = useForm<TagFormFields>()
 
-  function handleBackClick() {
-    navigate(-1)
-    dispatch(setTagFormFields(eraseFields(tagFields)))
+  async function handleBackButton() {
+    new Promise(resolve => setTimeout(() => resolve(navigate(-1)), 0))
+    new Promise(resolve => setTimeout(() => resolve(dispatch(resetCurrentAsset())), 10))
   }
 
-  const onSubmit: SubmitHandler<TagFormFields> = (formData: TagFormFields) => {
-    console.log('Chegou')
-    const updatedAt = { updated_at: String(new Date()) }
-    const newTag = generateNewTag(formData, updatedAt)
-    const updatedTagArray = [...asset.tags, newTag]
-    const updatedAsset = { ...updatedAt, tags: updatedTagArray }
-    // console.log({updatedAsset})
-    
-    setAsset(prevAsset => ({ ...prevAsset, ...updatedAsset }))
-    updateAssetInCache(asset.id, queryClient, { ...asset, ...updatedAsset })
+  const onSubmit: SubmitHandler<TagFormFields> = (tagFields: TagFormFields) => {
+    if (!asset) return
+    const formattedFields = formatFields(tagFields)
+    const updatedAsset = getUpdatedAssetByNewTag(formattedFields, asset)
+
+    dispatch(setCurrentAsset(updatedAsset))
+    updateAssetInCache(queryClient, updatedAsset)
     axios.patch(baseURL + "/" + asset.id, updatedAsset)
-    // dispatch(setTagFormFields(eraseFields(tagFields)))
   }
 
-  useEffect(() => {
-    console.log(asset)
-  }, [asset]);
-  
   useEffect(() => {
     reset()
   }, [isSubmitSuccessful, reset])
+
+  // useEffect(() => {
+  //   if (!asset || !tag) {
+  //     navigate("/")
+  //   }
+  // }, [])
 
   return (
     <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen gap-12">
       <div className=" w-[560px]">
         <div className="flex items-center justify-between">
-          <h1 className="text-lg drop-shadow-md">{asset.asset_name}</h1>
+          <h1 className="text-lg drop-shadow-md">{asset?.asset_name}</h1>
         </div>
-        <p className="text-zinc-400 text-xs">{asset.created_at}</p>
+        <p className="text-zinc-400 text-xs">{asset?.created_at}</p>
         <div className="my-2 flex gap-2 flex-wrap">
-          {asset.tags.map(tag => (
+          {asset?.tags.map(tag => (
             <Tag
+              key={tag.id}
               _bg="blueviolet"
               _color="white"
-              _assetId={rawAsset.id}
               _tag={tag}
+              _asset={asset}
               _popover
             />
           ))}
@@ -95,7 +96,7 @@ export default function TagsForm() {
         </div>
         <div className="flex justify-end gap-2">
           <Button
-            onClick={handleBackClick}
+            onClick={handleBackButton}
             type="button"
             bg="green"
             _color="white"

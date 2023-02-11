@@ -1,8 +1,15 @@
-import { categories } from "@constants/constants"
-import { TagEditFields, TagType } from "@features/tag-slice/types"
+import { baseURL, categories } from "@constants/constants"
+import { AssetType } from "@features/asset-slice/types"
+import { resetCurrentAsset, resetCurrentTag, setCurrentAsset } from "@features/context-slice"
+import { useAppSelector } from "@features/store"
+import { TagEditFields, TagFormFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
+import { formatFields, getUpdatedAsset, getUpdatedAssetByNewTag, getUpdatedAssetByUpdatingTag, updateAssetInCache } from "@utils/index"
+import axios from "axios"
 import React, { Dispatch, SetStateAction } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useQueryClient } from "react-query"
+import { useDispatch } from "react-redux"
 import { Button, Input, Select } from "./atoms"
 
 export interface ActionAttributes {
@@ -14,14 +21,23 @@ interface Props {
   actionAttrs: ActionAttributes
   tag: TagType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
+  _asset: AssetType
 }
 
-const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
+const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }) => {
   const { register, handleSubmit } = useForm<TagEditFields>()
+  // const { current_tag } = useAppSelector(state => state.context)
+  const dispatch = useDispatch()
+  const queryClient = useQueryClient()
 
-  const onSubmit: SubmitHandler<TagEditFields> = (d: any) => {
+  const onSubmit: SubmitHandler<TagEditFields> = async (formTag) => {
+    const formattedFields = formatFields<TagFormFields>(formTag)
+    const updatedAsset = getUpdatedAssetByUpdatingTag(formattedFields, tag.id, _asset)
+
+    await axios.put(`${baseURL}/${_asset.id}`, updatedAsset)
+    updateAssetInCache(queryClient, updatedAsset)
+    dispatch(setCurrentAsset(updatedAsset))
     setIsPopoverOpen(false)
-    console.log(d)
   }
 
   return (
@@ -55,12 +71,12 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
             field="category"
             defaultValue={tag.category}
             options={categories}
-          />
+            />
 
           <div className="flex items-center justify-between">
             <Dialog.Close>
               <Button
-                onClick={() => console.log("executou")}
+                onClick={() => {}}
                 bg="red"
                 _color="white"
                 rounded="md"
@@ -75,7 +91,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, setIsPopoverOpen }) => {
               rounded="md"
               value="Salvar"
               fontSize="extra-small"
-              autoFocus={true}
+            autoFocus={true}
             />
           </div>
         </form>

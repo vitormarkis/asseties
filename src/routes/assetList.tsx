@@ -2,7 +2,7 @@ import Tag from "@components/atoms/Tag"
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields } from "@features/asset-slice"
 import { AssetType } from "@features/asset-slice/types"
-import { setEditingAssetId } from "@features/context-slice"
+import { setCurrentAsset, setCurrentTag, setEditingAssetId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import axios from "axios"
 import { useState } from "react"
@@ -39,19 +39,22 @@ export function AssetList() {
   }
 
   function handleEditAsset(assetId: string) {
-    const assets = queryClient.getQueryData<AssetType[]>("assets")!
-    const { asset_name } = assets.find(asset => asset.id === assetId)!
+    const assets = queryClient.getQueryData<AssetType[]>("assets")
+    if(!assets) throw new Error('Não foi possível encontrar os assets.')
+    const asset = assets.find(asset => asset.id === assetId)
+    if(!asset) throw new Error('Não foi possível encontrar o asset desejado.')
 
-    dispatch(setEditingAssetId(assetId))
-    dispatch(setAssetFormFields({ asset_name }))
+    dispatch(setCurrentAsset(asset))
     navigate("/edit")
   }
 
   function handleAddTags(assetId: string) {
     const assets = queryClient.getQueryData<AssetType[]>("assets")!
     const asset = assets.find(asset => asset.id === assetId)
+    if(!asset) throw new Error('Não foi encotrado um asset com esse id.')
+    dispatch(setCurrentAsset(asset))
 
-    navigate(`/addTags/${assetId}`, { state: { asset } })
+    navigate(`/addTags/${assetId}`)
   }
 
   if (isLoading) {
@@ -97,7 +100,7 @@ export function AssetList() {
                 _bg="blueviolet"
                 _color="white"
                 _tag={tag}
-                _assetId={asset.id}
+                _asset={asset}
                 _popover
               />
             ))}

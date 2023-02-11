@@ -1,17 +1,18 @@
 import { baseURL } from "@constants/constants"
-import { setAssetFormFields, setOneAssetFormField } from "@features/asset-slice"
-import { AssetFormFields, AssetType, KeyofAssetFormFields } from "@features/asset-slice/types"
-import { resetEditingAssetId } from "@features/context-slice"
+import { setAssetFormFields } from "@features/asset-slice"
+import { AssetFormFields, AssetType } from "@features/asset-slice/types"
+import { resetCurrentAsset, resetEditingAssetId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
   addNewAssetToCache,
   checkDifference,
   eraseFields,
   generateNewAsset,
+  getUpdatedAsset,
   updateAssetInCache,
 } from "@utils/index"
 import axios from "axios"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
@@ -36,8 +37,13 @@ export function AssetForm() {
     setIsDifferent(isDifferentValue)
   }, [asset.fields])
 
-  async function handleClickButton() {
-    if (!context.editing_asset_id) {
+  // function handleBackButton() {
+  //   dispatch(resetEditingAssetId())
+  //   dispatch(setAssetFormFields(eraseFields(asset.fields)))
+  // }
+
+  const onSubmit: SubmitHandler<AssetFormFields> = async assetFormFields => {
+    if (!context.current_asset) {
       // Add new asset
       const newAsset = generateNewAsset(asset.fields)
       addNewAssetToCache(newAsset, queryClient)
@@ -45,20 +51,12 @@ export function AssetForm() {
       await axios.post(baseURL, newAsset)
     } else {
       // Update asset fields
-      axios.patch(baseURL + "/" + context.editing_asset_id, { ...asset.fields })
-      updateAssetInCache(context.editing_asset_id, queryClient, { ...asset.fields })
-      dispatch(resetEditingAssetId())
+      const updatedAsset = getUpdatedAsset(context.current_asset, assetFormFields)
+      axios.patch(baseURL + "/" + context.editing_asset_id, updatedAsset)
+      updateAssetInCache(queryClient, updatedAsset)
+      dispatch(resetCurrentAsset())
       dispatch(setAssetFormFields(eraseFields(asset.fields)))
     }
-  }
-
-  function handleBackButton() {
-    dispatch(resetEditingAssetId())
-    dispatch(setAssetFormFields(eraseFields(asset.fields)))
-  }
-
-  const onSubmit: SubmitHandler<AssetFormFields> = (data) => {
-    console.log(data)
   }
 
   return (
@@ -77,7 +75,7 @@ export function AssetForm() {
       <div className="flex justify-end gap-2">
         {context.editing_asset_id && (
           <Button
-            onClick={handleBackButton}
+            // onClick={handleBackButton}
             bg="green"
             rounded="full"
             _color="white"
@@ -86,7 +84,7 @@ export function AssetForm() {
         )}
         {(!context.editing_asset_id || isDifferent) && (
           <Button
-            onClick={handleClickButton}
+            type="submit"
             bg="blue"
             rounded="full"
             _color="white"

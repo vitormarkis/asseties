@@ -19,7 +19,7 @@ function Select<T extends FieldValues>(props: Props<T>) {
         className="w-full"
       >
         {options.map(option => (
-          <option key={option}>{option}</option>
+          <option key={option} value={option}>{option}</option>
         ))}
       </select>
     </FormFieldBox>

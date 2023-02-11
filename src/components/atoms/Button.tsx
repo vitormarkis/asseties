@@ -1,5 +1,6 @@
+import { AssetType } from "@features/asset-slice/types"
 import clsx from "clsx"
-import { ButtonHTMLAttributes } from "react"
+import { ButtonHTMLAttributes, Dispatch, SetStateAction } from "react"
 
 type BackgroundColors = "blue" | "red" | "green"
 type RoundedSizes = "md" | "full"
