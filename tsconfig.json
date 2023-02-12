@@ -25,6 +25,7 @@
       "@myTypes/*": ["src/myTypes/*"],
       "@features/*": ["./src/features/*"],
       "@constants/*": ["./src/constants/*"],
+      "@factories/*": ["./src/factories/*"],
       "§/*": ["./src/*"]
     }
   },

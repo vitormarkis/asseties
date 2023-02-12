@@ -3,7 +3,7 @@ import { baseURL, categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { resetCurrentAsset, setCurrentAsset } from "@features/context-slice"
 import { TagFormFields } from "@features/tag-slice/types"
-import { formatFields, getUpdatedAssetByNewTag, updateAssetInCache } from "@utils/index"
+import { formatFields, updateAssetInCache } from "@utils/index"
 import axios, { AxiosResponse } from "axios"
 import { useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -19,8 +19,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function TagsForm() {
   const navigate = useNavigate()
   const { data: asset } = useLoaderData() as AxiosResponse<AssetType>
-
-  console.log({ asset })
 
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
@@ -39,22 +37,19 @@ export default function TagsForm() {
   const onSubmit: SubmitHandler<TagFormFields> = (tagFields: TagFormFields) => {
     if (!asset) return
     const formattedFields = formatFields(tagFields)
-    const updatedAsset = getUpdatedAssetByNewTag(formattedFields, asset)
+     /**
+     *  USAR REDUCERS
+     */
+    // const updatedAsset = getUpdatedAssetByNewTag(formattedFields, asset)
 
-    dispatch(setCurrentAsset(updatedAsset))
-    updateAssetInCache(queryClient, updatedAsset)
-    axios.patch(baseURL + "/" + asset.id, updatedAsset)
+    // dispatch(setCurrentAsset(updatedAsset))
+    // updateAssetInCache(queryClient, updatedAsset)
+    // axios.patch(baseURL + "/" + asset.id, updatedAsset)
   }
 
   useEffect(() => {
     reset()
   }, [isSubmitSuccessful, reset])
-
-  // useEffect(() => {
-  //   if (!asset || !tag) {
-  //     navigate("/")
-  //   }
-  // }, [])
 
   return (
     <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen gap-12">

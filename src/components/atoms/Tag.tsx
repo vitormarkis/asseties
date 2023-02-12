@@ -3,17 +3,19 @@ import { AssetType } from "@features/asset-slice/types"
 import { TagType } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
-import { eraseFields, filterAssetByTag, getUpdatedAssets as patchAssets } from "@utils/index"
+import { eraseFields } from "@utils/index"
 import axios from "axios"
 import { HTMLAttributes, useState } from "react"
 
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
-import { resetEditingTagId, setCurrentAsset } from "@features/context-slice"
+import { manipulateAssets } from "@factories/Assets"
+import { resetEditingTagId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import { setTagEditFields } from "@features/tag-slice"
 import * as Popover from "@radix-ui/react-popover"
 import { useDispatch } from "react-redux"
+import { manipulateAsset } from "@factories/Asset"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   _bg?: `#${string}` | NamedColor
@@ -39,13 +41,13 @@ const Tag: React.FC<Props> = props => {
   }
 
   function handleDeleteTag(tag: TagType) {
+    console.log('sdufhsu')
     const assetsInCache = queryClient.getQueryData<AssetType[]>("assets")!
-    const assetWithoutTag = filterAssetByTag(_asset, tag)
-    const assets = patchAssets(assetsInCache, assetWithoutTag)
+    const asset = manipulateAsset(_asset).removeTag(tag.id).getValue()
+    const assets = manipulateAssets(assetsInCache).updateAsset(asset).getValues()
 
-    dispatch(setCurrentAsset(assetWithoutTag))
     queryClient.setQueryData("assets", assets)
-    axios.put(`${baseURL}/${assetId}`, assetWithoutTag)
+    axios.put(`${baseURL}/${assetId}`, asset)
   }
 
   function handleClickDownOutside() {

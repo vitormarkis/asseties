@@ -1,11 +1,8 @@
-import { baseURL, categories } from "@constants/constants"
+import { categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { resetCurrentAsset, resetCurrentTag, setCurrentAsset } from "@features/context-slice"
-import { useAppSelector } from "@features/store"
-import { TagEditFields, TagFormFields, TagType } from "@features/tag-slice/types"
+import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
-import { formatFields, getUpdatedAsset, getUpdatedAssetByNewTag, getUpdatedAssetByUpdatingTag, updateAssetInCache } from "@utils/index"
-import axios from "axios"
+import { FieldsReducers, Formatter } from "@utils/index"
 import React, { Dispatch, SetStateAction } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
@@ -30,14 +27,18 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }
   const dispatch = useDispatch()
   const queryClient = useQueryClient()
 
-  const onSubmit: SubmitHandler<TagEditFields> = async (formTag) => {
-    const formattedFields = formatFields<TagFormFields>(formTag)
-    const updatedAsset = getUpdatedAssetByUpdatingTag(formattedFields, tag.id, _asset)
-
-    await axios.put(`${baseURL}/${_asset.id}`, updatedAsset)
-    updateAssetInCache(queryClient, updatedAsset)
-    dispatch(setCurrentAsset(updatedAsset))
-    setIsPopoverOpen(false)
+  const onSubmit: SubmitHandler<TagEditFields> = async formTag => {
+    // const formattedFields = formatFields<TagFormFields>(formTag)
+    /**
+     *  USAR REDUCERS
+     */
+    // const updatedAsset = getUpdatedAssetByUpdatingTag(formattedFields, tag.id, _asset)
+    const foo = FieldsReducers(formTag).formatFields(Formatter.fields)
+    console.log(foo)
+    // await axios.put(`${baseURL}/${_asset.id}`, updatedAsset)
+    // updateAssetInCache(queryClient, updatedAsset)
+    // dispatch(setCurrentAsset(updatedAsset))
+    // setIsPopoverOpen(false)
   }
 
   return (
@@ -51,9 +52,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }
           text-sm p-4 rounded-lg bg-zinc-100 flex flex-col
           "
       >
-        <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">
-          {actionAttrs.title}
-        </Dialog.Title>
+        <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">{actionAttrs.title}</Dialog.Title>
         <Dialog.Description className="text-zinc-400 text-xs">{actionAttrs.description}</Dialog.Description>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -71,7 +70,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }
             field="category"
             defaultValue={tag.category}
             options={categories}
-            />
+          />
 
           <div className="flex items-center justify-between">
             <Dialog.Close>
@@ -91,7 +90,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }
               rounded="md"
               value="Salvar"
               fontSize="extra-small"
-            autoFocus={true}
+              autoFocus={true}
             />
           </div>
         </form>

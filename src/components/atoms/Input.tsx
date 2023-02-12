@@ -7,7 +7,7 @@ interface Props<T extends FieldValues> extends HTMLAttributes<HTMLInputElement> 
   parentAttrs?: HTMLAttributes<HTMLDivElement>
   field: FieldPath<T>
   register: UseFormRegister<T>
-  name: string
+  name?: string
 }
 
 function Input<T extends FieldValues>(props: Props<T>){

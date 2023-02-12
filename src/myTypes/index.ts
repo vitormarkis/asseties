@@ -8,3 +8,5 @@ export interface SetKeyValue<K, V> {
   key: K
   value: V
 }
+
+export type mapTuple = [string, any]
