@@ -4,6 +4,8 @@ import { AssetFormFields, AssetType } from "@features/asset-slice/types"
 import { queryClient } from "@services/queryClient"
 import { getUpdatedAsset, updateAssetInCache } from "@utils/index"
 import axios, { AxiosResponse } from "axios"
+import _ from "lodash"
+import { ChangeEvent, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
 
@@ -14,22 +16,29 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export function EditAssetForm() {
   const { register, handleSubmit } = useForm<AssetFormFields>()
-  const {
-    data: asset,
-  } = useLoaderData() as AxiosResponse<AssetType>
+  const { data: asset } = useLoaderData() as AxiosResponse<AssetType>
   const navigate = useNavigate()
+  const [formFields, setFormFields] = useState<AssetFormFields | {}>({})
+  const hasDifferences =
+    !_.isEqual(formFields, { asset_name: asset.asset_name }) && 
+    Object.keys(formFields).length !== 0
+
+  function handleOnChangeField(e: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = e.target
+    setFormFields(prevState => ({ ...prevState, [name]: value }))
+  }
 
   const onSubmit: SubmitHandler<AssetFormFields> = async assetFormFields => {
     const updatedAsset = getUpdatedAsset(asset, assetFormFields)
-    await axios.put(baseURL + '/' + asset.id, updatedAsset)
+    await axios.put(baseURL + "/" + asset.id, updatedAsset)
     updateAssetInCache(queryClient, updatedAsset)
-    navigate('/')
+    navigate("/")
   }
 
   function handleBackButtonClick() {
-    navigate(-1)
+    navigate('/')
   }
-  
+
   return (
     <div className="w-[480px]">
       <form
@@ -38,25 +47,29 @@ export function EditAssetForm() {
       >
         <Input
           field="asset_name"
+          name="asset_name"
           register={register}
           defaultValue={asset.asset_name}
+          onChange={handleOnChangeField}
         />
         <div className="flex justify-between">
           <Button
-          onClick={handleBackButtonClick}
+            onClick={handleBackButtonClick}
             type="reset"
             value="Voltar"
             _color="white"
             rounded="full"
             bg="green"
           />
-          <Button
-            type="submit"
-            value="Atualizar"
-            _color="white"
-            rounded="full"
-            bg="blue"
-          />
+          {hasDifferences && (
+            <Button
+              type="submit"
+              value="Atualizar"
+              _color="white"
+              rounded="full"
+              bg="blue"
+            />
+          )}
         </div>
       </form>
     </div>

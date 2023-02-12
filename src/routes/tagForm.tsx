@@ -2,8 +2,6 @@ import { Button, Input, Select, Tag } from "@components/atoms"
 import { baseURL, categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { resetCurrentAsset, setCurrentAsset } from "@features/context-slice"
-import { useAppSelector } from "@features/store"
-import { tagReducer } from "@features/tag-slice"
 import { TagFormFields } from "@features/tag-slice/types"
 import { formatFields, getUpdatedAssetByNewTag, updateAssetInCache } from "@utils/index"
 import axios, { AxiosResponse } from "axios"
@@ -15,12 +13,11 @@ import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const id = params.id
-  return await axios.get(baseURL + '/' + id)
+  return await axios.get(baseURL + "/" + id)
 }
 
 export default function TagsForm() {
   const navigate = useNavigate()
-  const { context } = useAppSelector(state => state)
   const { data: asset } = useLoaderData() as AxiosResponse<AssetType>
 
   console.log({ asset })

@@ -7,17 +7,18 @@ interface Props<T extends FieldValues> extends HTMLAttributes<HTMLInputElement> 
   parentAttrs?: HTMLAttributes<HTMLDivElement>
   field: FieldPath<T>
   register: UseFormRegister<T>
+  name: string
 }
 
 function Input<T extends FieldValues>(props: Props<T>){
-  const { parentAttrs, field, register, ...rest } = props
+  const { parentAttrs, field, register, className,...rest } = props
   return (
     <FormFieldBox parentAttrs={parentAttrs}>
       <input
         {...register(field)}
         {...rest}
         type="text"
-        className="w-full"
+        className={className + " w-full"}
       />
 
     </FormFieldBox>
