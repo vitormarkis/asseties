@@ -35,7 +35,7 @@ export function Asset({ container, asset }: Props) {
     <div
       id="assets-list"
       key={asset.id}
-      className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5"
+      className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
     >
       <div className="flex gap-2 items-center">
         <div

@@ -3,19 +3,14 @@ import { AssetType } from "@features/asset-slice/types"
 import { TagType } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
-import { eraseFields } from "@utils/index"
 import axios from "axios"
 import { HTMLAttributes, useState } from "react"
 
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
-import { manipulateAssets } from "@factories/Assets"
-import { resetEditingTagId } from "@features/context-slice"
-import { useAppSelector } from "@features/store"
-import { setTagEditFields } from "@features/tag-slice"
 import * as Popover from "@radix-ui/react-popover"
-import { useDispatch } from "react-redux"
-import { manipulateAsset } from "@factories/Asset"
+import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   _bg?: `#${string}` | NamedColor
@@ -27,11 +22,8 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Tag: React.FC<Props> = props => {
-  const dispatch = useDispatch()
-  const { editFields } = useAppSelector(state => state.tag)
   const { _bg, _color, _tag, _asset, _container, _popover, ...rest } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-  const { id: assetId } = _asset ?? {}
 
   const actionAttributes = {
     edit: {
@@ -41,19 +33,13 @@ const Tag: React.FC<Props> = props => {
   }
 
   function handleDeleteTag(tag: TagType) {
-    console.log('sdufhsu')
-    const assetsInCache = queryClient.getQueryData<AssetType[]>("assets")!
-    const asset = manipulateAsset(_asset).removeTag(tag.id).getValue()
-    const assets = manipulateAssets(assetsInCache).updateAsset(asset).getValues()
-
-    queryClient.setQueryData("assets", assets)
-    axios.put(`${baseURL}/${assetId}`, asset)
+    const assetsWithoutRemovedOne = AssetObjectReducers(_asset).removeTag(tag.id)
+    const refreshedAsset = AssetObjectReducers(assetsWithoutRemovedOne).refresh()
+    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
   }
 
-  function handleClickDownOutside() {
-    dispatch(resetEditingTagId())
-    dispatch(setTagEditFields(eraseFields(editFields)))
-  }
+  function handleClickDownOutside() {}
 
   return (
     <Popover.Root
