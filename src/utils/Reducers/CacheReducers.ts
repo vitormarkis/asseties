@@ -17,8 +17,9 @@ export const CacheReducers = (queryClient: QueryClient, queryKey: string) => {
         queryClient.setQueryData(queryKey, updatedAssets)
       },
       update: (newAsset: AssetType) => {
-        const updatedAssets = AssetsArrayReducers(assets).updateAsset(newAsset)
-        queryClient.setQueryData(queryKey, updatedAssets)
+        const updatedAsset = AssetsArrayReducers(assets).updateAsset(newAsset)
+        console.log({queryClient, queryKey, newAsset, updatedAsset})
+        queryClient.setQueryData(queryKey, updatedAsset)
       },
       remove: (assetId: string) => {
         const updatedAssets = AssetsArrayReducers(assets).removeAsset(assetId)

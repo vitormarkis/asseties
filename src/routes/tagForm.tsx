@@ -1,13 +1,16 @@
 import { Button, Input, Select, Tag } from "@components/atoms"
 import { baseURL, categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { resetCurrentAsset, setCurrentAsset } from "@features/context-slice"
+import { resetCurrentAsset } from "@features/context-slice"
 import { TagFormFields } from "@features/tag-slice/types"
-import { formatFields, updateAssetInCache } from "@utils/index"
+import { queryClient } from "@services/queryClient"
+import { FieldsReducers, Formatter } from "@utils/index"
+import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
+import { TagObjectReducers } from "@utils/Reducers/TagsReducers"
 import axios, { AxiosResponse } from "axios"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
 
@@ -18,33 +21,24 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export default function TagsForm() {
   const navigate = useNavigate()
-  const { data: asset } = useLoaderData() as AxiosResponse<AssetType>
-
-  const dispatch = useDispatch()
-  const queryClient = useQueryClient()
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { isSubmitSuccessful },
-  } = useForm<TagFormFields>()
+  const { data: rawAsset } = useLoaderData() as AxiosResponse<AssetType>
+  const { register, handleSubmit, reset, formState } = useForm<TagFormFields>()
+  const { isSubmitSuccessful } = formState
+  const [asset, setAsset] = useState(rawAsset);
 
   async function handleBackButton() {
     navigate(-1)
-    dispatch(resetCurrentAsset())
   }
 
-  const onSubmit: SubmitHandler<TagFormFields> = (tagFields: TagFormFields) => {
-    if (!asset) return
-    const formattedFields = formatFields(tagFields)
-     /**
-     *  USAR REDUCERS
-     */
-    // const updatedAsset = getUpdatedAssetByNewTag(formattedFields, asset)
-
-    // dispatch(setCurrentAsset(updatedAsset))
-    // updateAssetInCache(queryClient, updatedAsset)
-    // axios.patch(baseURL + "/" + asset.id, updatedAsset)
+  const onSubmit: SubmitHandler<TagFormFields> = (tagFormFields: TagFormFields) => {
+    const formattedFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
+    const newTag = TagObjectReducers().createTag(formattedFields)
+    const updatedAsset = aor(asset).addTag(newTag)
+    const refreshedAsset = aor(updatedAsset).refresh()
+    
+    setAsset(refreshedAsset)
+    CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    axios.put(baseURL + "/" + asset.id, refreshedAsset)
   }
 
   useEffect(() => {

@@ -1,12 +1,14 @@
 import { Button, Input } from "@components/atoms"
 import { baseURL } from "@constants/constants"
 import { AssetFormFields, AssetType } from "@features/asset-slice/types"
-import { FieldsReducers, formatterFields } from "@utils/index"
-import axios, { AxiosResponse } from "axios"
-import _ from "lodash"
+import { queryClient } from "@services/queryClient"
+import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import { ChangeEvent, useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
+import axios, { AxiosResponse } from "axios"
+import _ from "lodash"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const id = params.id as string
@@ -29,17 +31,13 @@ export function EditAssetForm() {
     setFormFields(prevState => ({ ...prevState, [name]: value }))
   }
 
-  const onSubmit: SubmitHandler<AssetFormFields> = async assetFormFields => {
-    /**
-     *  USAR REDUCERS
-     */
-    // const updatedAsset = getUpdatedAsset(asset, assetFormFields)
-    // await axios.put(baseURL + "/" + asset.id, updatedAsset)
-    // updateAssetInCache(queryClient, updatedAsset)
-    navigate("/")
+  const onSubmit: SubmitHandler<AssetFormFields> = assetFormFields => {
+    const updatedAsset = aor(asset).updateAsset(assetFormFields)
+    const refreshedAsset = aor(updatedAsset).refresh()
 
-    const foo = FieldsReducers(assetFormFields).formatFields(formatterFields)
-    console.log(foo)
+    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    navigate("/")
+    axios.put(baseURL + "/" + asset.id, refreshedAsset)
   }
 
   function handleBackButtonClick() {

@@ -1,12 +1,15 @@
-import { categories } from "@constants/constants"
+import { baseURL, categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
+import { queryClient } from "@services/queryClient"
 import { FieldsReducers, Formatter } from "@utils/index"
+import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
+import { TagObjectReducers as TagOR } from "@utils/Reducers/TagsReducers"
+import axios from "axios"
 import React, { Dispatch, SetStateAction } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useQueryClient } from "react-query"
-import { useDispatch } from "react-redux"
 import { Button, Input, Select } from "./atoms"
 
 export interface ActionAttributes {
@@ -23,22 +26,17 @@ interface Props {
 
 const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }) => {
   const { register, handleSubmit } = useForm<TagEditFields>()
-  // const { current_tag } = useAppSelector(state => state.context)
-  const dispatch = useDispatch()
-  const queryClient = useQueryClient()
 
-  const onSubmit: SubmitHandler<TagEditFields> = async formTag => {
-    // const formattedFields = formatFields<TagFormFields>(formTag)
-    /**
-     *  USAR REDUCERS
-     */
-    // const updatedAsset = getUpdatedAssetByUpdatingTag(formattedFields, tag.id, _asset)
-    const foo = FieldsReducers(formTag).formatFields(Formatter.fields)
-    console.log(foo)
-    // await axios.put(`${baseURL}/${_asset.id}`, updatedAsset)
-    // updateAssetInCache(queryClient, updatedAsset)
-    // dispatch(setCurrentAsset(updatedAsset))
-    // setIsPopoverOpen(false)
+  const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
+    const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
+    const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
+    const refreshedTag = TagOR(updatedTag).refresh()
+    const updatedAsset = AssetOR(_asset).updateTag(refreshedTag)
+    const refreshedAsset = AssetOR(updatedAsset).refresh()
+
+    CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    axios.put(baseURL + '/' + refreshedAsset.id, refreshedAsset)
+    setIsPopoverOpen(false)
   }
 
   return (

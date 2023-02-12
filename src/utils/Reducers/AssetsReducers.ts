@@ -4,15 +4,15 @@ import { generateId } from ".."
 
 export const AssetObjectReducers = (asset?: AssetType) => ({
   asset,
+  refresh: (): AssetType => ({ ...asset!, updated_at: String(new Date()) }),
   createAsset: (assetFormFields: AssetFormFields): AssetType => ({ ...generateId(), ...assetFormFields, tags: [] }),
-  updateAsset: (assetFormFields: AssetFormFields) => ({ ...asset, ...assetFormFields }),
-  refresh: () => ({ ...asset, updated_at: String(new Date()) }),
-  getTag: (tagId: string) => asset!.tags.find(tag => tag.id === tagId),
-  addTag: (newTag: TagType) => ({ ...asset, tags: [...asset!.tags, newTag] }),
-  updateTag: (newTag: TagType) => ({ ...asset, tags: asset!.tags.map(tag => (tag.id === newTag.id ? newTag : tag)) }),
-  removeTag: (tagId: string) => ({ ...asset, tags: asset!.tags.filter(tag => tag.id !== tagId) }),
-  patchTag: (tagId: string, tagFormFields: TagFormFields) => ({
-    ...asset,
+  updateAsset: (assetFormFields: AssetFormFields): AssetType => ({ ...asset!, ...assetFormFields }),
+  getTag: (tagId: string): TagType => asset!.tags.find(tag => tag.id === tagId)!,
+  addTag: (newTag: TagType): AssetType => ({ ...asset!, tags: [...asset!.tags, newTag] }),
+  updateTag: (newTag: TagType): AssetType => ({ ...asset!, tags: asset!.tags.map(tag => (tag.id === newTag.id ? newTag : tag)) }),
+  removeTag: (tagId: string): AssetType => ({ ...asset!, tags: asset!.tags.filter(tag => tag.id !== tagId) }),
+  patchTag: (tagId: string, tagFormFields: TagFormFields): AssetType => ({
+    ...asset!,
     tags: asset!.tags.map(tag => (tag.id === tagId ? { ...tag, ...tagFormFields } : tag)),
   }),
 })

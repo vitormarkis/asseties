@@ -2,19 +2,20 @@ import { Button, Input } from "@components/atoms"
 import { baseURL } from "@constants/constants"
 import { AssetFormFields } from "@features/asset-slice/types"
 import { queryClient } from "@services/queryClient"
+import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import axios from "axios"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
-import { addNewAssetToCache, generateNewAsset } from "../utils"
 
 export function NewAssetForm() {
   const { register, handleSubmit } = useForm<AssetFormFields>()
   const navigate = useNavigate()
 
-  const onSubmit: SubmitHandler<AssetFormFields> = async assetFormData => {
-    const newAsset = generateNewAsset(assetFormData)
-    await axios.post(`${baseURL}`, newAsset)
-    addNewAssetToCache(newAsset, queryClient)
+  const onSubmit: SubmitHandler<AssetFormFields> = assetFormFields => {
+    const newAsset = aor().createAsset(assetFormFields)
+    CacheReducers(queryClient, 'assets').asset().add(newAsset)
+    axios.post(baseURL, newAsset)
     navigate("/")
   }
 

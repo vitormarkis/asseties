@@ -1,9 +1,8 @@
 import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { setCurrentAsset } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
-import { removeAssetFromCache } from "@utils/index"
+import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -19,27 +18,16 @@ export function Asset({ container, asset }: Props) {
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)
 
-  function handleDeleteAsset(assetId: string) {
-    removeAssetFromCache(assetId, queryClient)
-    axios.delete(`${baseURL}/${assetId}`)
+  function handleRemoveAsset(assetId: string) {
+    CacheReducers(queryClient, "assets").asset().remove(assetId)
+    axios.delete(baseURL + "/" + assetId)
   }
 
   function handleEditAsset(assetId: string) {
-    const assets = queryClient.getQueryData<AssetType[]>("assets")
-    if (!assets) throw new Error("Não foi possível encontrar os assets.")
-    const asset = assets.find(asset => asset.id === assetId)
-    if (!asset) throw new Error("Não foi possível encontrar o asset desejado.")
-
-    dispatch(setCurrentAsset(asset))
     navigate("/edit/" + assetId)
   }
 
-  function handleAddTags(assetId: string) {
-    const assets = queryClient.getQueryData<AssetType[]>("assets")!
-    const asset = assets.find(asset => asset.id === assetId)
-    if (!asset) throw new Error("Não foi encotrado um asset com esse id.")
-    dispatch(setCurrentAsset(asset))
-
+  function handleAddTagsClick(assetId: string) {
     navigate(`/addTags/${assetId}`)
   }
 
@@ -51,7 +39,7 @@ export function Asset({ container, asset }: Props) {
     >
       <div className="flex gap-2 items-center">
         <div
-          onClick={() => handleDeleteAsset(asset.id)}
+          onClick={() => handleRemoveAsset(asset.id)}
           className="text-white font-black cursor-pointer bg-red-700 rounded-full w-3 h-3 relative"
         />
         <div
@@ -60,7 +48,7 @@ export function Asset({ container, asset }: Props) {
         />
         <p className={context.editing_asset_id === asset.id ? "editing" : ""}>{asset.asset_name}</p>
         <div
-          onClick={() => handleAddTags(asset.id)}
+          onClick={() => handleAddTagsClick(asset.id)}
           className="text-white font-black cursor-pointer bg-green-600 ml-auto rounded-full w-3 h-3 relative"
         />
       </div>
