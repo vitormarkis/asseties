@@ -22,9 +22,10 @@ interface Props {
   tag: TagType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
   _asset: AssetType
+  setState: React.Dispatch<React.SetStateAction<AssetType>>
 }
 
-const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }) => {
+const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPopoverOpen }) => {
   const { register, handleSubmit } = useForm<TagEditFields>()
 
   const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
@@ -34,7 +35,8 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setIsPopoverOpen }
     const updatedAsset = AssetOR(_asset).updateTag(refreshedTag)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
 
-    CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    setState(refreshedAsset)
+      CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
     axios.put(baseURL + '/' + refreshedAsset.id, refreshedAsset)
     setIsPopoverOpen(false)
   }

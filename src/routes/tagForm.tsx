@@ -11,7 +11,6 @@ import { TagObjectReducers } from "@utils/Reducers/TagsReducers"
 import axios, { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useDispatch } from "react-redux"
 import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
 
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -61,6 +60,7 @@ export default function TagsForm() {
               _tag={tag}
               _asset={asset}
               _popover
+              setState={setAsset}
             />
           ))}
         </div>

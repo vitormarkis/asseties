@@ -19,10 +19,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   _asset: AssetType
   _container?: Element | null
   _popover?: boolean
+  setState: React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 const Tag: React.FC<Props> = props => {
-  const { _bg, _color, _tag, _asset, _container, _popover, ...rest } = props
+  const { _bg, _color, _tag, _asset, _container, _popover, setState, ...rest } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
@@ -35,7 +36,12 @@ const Tag: React.FC<Props> = props => {
   function handleDeleteTag(tag: TagType) {
     const assetsWithoutRemovedOne = AssetObjectReducers(_asset).removeTag(tag.id)
     const refreshedAsset = AssetObjectReducers(assetsWithoutRemovedOne).refresh()
-    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+
+    if(queryClient.getQueryData('assets')) {
+      CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    }
+    
+    setState(refreshedAsset)
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
   }
 
@@ -89,6 +95,7 @@ const Tag: React.FC<Props> = props => {
                   tag={_tag}
                   setIsPopoverOpen={setIsPopoverOpen}
                   _asset={_asset}
+                  setState={setState}
                 />
               }
             />

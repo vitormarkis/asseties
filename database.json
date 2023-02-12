@@ -1,32 +1,17 @@
 {
   "assets": [
     {
-      "id": "yxdptqopyqc",
-      "created_at": "Sun Feb 12 2023 19:38:28 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sun Feb 12 2023 19:43:10 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "projeto",
+      "id": "dlp6v6p9qs",
+      "created_at": "Sun Feb 12 2023 19:48:26 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Sun Feb 12 2023 20:02:15 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "2temp-fruits-todo",
       "tags": [
         {
-          "id": "tdtnizia0t",
-          "created_at": "Sun Feb 12 2023 19:43:10 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sun Feb 12 2023 19:43:10 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "Sweet",
-          "category": "design_pattern"
-        }
-      ]
-    },
-    {
-      "id": "toxjy0y03wm",
-      "created_at": "Sun Feb 12 2023 19:40:08 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sun Feb 12 2023 19:43:04 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "system-tags-with-react",
-      "tags": [
-        {
-          "id": "mj8ja6inide",
-          "created_at": "Sun Feb 12 2023 19:43:04 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sun Feb 12 2023 19:43:04 GMT-0300 (Horário Padrão de Brasília)",
+          "id": "qajhua9iy8",
+          "created_at": "Sun Feb 12 2023 19:59:57 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Sun Feb 12 2023 19:59:57 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react router dom",
-          "category": "technology"
+          "category": "framework"
         }
       ]
     }
