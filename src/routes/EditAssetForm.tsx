@@ -4,11 +4,11 @@ import { AssetFormFields, AssetType } from "@features/asset-slice/types"
 import { queryClient } from "@services/queryClient"
 import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
+import axios, { AxiosResponse } from "axios"
+import _ from "lodash"
 import { ChangeEvent, useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom"
-import axios, { AxiosResponse } from "axios"
-import _ from "lodash"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const id = params.id as string
@@ -66,7 +66,7 @@ export function EditAssetForm() {
             onClick={handleBackButtonClick}
             type="reset"
             value="Voltar"
-            _color="white"
+            color="white"
             rounded="full"
             bg="green"
           />
@@ -74,7 +74,7 @@ export function EditAssetForm() {
             <Button
               type="submit"
               value="Atualizar"
-              _color="white"
+              color="white"
               rounded="full"
               bg="blue"
             />

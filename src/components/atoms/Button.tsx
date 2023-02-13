@@ -1,6 +1,5 @@
-import { AssetType } from "@features/asset-slice/types"
 import clsx from "clsx"
-import { ButtonHTMLAttributes, Dispatch, SetStateAction } from "react"
+import { ButtonHTMLAttributes } from "react"
 
 type BackgroundColors = "blue" | "red" | "green"
 type RoundedSizes = "md" | "full"
@@ -11,12 +10,12 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   value: string
   bg: BackgroundColors
   rounded: RoundedSizes
-  _color: TextColor
+  color: TextColor
   fontSize?: FontSize
 }
 
 const Button: React.FC<Props> = props => {
-  const { value, bg, rounded, _color: color, className, ...rest } = props
+  const { value, bg, rounded, color: color, className, ...rest } = props
   return (
     <button
       className={clsx(
@@ -28,8 +27,8 @@ const Button: React.FC<Props> = props => {
           "bg-emerald-600": props.bg == "green",
           "rounded-md": props.rounded == "md",
           "rounded-xl": props.rounded == "full",
-          "text-black": props._color == "black",
-          "text-white": props._color == "white",
+          "text-black": props.color == "black",
+          "text-white": props.color == "white",
           "text-base": props.fontSize == "normal",
           "text-sm": props.fontSize == "small",
           "text-xs": props.fontSize == "extra-small",

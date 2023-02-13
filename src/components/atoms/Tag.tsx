@@ -13,17 +13,26 @@ import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  _bg?: `#${string}` | NamedColor
-  _color?: `#${string}` | NamedColor
-  _tag: TagType
-  _asset: AssetType
-  _container?: Element | null
-  _popover?: boolean
+  bg?: `#${string}` | NamedColor
+  color?: `#${string}` | NamedColor
+  tag: TagType
+  asset: AssetType
+  container?: Element | null
+  popover?: boolean
   setState: React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 const Tag: React.FC<Props> = props => {
-  const { _bg, _color, _tag, _asset, _container, _popover, setState, ...rest } = props
+  const {
+    bg,
+    color,
+    tag,
+    asset,
+    container,
+    popover,
+    setState,
+    ...rest
+  } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
@@ -34,13 +43,13 @@ const Tag: React.FC<Props> = props => {
   }
 
   function handleDeleteTag(tag: TagType) {
-    const assetsWithoutRemovedOne = AssetObjectReducers(_asset).removeTag(tag.id)
+    const assetsWithoutRemovedOne = AssetObjectReducers(asset).removeTag(tag.id)
     const refreshedAsset = AssetObjectReducers(assetsWithoutRemovedOne).refresh()
 
-    if(queryClient.getQueryData('assets')) {
-      CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    if (queryClient.getQueryData("assets")) {
+      CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     }
-    
+
     setState(refreshedAsset)
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
   }
@@ -56,26 +65,26 @@ const Tag: React.FC<Props> = props => {
         <div
           className="leading-none p-1 rounded-sm text-xs flex gap-2 items-center"
           style={{
-            backgroundColor: _bg ?? "#52525B",
-            color: _color ?? "#fff",
+            backgroundColor: bg ?? "#52525B",
+            color: color ?? "#fff",
           }}
           {...rest}
         >
-          <p>{_tag.tag_name}</p>
+          <p>{tag.tag_name}</p>
           <p
-            onClick={() => handleDeleteTag(_tag)}
+            onClick={() => handleDeleteTag(tag)}
             className="cursor-pointer p-1 rounded-full bg-black/20 mr-1 w-2.5 h-2.5"
           />
         </div>
       </Popover.Trigger>
-      {_popover && (
+      {popover && (
         <Popover.Portal>
           <Popover.Content
             onPointerDownOutside={handleClickDownOutside}
             side="right"
             align="center"
             sticky="always"
-            collisionBoundary={_container}
+            collisionBoundary={container}
             collisionPadding={{ left: 16 }}
             hideWhenDetached={true}
             className="plate py-2 rounded-md bg-slate-800 shadow-md shadow-black/20 flex flex-col text-xs"
@@ -83,7 +92,7 @@ const Tag: React.FC<Props> = props => {
             <PopoverButton
               type="button"
               action="Excluir"
-              event={() => handleDeleteTag(_tag)}
+              event={() => handleDeleteTag(tag)}
             />
             <PopoverButton
               type="button"
@@ -92,9 +101,9 @@ const Tag: React.FC<Props> = props => {
               element={
                 <EditTag
                   actionAttrs={actionAttributes.edit}
-                  tag={_tag}
+                  tag={tag}
                   setIsPopoverOpen={setIsPopoverOpen}
-                  _asset={_asset}
+                  _asset={asset}
                   setState={setState}
                 />
               }

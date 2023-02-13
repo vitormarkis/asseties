@@ -57,12 +57,12 @@ export function Asset({ container, asset }: Props) {
         {asset.tags.map(tag => (
           <Tag
             key={tag.id}
-            _container={container}
-            _bg="blueviolet"
-            _color="white"
-            _tag={tag}
-            _asset={asset}
-            _popover
+            container={container}
+            bg="blueviolet"
+            color="white"
+            tag={tag}
+            asset={asset}
+            popover
           />
         ))}
       </div>

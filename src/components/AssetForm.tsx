@@ -1,7 +1,7 @@
 import { baseURL } from "@constants/constants"
 import { setAssetFormFields } from "@features/asset-slice"
 import { AssetFormFields, AssetType } from "@features/asset-slice/types"
-import { resetCurrentAsset, resetEditingAssetId } from "@features/context-slice"
+import { resetCurrentAsset } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import {
   addNewAssetToCache,
@@ -51,7 +51,7 @@ export function AssetForm() {
       addNewAssetToCache(newAsset, queryClient)
       dispatch(setAssetFormFields(eraseFields(asset.fields)))
       await axios.post(baseURL, newAsset)
-      navigate('/')
+      navigate("/")
     } else {
       // Update asset fields
       const updatedAsset = getUpdatedAsset(context.current_asset, assetFormFields)
@@ -81,7 +81,7 @@ export function AssetForm() {
             // onClick={handleBackButton}
             bg="green"
             rounded="full"
-            _color="white"
+            color="white"
             value="Voltar"
           />
         )}
@@ -90,7 +90,7 @@ export function AssetForm() {
             type="submit"
             bg="blue"
             rounded="full"
-            _color="white"
+            color="white"
             value={context.editing_asset_id ? "Atualizar" : "Enviar"}
           />
         )}

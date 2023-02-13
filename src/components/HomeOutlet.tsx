@@ -8,7 +8,7 @@ export function HomeOutlet() {
     <div>
       <Button
         onClick={() => navigate("/add")}
-        _color="white"
+        color="white"
         bg="green"
         rounded="full"
         value="+ Novo"

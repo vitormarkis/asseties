@@ -14,7 +14,7 @@ export function NewAssetForm() {
 
   const onSubmit: SubmitHandler<AssetFormFields> = assetFormFields => {
     const newAsset = aor().createAsset(assetFormFields)
-    CacheReducers(queryClient, 'assets').asset().add(newAsset)
+    CacheReducers(queryClient, "assets").asset().add(newAsset)
     axios.post(baseURL, newAsset)
     navigate("/")
   }
@@ -41,14 +41,14 @@ export function NewAssetForm() {
             type="reset"
             bg="green"
             value="Voltar"
-            _color="white"
+            color="white"
             rounded="full"
           />
           <Button
             type="submit"
             bg="blue"
             value="Enviar"
-            _color="white"
+            color="white"
             rounded="full"
           />
         </div>

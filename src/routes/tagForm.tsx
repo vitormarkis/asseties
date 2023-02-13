@@ -1,7 +1,6 @@
 import { Button, Input, Select, Tag } from "@components/atoms"
 import { baseURL, categories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { resetCurrentAsset } from "@features/context-slice"
 import { TagFormFields } from "@features/tag-slice/types"
 import { queryClient } from "@services/queryClient"
 import { FieldsReducers, Formatter } from "@utils/index"
@@ -23,7 +22,7 @@ export default function TagsForm() {
   const { data: rawAsset } = useLoaderData() as AxiosResponse<AssetType>
   const { register, handleSubmit, reset, formState } = useForm<TagFormFields>()
   const { isSubmitSuccessful } = formState
-  const [asset, setAsset] = useState(rawAsset);
+  const [asset, setAsset] = useState(rawAsset)
 
   async function handleBackButton() {
     navigate(-1)
@@ -34,9 +33,9 @@ export default function TagsForm() {
     const newTag = TagObjectReducers().createTag(formattedFields)
     const updatedAsset = aor(asset).addTag(newTag)
     const refreshedAsset = aor(updatedAsset).refresh()
-    
+
     setAsset(refreshedAsset)
-    CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
+    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     axios.put(baseURL + "/" + asset.id, refreshedAsset)
   }
 
@@ -55,11 +54,11 @@ export default function TagsForm() {
           {asset?.tags.map(tag => (
             <Tag
               key={tag.id}
-              _bg="blueviolet"
-              _color="white"
-              _tag={tag}
-              _asset={asset}
-              _popover
+              bg="blueviolet"
+              color="white"
+              tag={tag}
+              asset={asset}
+              popover
               setState={setAsset}
             />
           ))}
@@ -91,14 +90,14 @@ export default function TagsForm() {
             onClick={handleBackButton}
             type="button"
             bg="green"
-            _color="white"
+            color="white"
             rounded="full"
             value="Voltar"
           />
           <Button
             type="submit"
             bg="blue"
-            _color="white"
+            color="white"
             rounded="full"
             value="Enviar"
           />

@@ -36,8 +36,8 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPop
     const refreshedAsset = AssetOR(updatedAsset).refresh()
 
     setState(refreshedAsset)
-      CacheReducers(queryClient, 'assets').asset().update(refreshedAsset)
-    axios.put(baseURL + '/' + refreshedAsset.id, refreshedAsset)
+    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
     setIsPopoverOpen(false)
   }
 
@@ -77,7 +77,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPop
               <Button
                 onClick={() => {}}
                 bg="red"
-                _color="white"
+                color="white"
                 rounded="md"
                 value="Fechar"
                 fontSize="extra-small"
@@ -86,7 +86,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPop
             <Button
               type="submit"
               bg="green"
-              _color="white"
+              color="white"
               rounded="md"
               value="Salvar"
               fontSize="extra-small"
