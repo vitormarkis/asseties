@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { Tag } from "./atoms"
 
 interface Props {
-  container: Element | null
+  container?: Element | null
   asset: AssetType
 }
 
@@ -57,7 +57,7 @@ export function Asset({ container, asset }: Props) {
         {asset.tags.map(tag => (
           <Tag
             key={tag.id}
-            container={container}
+            // container={container}
             bg="blueviolet"
             color="white"
             tag={tag}

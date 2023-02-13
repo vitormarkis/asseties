@@ -1,5 +1,6 @@
 import { Sort } from "@assets/icons"
 import { Asset } from "@components/Asset"
+import { MainWrapper } from "@components/Wrappers/MainWrapper"
 import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import axios from "axios"
@@ -13,7 +14,7 @@ interface Props {
 
 export const AssetList: React.FC<Props> = ({ toolbar }) => {
   const [container, setContainer] = useState<null | Element>(null)
-  const [ordering, setOrdering] = useState(false);
+  const [ordering, setOrdering] = useState(false)
 
   const {
     data: assets,
@@ -41,18 +42,15 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
   return (
     <div>
       {toolbar && (
-        <div className="h-16 w-[560px] text-sm p-4 rounded-lg mb-4 bg-zinc-200 flex justify-between">
+        <MainWrapper className="h-16 w-[560px] mb-4 flex justify-between">
           <div></div>
           <div className="flex gap-2">
-            <div 
-            onClick={() => setOrdering(old => !old)}
-            className={
-              clsx(
-                "p-1 hover:bg-black/10 flex items-center h-8 w-8 justify-center rounded-full", 
-                {
-                  'bg-black/10': ordering,
-                }
-                )}>
+            <div
+              onClick={() => setOrdering(old => !old)}
+              className={clsx("p-1 hover:bg-black/10 flex items-center h-8 w-8 justify-center rounded-full", {
+                "bg-black/10": ordering,
+              })}
+            >
               <Sort
                 className="cursor-pointer"
                 width={20}
@@ -60,20 +58,20 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
               />
             </div>
           </div>
-        </div>
+        </MainWrapper>
       )}
-      <div
-        ref={setContainer}
-        className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit overflow-y-scroll"
+      <MainWrapper
+        // ref={setContainer}
+        className="w-[560px] h-fit overflow-y-scroll flex-col"
       >
         {assets?.map(asset => (
           <Asset
             key={asset.id}
-            container={container}
+            // container={container}
             asset={asset}
           />
         ))}
-      </div>
+      </MainWrapper>
     </div>
   )
 }
