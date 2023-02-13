@@ -1,0 +1,1 @@
+export { Sort } from '@styled-icons/material-outlined/Sort'

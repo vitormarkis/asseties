@@ -26,6 +26,7 @@
       "@features/*": ["./src/features/*"],
       "@constants/*": ["./src/constants/*"],
       "@factories/*": ["./src/factories/*"],
+      "@assets/*": ["./src/assets/*"],
       "§/*": ["./src/*"]
     }
   },

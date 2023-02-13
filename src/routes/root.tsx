@@ -7,7 +7,7 @@ export default function Home() {
       <div className="min-h-[116px] flex items-center justify-center">
       <Outlet />
       </div>
-      <AssetList />
+      <AssetList toolbar />
     </div>
   )
 }

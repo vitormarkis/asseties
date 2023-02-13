@@ -4,8 +4,13 @@ import { AssetType } from "@features/asset-slice/types"
 import axios from "axios"
 import { useState } from "react"
 import { useQuery } from "react-query"
+import { Sort } from '@assets/icons'
 
-export function AssetList() {
+interface Props {
+  toolbar?: boolean
+}
+
+export const AssetList: React.FC<Props> = ({ toolbar }) => {
   const [container, setContainer] = useState<null | Element>(null)
 
   const {
@@ -32,7 +37,13 @@ export function AssetList() {
   }
 
   return (
-    <div
+    <div>
+      {toolbar && (
+        <div className="h-16 bg-blue-600">
+          <Sort width={20} />
+        </div>
+      )}
+      <div
       ref={setContainer}
       className="w-[560px] text-sm p-4 rounded-lg bg-zinc-200 h-fit overflow-y-scroll"
     >
@@ -43,6 +54,7 @@ export function AssetList() {
           asset={asset}
         />
       ))}
+    </div>
     </div>
   )
 }

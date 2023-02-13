@@ -16,6 +16,7 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "src/features"),
       "@constants": path.resolve(__dirname, "src/constants"),
       "@factories": path.resolve(__dirname, "src/factories"),
+      "@assets": path.resolve(__dirname, "src/assets"),
       "§": path.resolve(__dirname, "src"),
     },
   },
