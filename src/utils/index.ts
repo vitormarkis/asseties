@@ -24,3 +24,5 @@ export const Formatter = {
   fields: ([key, value]: mapTuple): mapTuple =>
     casingWhitelist.includes(key) ? [key, value] : [key, value.trim().replace(" ", "_").toLowerCase()],
 }
+
+export const sortMethod = <T>(sortState: boolean) => (a: T, b: T): boolean => (sortState ? a > b : a < b)

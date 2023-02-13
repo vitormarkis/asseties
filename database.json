@@ -3,8 +3,8 @@
     {
       "id": "dlp6v6p9qs",
       "created_at": "Sun Feb 12 2023 19:48:26 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sun Feb 12 2023 20:02:15 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "2temp-fruits-todo",
+      "updated_at": "Mon Feb 13 2023 14:35:03 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "asseties",
       "tags": [
         {
           "id": "qajhua9iy8",
@@ -27,6 +27,36 @@
           "updated_at": "Mon Feb 13 2023 09:01:20 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react query",
           "category": "design_pattern"
+        }
+      ]
+    },
+    {
+      "id": "8afrgxhrk4a",
+      "created_at": "Mon Feb 13 2023 14:32:34 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Mon Feb 13 2023 14:37:02 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "hotel-website-with-framermotion",
+      "tags": [
+        {
+          "id": "c3ymgzw7owb",
+          "created_at": "Mon Feb 13 2023 14:37:02 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Mon Feb 13 2023 14:37:02 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "framer-motion",
+          "category": "framework"
+        }
+      ]
+    },
+    {
+      "id": "3mpay0th2kz",
+      "created_at": "Mon Feb 13 2023 14:35:22 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "3first-project-using-react-router-dom",
+      "tags": [
+        {
+          "id": "idh2oj7vgu",
+          "created_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "react-router-dom",
+          "category": "framework"
         }
       ]
     }
