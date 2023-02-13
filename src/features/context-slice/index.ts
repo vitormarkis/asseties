@@ -1,13 +1,14 @@
 import { AssetType } from "@features/asset-slice/types"
 import { TagType } from "@features/tag-slice/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ContextState } from "./types"
+import { AssetListContainerType, ContextState } from "./types"
 
 export const initialState: ContextState = {
   editing_asset_id: null,
   editing_tag_id: null,
   current_tag: null,
   current_asset: null,
+  current_asset_list_container: 'details'
 }
 
 export const contextSlice = createSlice({
@@ -38,6 +39,9 @@ export const contextSlice = createSlice({
     resetCurrentAsset: state => {
       state.current_asset = null
     },
+    setContextAssetListContainer: (state, action:PayloadAction<AssetListContainerType>) => {
+      state.current_asset_list_container = action.payload
+    }
   },
 })
 
@@ -50,6 +54,7 @@ export const {
   setCurrentTag,
   resetCurrentAsset,
   setCurrentAsset,
+  setContextAssetListContainer,
 } = contextSlice.actions
 
 export const contextReducer = contextSlice.reducer

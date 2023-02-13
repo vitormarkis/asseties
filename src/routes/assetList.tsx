@@ -1,6 +1,9 @@
 import { Sort } from "@assets/icons"
 import { Asset } from "@components/Asset"
+import AssetListDetailed from "@components/AssetListDetailed"
 import { FormFieldBox } from "@components/atoms"
+import { ContainerOption } from "@components/quark/ContainerOption"
+import { ContainerOptionOverlay } from "@components/quark/ContainerOptionOverlay"
 import { IconHover } from "@components/Wrappers/IconHover"
 import { MainWrapper } from "@components/Wrappers/MainWrapper"
 import { baseURL } from "@constants/constants"
@@ -8,7 +11,7 @@ import { AssetType } from "@features/asset-slice/types"
 import { setFilteredList, setFilteredListSearchField, setFilteredListSortState } from "@features/filterList-slice"
 import { useAppSelector } from "@features/store"
 import axios from "axios"
-import { ChangeEvent, useEffect } from "react"
+import { ChangeEvent } from "react"
 import { useQuery } from "react-query"
 import { useDispatch } from "react-redux"
 
@@ -33,20 +36,13 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
   )
 
   const dispatch = useDispatch()
-  const { filteredList, fields, sortState } = useAppSelector(state => state.filteredList)
+  const { filteredList, context } = useAppSelector(state => state)
+  const { fields, sortState } = filteredList
+  const { current_asset_list_container: current } = context
 
   function updateFilteredList() {
     const filteredAssets = [...assets!].filter(asset => asset.asset_name.includes(fields.searchField))!
 
-    // const sortedList = [...filteredAssets].sort((a, b) => {
-    //   return a.asset_name > b.asset_name
-    //     ? sortState ? 1 : -1
-    //     : a.asset_name < b.asset_name
-    //     ? sortState ? -1 : 1
-    //     : 0
-    // })
-
-    // console.log(sortedList)
     dispatch(setFilteredList(filteredAssets))
   }
 
@@ -70,15 +66,6 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
     updateFilteredList()
   }
 
-  const searchedAssets = [...assets!]
-    .sort((a, b) =>
-      a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
-    )
-    .filter(asset => asset.asset_name.includes(fields.searchField))!
-
-  const filteredAssets = [...assets!].sort((a, b) =>
-    a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
-  )
 
   // useEffect(() => {
   //   if (fields.searchField.length === 0) {
@@ -87,9 +74,9 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
   // }, [fields.searchField])
 
   return (
-    <div className="sm:w-[560px] w-full">
+    <div className="sm:w-[560px] w-full flex flex-col gap-4">
       {toolbar && (
-        <MainWrapper className="h-16 gap-4 mb-4 flex justify-between sm:rounded-lg">
+        <MainWrapper className="h-16 gap-4 flex justify-between sm:rounded-lg">
           <div className="grow">
             <FormFieldBox>
               <input
@@ -116,34 +103,19 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
           </div>
         </MainWrapper>
       )}
+
       <MainWrapper
-        // ref={setContainer}
-        className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style"
+        className="h-[32px] sm:rounded-lg relative transition-all duration-700"
+        style={{ padding: "0px" }}
       >
-        {fields.searchField.length > 0
-          ? searchedAssets?.map(asset => (
-              <Asset
-                key={asset.id}
-                // container={container}
-                asset={asset}
-              />
-            ))
-          : sortState
-          ? filteredAssets?.map(asset => (
-              <Asset
-                key={asset.id}
-                // container={container}
-                asset={asset}
-              />
-            ))
-          : assets?.map(asset => (
-              <Asset
-                key={asset.id}
-                // container={container}
-                asset={asset}
-              />
-            ))}
+        <ContainerOption data_id="details" title="Detalhes" />
+        <ContainerOption data_id="compact" title="Compacto" />
+        <ContainerOptionOverlay className="bg-purple-600" />
       </MainWrapper>
+
+      {current === 'details' && assets && <AssetListDetailed assets={assets}/>}
+
+      
     </div>
   )
 }
