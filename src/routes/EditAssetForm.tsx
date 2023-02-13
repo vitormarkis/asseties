@@ -49,7 +49,7 @@ export function EditAssetForm() {
   }, [])
 
   return (
-    <div className="w-[480px]">
+    <div className="sm:w-[560px] w-full">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2"

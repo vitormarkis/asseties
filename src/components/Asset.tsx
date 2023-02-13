@@ -7,6 +7,7 @@ import axios from "axios"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Tag } from "./atoms"
+import { Circle } from "./quark/Circle"
 
 interface Props {
   container?: Element | null
@@ -38,21 +39,13 @@ export function Asset({ container, asset }: Props) {
       className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
     >
       <div className="flex gap-2 items-center">
-        <div
-          onClick={() => handleRemoveAsset(asset.id)}
-          className="text-white font-black cursor-pointer bg-red-700 rounded-full w-3 h-3 relative"
-        />
-        <div
-          onClick={() => handleEditAsset(asset.id)}
-          className="text-white font-black cursor-pointer bg-blue-600 rounded-full w-3 h-3 relative"
+        <Circle onClick={() => handleRemoveAsset(asset.id)} className="bg-red-700" />
+        <Circle onClick={() => handleEditAsset(asset.id)} className="bg-blue-600"
         />
         <p className={context.editing_asset_id === asset.id ? "editing" : ""}>{asset.asset_name}</p>
-        <div
-          onClick={() => handleAddTagsClick(asset.id)}
-          className="text-white font-black cursor-pointer bg-green-600 ml-auto rounded-full w-3 h-3 relative"
-        />
+      <Circle onClick={() => handleAddTagsClick(asset.id)} className="bg-green-600 ml-auto" />
       </div>
-      <p className="text-zinc-400 text-xs">{String(asset.created_at)}</p>
+      <p className="text-zinc-400 text-xs truncate">{String(asset.created_at)}</p>
       <div className="my-2 flex gap-2 flex-wrap">
         {asset.tags.map(tag => (
           <Tag

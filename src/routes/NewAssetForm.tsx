@@ -24,10 +24,9 @@ export function NewAssetForm() {
   }
 
   return (
-    <div className="w-[480px]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 grow"
       >
         <Input
           field="asset_name"
@@ -53,6 +52,5 @@ export function NewAssetForm() {
           />
         </div>
       </form>
-    </div>
   )
 }

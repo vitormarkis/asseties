@@ -80,16 +80,16 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
     a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
   )
 
-  useEffect(() => {
-    if (fields.searchField.length === 0) {
-      dispatch(setFilteredListSortState(false))
-    }
-  }, [fields.searchField])
+  // useEffect(() => {
+  //   if (fields.searchField.length === 0) {
+  //     dispatch(setFilteredListSortState(false))
+  //   }
+  // }, [fields.searchField])
 
   return (
-    <div>
+    <div className="sm:w-[560px] w-full">
       {toolbar && (
-        <MainWrapper className="h-16 w-[560px] gap-4 mb-4 flex justify-between">
+        <MainWrapper className="h-16 gap-4 mb-4 flex justify-between sm:rounded-lg">
           <div className="grow">
             <FormFieldBox>
               <input
@@ -118,7 +118,7 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
       )}
       <MainWrapper
         // ref={setContainer}
-        className="w-[560px] h-fit overflow-y-scroll flex-col"
+        className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style"
       >
         {fields.searchField.length > 0
           ? searchedAssets?.map(asset => (

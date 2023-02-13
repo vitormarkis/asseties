@@ -6,7 +6,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export const MainWrapper:React.FC<Props> = ({ children, className, ...rest }) => {
     return (
-        <div className={`${className} text-sm p-4 rounded-lg bg-zinc-200 flex`} {...rest}>
+        <div className={`${className} text-sm p-4 bg-zinc-200 flex`} {...rest}>
             {children}
         </div>
     )
