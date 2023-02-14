@@ -1,6 +1,7 @@
 import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { AnimatePresence } from "framer-motion"
+import { CompactAsset } from "./CompactAsset"
 import { DetailedAsset } from "./DetailedAsset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
@@ -8,7 +9,7 @@ interface Props {
   assets: AssetType[]
 }
 
-function AssetListDetailed({ assets }: Props) {
+function AssetListCompact({ assets }: Props) {
   const { filteredList, fields, sortState } = useAppSelector(state => state.filteredList)
 
   const searchedAssets = [...assets!]
@@ -25,7 +26,7 @@ function AssetListDetailed({ assets }: Props) {
     <MainWrapper className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style">
       {fields.searchField.length > 0 ? (
         searchedAssets?.map((asset, index) => (
-          <DetailedAsset
+          <CompactAsset
             key={asset.id}
             index={index}
             asset={asset}
@@ -34,7 +35,7 @@ function AssetListDetailed({ assets }: Props) {
         ))
       ) : sortState ? (
         filteredAssets?.map((asset, index) => (
-          <DetailedAsset
+          <CompactAsset
             key={asset.id}
             index={index}
             asset={asset}
@@ -44,7 +45,7 @@ function AssetListDetailed({ assets }: Props) {
       ) : (
         <AnimatePresence>
           {assets?.map((asset, index) => (
-            <DetailedAsset
+            <CompactAsset
               key={asset.id}
               index={index}
               asset={asset}
@@ -56,4 +57,4 @@ function AssetListDetailed({ assets }: Props) {
   )
 }
 
-export default AssetListDetailed
+export default AssetListCompact

@@ -18,7 +18,7 @@ interface Props {
   animation?: boolean
 }
 
-export function Asset({ asset, index, animation = true }: Props) {
+export function DetailedAsset({ asset, index, animation = true }: Props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)

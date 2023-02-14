@@ -1,25 +1,10 @@
 {
   "assets": [
     {
-      "id": "dlp6v6p9qs",
-      "created_at": "Sun Feb 12 2023 19:48:26 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 15:37:04 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "Asseties",
-      "tags": [
-        {
-          "id": "qajhua9iy8",
-          "created_at": "Sun Feb 12 2023 19:59:57 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Sun Feb 12 2023 19:59:57 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "react router dom",
-          "category": "framework"
-        }
-      ]
-    },
-    {
       "id": "ddap3aiedf6",
       "created_at": "Mon Feb 13 2023 09:01:10 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 09:01:20 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "system-tags-with-react",
+      "updated_at": "Tue Feb 14 2023 12:31:30 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "system-tags-with-reactx",
       "tags": [
         {
           "id": "b2gpfxddebe",
@@ -51,6 +36,27 @@
           "category": "technology"
         }
       ]
+    },
+    {
+      "id": "jz6sl8s1af",
+      "created_at": "Tue Feb 14 2023 12:26:56 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 14 2023 12:26:56 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "TypeORM-Estudos",
+      "tags": []
+    },
+    {
+      "id": "rm07phfrau",
+      "created_at": "Tue Feb 14 2023 12:27:06 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 14 2023 12:27:06 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "NLW-SETUP-HABITS",
+      "tags": []
+    },
+    {
+      "id": "rwgux74bms",
+      "created_at": "Tue Feb 14 2023 12:34:50 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 14 2023 12:34:50 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "asseties",
+      "tags": []
     }
   ]
 }

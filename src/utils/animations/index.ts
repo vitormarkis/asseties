@@ -9,14 +9,14 @@ export const Animation = {
       y: 0,
       transition: {
         duration: 0.3,
-        delay: d * 0.04,
+        delay: d * 0.025,
       },
     },
     exit: {
       opacity: 0,
       x: -400,
       transition: {
-        duration: 0.3,
+        duration: 0.15,
         ease: "easeInOut",
       },
     },
