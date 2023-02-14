@@ -22,7 +22,7 @@ interface Props {
   tag: TagType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
   _asset: AssetType
-  setState: React.Dispatch<React.SetStateAction<AssetType>>
+  setState?: React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPopoverOpen }) => {
@@ -35,7 +35,7 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPop
     const updatedAsset = AssetOR(_asset).updateTag(refreshedTag)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
 
-    setState(refreshedAsset)
+    if(setState) setState(refreshedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
     setIsPopoverOpen(false)

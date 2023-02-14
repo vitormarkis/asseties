@@ -22,7 +22,7 @@ export const ContainerOption: React.FC<Props> = ({ title, className, data_id, ..
         `
       ${className}
       w-1/2 px-2 flex items-center justify-center z-10
-      delay-200 transition-all duration-150
+      delay-200 transition-all duration-300
       `,
         {
           "text-white": current === data_id,

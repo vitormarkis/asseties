@@ -9,8 +9,10 @@ import { HTMLAttributes, useState } from "react"
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
 import * as Popover from "@radix-ui/react-popover"
+import { Animation } from "@utils/animations"
 import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
+import { motion } from "framer-motion"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   bg?: `#${string}` | NamedColor
@@ -23,16 +25,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Tag: React.FC<Props> = props => {
-  const {
-    bg,
-    color,
-    tag,
-    asset,
-    container,
-    popover,
-    setState,
-    ...rest
-  } = props
+  const { bg, color, tag, asset, container, popover, setState, ...rest } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
@@ -50,7 +43,7 @@ const Tag: React.FC<Props> = props => {
       CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     }
 
-    setState(refreshedAsset)
+    if (setState) setState(refreshedAsset)
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
   }
 

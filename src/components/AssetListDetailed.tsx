@@ -1,10 +1,11 @@
 import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
+import { AnimatePresence } from "framer-motion"
 import { Asset } from "./Asset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
 interface Props {
-    assets: AssetType[]
+  assets: AssetType[]
 }
 
 function AssetListDetailed({ assets }: Props) {
@@ -19,32 +20,35 @@ function AssetListDetailed({ assets }: Props) {
   const filteredAssets = [...assets!].sort((a, b) =>
     a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
   )
-  
+
   return (
-    <MainWrapper
-        className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style"
-      >
+    <MainWrapper className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style">
+      <AnimatePresence>
         {fields.searchField.length > 0
-          ? searchedAssets?.map(asset => (
+          ? searchedAssets?.map((asset, index) => (
               <Asset
                 key={asset.id}
+                index={index}
                 asset={asset}
               />
             ))
           : sortState
-          ? filteredAssets?.map(asset => (
+          ? filteredAssets?.map((asset, index) => (
               <Asset
                 key={asset.id}
+                index={index}
                 asset={asset}
               />
             ))
-          : assets?.map(asset => (
+          : assets?.map((asset, index) => (
               <Asset
                 key={asset.id}
+                index={index}
                 asset={asset}
               />
             ))}
-      </MainWrapper>
+      </AnimatePresence>
+    </MainWrapper>
   )
 }
 

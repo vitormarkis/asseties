@@ -33,7 +33,7 @@
     {
       "id": "8afrgxhrk4a",
       "created_at": "Mon Feb 13 2023 14:32:34 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 14:37:02 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Tue Feb 14 2023 00:49:54 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "hotel-website-with-framermotion",
       "tags": [
         {
@@ -42,37 +42,15 @@
           "updated_at": "Mon Feb 13 2023 14:37:02 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "framer-motion",
           "category": "framework"
-        }
-      ]
-    },
-    {
-      "id": "3mpay0th2kz",
-      "created_at": "Mon Feb 13 2023 14:35:22 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "3first-project-using-react-router-dom",
-      "tags": [
+        },
         {
-          "id": "idh2oj7vgu",
-          "created_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Mon Feb 13 2023 14:37:17 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "react-router-dom",
-          "category": "framework"
+          "id": "yvyt8oni5ic",
+          "created_at": "Tue Feb 14 2023 00:49:54 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Tue Feb 14 2023 00:49:54 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "react router dom",
+          "category": "technology"
         }
       ]
-    },
-    {
-      "id": "yjyqjmwhsye",
-      "created_at": "Mon Feb 13 2023 15:04:07 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 15:04:07 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "3testing-slider-form",
-      "tags": []
-    },
-    {
-      "id": "8os690d2195",
-      "created_at": "Mon Feb 13 2023 15:23:30 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Mon Feb 13 2023 15:23:30 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "ayahuasca",
-      "tags": []
     }
   ]
 }

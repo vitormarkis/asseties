@@ -2,8 +2,10 @@ import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
+import { Animation } from "@utils/animations"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import axios from "axios"
+import { motion } from "framer-motion"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Tag } from "./atoms"
@@ -12,9 +14,10 @@ import { Circle } from "./quark/Circle"
 interface Props {
   container?: Element | null
   asset: AssetType
+  index: number
 }
 
-export function Asset({ container, asset }: Props) {
+export function Asset({ asset, index }: Props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)
@@ -33,17 +36,29 @@ export function Asset({ container, asset }: Props) {
   }
 
   return (
-    <div
+    <motion.div
+    variants={Animation.emerge(index)}
+      initial="hidden"
+      animate="show"
+      exit="exit"
       id="assets-list"
       key={asset.id}
       className="border-b-zinc-300 border-b mb-3 flex flex-col pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
     >
       <div className="flex gap-2 items-center">
-        <Circle onClick={() => handleRemoveAsset(asset.id)} className="bg-red-700" />
-        <Circle onClick={() => handleEditAsset(asset.id)} className="bg-blue-600"
+        <Circle
+          onClick={() => handleRemoveAsset(asset.id)}
+          className="bg-red-700"
+        />
+        <Circle
+          onClick={() => handleEditAsset(asset.id)}
+          className="bg-blue-600"
         />
         <p className={context.editing_asset_id === asset.id ? "editing" : ""}>{asset.asset_name}</p>
-      <Circle onClick={() => handleAddTagsClick(asset.id)} className="bg-green-600 ml-auto" />
+        <Circle
+          onClick={() => handleAddTagsClick(asset.id)}
+          className="bg-green-600 ml-auto"
+        />
       </div>
       <p className="text-zinc-400 text-xs truncate">{String(asset.created_at)}</p>
       <div className="my-2 flex gap-2 flex-wrap">
@@ -59,6 +74,6 @@ export function Asset({ container, asset }: Props) {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   )
 }
