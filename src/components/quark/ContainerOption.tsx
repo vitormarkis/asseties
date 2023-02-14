@@ -21,8 +21,9 @@ export const ContainerOption: React.FC<Props> = ({ title, className, data_id, ..
       className={clsx(
         `
       ${className}
-      w-1/2 px-2 flex items-center justify-center z-10
-      delay-200 transition-all duration-300
+      w-1/2 px-2 flex font-light items-center justify-center z-10
+      transition-all
+      ${current === data_id ? "duration-300" : "delay-100"}
       `,
         {
           "text-white": current === data_id,

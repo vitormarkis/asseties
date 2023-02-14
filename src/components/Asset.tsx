@@ -15,9 +15,10 @@ interface Props {
   container?: Element | null
   asset: AssetType
   index: number
+  animation?: boolean
 }
 
-export function Asset({ asset, index }: Props) {
+export function Asset({ asset, index, animation = true }: Props) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)
@@ -37,7 +38,7 @@ export function Asset({ asset, index }: Props) {
 
   return (
     <motion.div
-    variants={Animation.emerge(index)}
+      variants={animation ? Animation.emerge(index) : {}}
       initial="hidden"
       animate="show"
       exit="exit"

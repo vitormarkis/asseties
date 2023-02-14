@@ -15,7 +15,7 @@ function AssetListDetailed({ assets }: Props) {
     .sort((a, b) =>
       a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
     )
-    .filter(asset => asset.asset_name.includes(fields.searchField))!
+    .filter(asset => asset.asset_name.toLowerCase().includes(fields.searchField))!
 
   const filteredAssets = [...assets!].sort((a, b) =>
     a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
@@ -23,31 +23,35 @@ function AssetListDetailed({ assets }: Props) {
 
   return (
     <MainWrapper className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style">
-      <AnimatePresence>
-        {fields.searchField.length > 0
-          ? searchedAssets?.map((asset, index) => (
-              <Asset
-                key={asset.id}
-                index={index}
-                asset={asset}
-              />
-            ))
-          : sortState
-          ? filteredAssets?.map((asset, index) => (
-              <Asset
-                key={asset.id}
-                index={index}
-                asset={asset}
-              />
-            ))
-          : assets?.map((asset, index) => (
-              <Asset
-                key={asset.id}
-                index={index}
-                asset={asset}
-              />
-            ))}
-      </AnimatePresence>
+      {fields.searchField.length > 0 ? (
+        searchedAssets?.map((asset, index) => (
+          <Asset
+            key={asset.id}
+            index={index}
+            asset={asset}
+            animation={false}
+          />
+        ))
+      ) : sortState ? (
+        filteredAssets?.map((asset, index) => (
+          <Asset
+            key={asset.id}
+            index={index}
+            asset={asset}
+            animation={false}
+          />
+        ))
+      ) : (
+        <AnimatePresence>
+          {assets?.map((asset, index) => (
+            <Asset
+              key={asset.id}
+              index={index}
+              asset={asset}
+            />
+          ))}
+        </AnimatePresence>
+      )}
     </MainWrapper>
   )
 }

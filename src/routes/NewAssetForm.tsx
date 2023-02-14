@@ -24,6 +24,7 @@ export function NewAssetForm() {
   }
 
   return (
+    <div className="sm:w-[560px] w-full">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2 grow"
@@ -52,5 +53,6 @@ export function NewAssetForm() {
           />
         </div>
       </form>
+    </div>
   )
 }
