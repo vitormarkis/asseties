@@ -1,3 +1,4 @@
+import { AssetType } from "@features/asset-slice/types"
 import { mapTuple } from "@myTypes/index"
 import { casingWhitelist } from "./contants"
 
@@ -25,4 +26,12 @@ export const Formatter = {
     casingWhitelist.includes(key) ? [key, value] : [key, value.trim().replace(" ", "_").toLowerCase()],
 }
 
-export const sortMethod = <T>(sortState: boolean) => (a: T, b: T): boolean => (sortState ? a > b : a < b)
+export const sortMethod =
+  <T extends AssetType>(sortState: number, filterCriteria: keyof T) =>
+  (a: T, b: T): number => {
+    const aValue =
+      typeof a[filterCriteria] === "string" ? (a[filterCriteria] as string).toLowerCase() : a[filterCriteria]
+    const bValue =
+      typeof b[filterCriteria] === "string" ? (b[filterCriteria] as string).toLowerCase() : b[filterCriteria]
+    return aValue > bValue ? (sortState === 2 ? -1 : 1) : sortState === 2 ? 1 : -1
+  }

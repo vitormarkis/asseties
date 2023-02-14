@@ -80,6 +80,7 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
           <div className="grow">
             <FormFieldBox>
               <input
+                autoComplete="off"
                 onChange={handleOnChangeInput}
                 value={fields.searchField}
                 type="text"

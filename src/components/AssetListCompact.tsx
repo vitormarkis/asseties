@@ -1,8 +1,8 @@
 import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
+import { sortMethod } from "@utils/index"
 import { AnimatePresence } from "framer-motion"
 import { CompactAsset } from "./CompactAsset"
-import { DetailedAsset } from "./DetailedAsset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
 interface Props {
@@ -10,17 +10,14 @@ interface Props {
 }
 
 function AssetListCompact({ assets }: Props) {
-  const { filteredList, fields, sortState } = useAppSelector(state => state.filteredList)
+  const { fields, sortState } = useAppSelector(state => state.filteredList)
+  console.log(assets)
 
   const searchedAssets = [...assets!]
-    .sort((a, b) =>
-      a.updated_at > b.updated_at ? (sortState ? 1 : -1) : a.updated_at < b.updated_at ? (sortState ? -1 : 1) : 0
-    )
+    .sort(sortMethod(sortState, "asset_name"))
     .filter(asset => asset.asset_name.toLowerCase().includes(fields.searchField.toLowerCase()))!
 
-  const filteredAssets = [...assets!].sort((a, b) =>
-    a.asset_name > b.asset_name ? (sortState ? 1 : -1) : a.asset_name < b.asset_name ? (sortState ? -1 : 1) : 0
-  )
+  const filteredAssets = [...assets!].sort(sortMethod(sortState, "updated_at"))
 
   return (
     <MainWrapper className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style">
