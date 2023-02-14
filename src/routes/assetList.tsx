@@ -6,10 +6,16 @@ import { ContainerOption } from "@components/quark/ContainerOption"
 import { ContainerOptionOverlay } from "@components/quark/ContainerOptionOverlay"
 import { IconHover } from "@components/Wrappers/IconHover"
 import { MainWrapper } from "@components/Wrappers/MainWrapper"
-import { baseURL } from "@constants/constants"
+import { baseURL, sortingOptions } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { setFilteredList, setFilteredListSearchField, setFilteredListSortState } from "@features/filterList-slice"
+import {
+  setFilteredListSearchField,
+  setFilteredListSortingBy,
+  setFilteredListSortState,
+} from "@features/filterList-slice"
+import { SortingAssetProps } from "@features/filterList-slice/types"
 import { useAppSelector } from "@features/store"
+import { filterMethod, sortMethod } from "@utils/index"
 import axios from "axios"
 import { ChangeEvent } from "react"
 import { useQuery } from "react-query"
@@ -38,22 +44,9 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
 
   const dispatch = useDispatch()
   const { filteredList, context } = useAppSelector(state => state)
-  const { fields, sortState } = filteredList
+  const { fields, sortState, sortingBy } = filteredList
   const { current_asset_list_container: current } = context
-
-  function updateFilteredList() {
-    const filteredAssets = [...assets!].filter(asset => asset.asset_name.includes(fields.searchField))!
-
-    dispatch(setFilteredList(filteredAssets))
-  }
-
-  const handleOnChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    dispatch(setFilteredListSearchField(value))
-
-    updateFilteredList()
-  }
-
+  
   if (isLoading) {
     return (
       <div className="flex justify-center p-3">
@@ -62,16 +55,27 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
     )
   }
 
+  const handleOnChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target
+    dispatch(setFilteredListSearchField(value))
+  }
+
   function handleSortClick() {
     dispatch(setFilteredListSortState())
-    updateFilteredList()
   }
+
+  const searchedAssets: AssetType[] = [...assets!]
+    .sort(sortMethod(sortState, sortingBy))
+    .filter(filterMethod(fields.searchField))!
+
+  const filteredAssets: AssetType[] = [...assets!].sort(sortMethod(sortState, sortingBy))
 
   // useEffect(() => {
   //   if (fields.searchField.length === 0) {
-  //     dispatch(setFilteredListSortState(false))
+  //     dispatch(setFilteredListSortState(0))
   //   }
   // }, [fields.searchField])
+
 
   return (
     <div className="sm:w-[560px] w-full flex flex-col gap-4">
@@ -90,17 +94,29 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
             </FormFieldBox>
           </div>
           <div className="flex gap-2">
-            <IconHover
-              className="transition-all duration-500"
-              onClick={handleSortClick}
-              active={sortState}
-            >
-              <Sort
-                className="cursor-pointer"
-                width={20}
-                color={"#020202"}
-              />
-            </IconHover>
+            <div className="flex flex-col items-center justify-center">
+              <IconHover
+                className="transition-all duration-500"
+                onClick={handleSortClick}
+                active={sortState}
+              >
+                <Sort
+                  className="cursor-pointer"
+                  width={20}
+                  color={"#020202"}
+                />
+              </IconHover>
+              <select onChange={e => dispatch(setFilteredListSortingBy(e.currentTarget.value as SortingAssetProps))}>
+                {sortingOptions.map(option => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </MainWrapper>
       )}
@@ -123,9 +139,17 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
       </StickyBox>
 
       {assets && current === "details" ? (
-        <AssetListDetailed assets={assets} />
+        <AssetListDetailed
+          assets={assets}
+          filteredAssets={filteredAssets}
+          searchedAssets={searchedAssets}
+        />
       ) : assets && current === "compact" ? (
-        <AssetListCompact assets={assets} />
+        <AssetListCompact
+          assets={assets}
+          filteredAssets={filteredAssets}
+          searchedAssets={searchedAssets}
+        />
       ) : null}
     </div>
   )

@@ -9,10 +9,8 @@ import { HTMLAttributes, useState } from "react"
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
 import * as Popover from "@radix-ui/react-popover"
-import { Animation } from "@utils/animations"
-import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
+import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
-import { motion } from "framer-motion"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   bg?: `#${string}` | NamedColor
@@ -36,11 +34,13 @@ const Tag: React.FC<Props> = props => {
   }
 
   function handleDeleteTag(tag: TagType) {
-    const assetsWithoutRemovedOne = AssetObjectReducers(asset).removeTag(tag.id)
-    const refreshedAsset = AssetObjectReducers(assetsWithoutRemovedOne).refresh()
+    const assetsWithoutRemovedOne = AssetOR(asset).removeTag(tag.id)
+    const refreshedAsset = AssetOR(assetsWithoutRemovedOne).refresh()
 
     if (queryClient.getQueryData("assets")) {
       CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    } else {
+      throw new Error("Não existe cache para assets!")
     }
 
     if (setState) setState(refreshedAsset)
@@ -90,13 +90,12 @@ const Tag: React.FC<Props> = props => {
             <PopoverButton
               type="button"
               action="Editar"
-              event={() => {}}
               element={
                 <EditTag
                   actionAttrs={actionAttributes.edit}
                   tag={tag}
                   setIsPopoverOpen={setIsPopoverOpen}
-                  _asset={asset}
+                  asset={asset}
                   setState={setState}
                 />
               }

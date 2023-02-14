@@ -20,22 +20,22 @@ export interface ActionAttributes {
 interface Props {
   actionAttrs: ActionAttributes
   tag: TagType
+  asset: AssetType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
-  _asset: AssetType
   setState?: React.Dispatch<React.SetStateAction<AssetType>>
 }
 
-const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPopoverOpen }) => {
+function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props) {
   const { register, handleSubmit } = useForm<TagEditFields>()
 
   const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
     const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
     const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
     const refreshedTag = TagOR(updatedTag).refresh()
-    const updatedAsset = AssetOR(_asset).updateTag(refreshedTag)
+    const updatedAsset = AssetOR(asset).updateTag(refreshedTag)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
 
-    if(setState) setState(refreshedAsset)
+    if (setState) setState(refreshedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
     setIsPopoverOpen(false)
@@ -73,16 +73,14 @@ const EditTag: React.FC<Props> = ({ actionAttrs, tag, _asset, setState, setIsPop
           />
 
           <div className="flex items-center justify-between">
-            <Dialog.Close>
-              <Button
-                onClick={() => {}}
-                bg="red"
-                color="white"
-                rounded="md"
-                value="Fechar"
-                fontSize="extra-small"
-              />
-            </Dialog.Close>
+            <Button
+              onClick={() => setIsPopoverOpen(false)}
+              bg="red"
+              color="white"
+              rounded="md"
+              value="Fechar"
+              fontSize="extra-small"
+            />
             <Button
               type="submit"
               bg="green"

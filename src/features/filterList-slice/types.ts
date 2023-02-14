@@ -1,9 +1,11 @@
-import { AssetType } from "@features/asset-slice/types";
+import { AssetType } from "@features/asset-slice/types"
 
 export interface ContextState {
-    filteredList: AssetType[] | []
-    sortState: number
-    fields: {
-        searchField: string
-    }
+  sortState: number
+  sortingBy: SortingAssetProps
+  fields: {
+    searchField: string
+  }
 }
+
+export type SortingAssetProps = Exclude<keyof AssetType, "id" | "tags">

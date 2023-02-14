@@ -1,3 +1,5 @@
+import { SortingAssetProps } from "@features/filterList-slice/types"
+
 export interface IdentificationProps {
   id: string
   created_at: string
@@ -10,3 +12,8 @@ export interface SetKeyValue<K, V> {
 }
 
 export type mapTuple = [string, any]
+
+export interface SortingAssetObjectProps {
+  label: string
+  value: SortingAssetProps
+}

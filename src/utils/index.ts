@@ -35,3 +35,6 @@ export const sortMethod =
       typeof b[filterCriteria] === "string" ? (b[filterCriteria] as string).toLowerCase() : b[filterCriteria]
     return aValue > bValue ? (sortState === 2 ? -1 : 1) : sortState === 2 ? 1 : -1
   }
+
+export const filterMethod = (searchField: string) => (asset: AssetType) =>
+  asset.asset_name.toLowerCase().includes(searchField.toLowerCase())

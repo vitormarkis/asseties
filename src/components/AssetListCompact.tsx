@@ -7,17 +7,12 @@ import { MainWrapper } from "./Wrappers/MainWrapper"
 
 interface Props {
   assets: AssetType[]
+  searchedAssets: AssetType[]
+  filteredAssets: AssetType[]
 }
 
-function AssetListCompact({ assets }: Props) {
+function AssetListCompact({ assets, filteredAssets, searchedAssets }: Props) {
   const { fields, sortState } = useAppSelector(state => state.filteredList)
-  console.log(assets)
-
-  const searchedAssets = [...assets!]
-    .sort(sortMethod(sortState, "asset_name"))
-    .filter(asset => asset.asset_name.toLowerCase().includes(fields.searchField.toLowerCase()))!
-
-  const filteredAssets = [...assets!].sort(sortMethod(sortState, "updated_at"))
 
   return (
     <MainWrapper className="grow overflow-y-scroll flex-col sm:rounded-lg scroll-style">

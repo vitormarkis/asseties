@@ -1,22 +1,18 @@
-import { AssetType } from "@features/asset-slice/types"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { ContextState } from "./types"
+import { ContextState, SortingAssetProps } from "./types"
 
 export const initialState: ContextState = {
-  filteredList: [],
   fields: {
     searchField: "",
   },
   sortState: 0,
+  sortingBy: "asset_name",
 }
 
 export const filteredListSlice = createSlice({
   name: "filteredList",
   initialState,
   reducers: {
-    setFilteredList: (state, action: PayloadAction<AssetType[] | undefined>) => {
-      state.filteredList = action.payload ?? []
-    },
     setFilteredListSearchField: (state, action: PayloadAction<string>) => {
       state.fields.searchField = action.payload
     },
@@ -24,9 +20,13 @@ export const filteredListSlice = createSlice({
       const switchState = state.sortState !== 2 ? 1 + state.sortState : 0
       state.sortState = action.payload ?? switchState
     },
+    setFilteredListSortingBy: (state, action: PayloadAction<SortingAssetProps>) => {
+      state.sortingBy = action.payload
+    },
   },
 })
 
-export const { setFilteredList, setFilteredListSearchField, setFilteredListSortState } = filteredListSlice.actions
+export const { setFilteredListSearchField, setFilteredListSortState, setFilteredListSortingBy } =
+  filteredListSlice.actions
 
 export const filteredListReducer = filteredListSlice.reducer
