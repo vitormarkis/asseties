@@ -6,8 +6,8 @@ import { ContainerOption } from "@components/quark/ContainerOption"
 import { ContainerOptionOverlay } from "@components/quark/ContainerOptionOverlay"
 import { IconHover } from "@components/Wrappers/IconHover"
 import { MainWrapper } from "@components/Wrappers/MainWrapper"
-import { baseURL, sortingOptions } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
+import { baseURL, sortingOptions, tagCollorPallete } from "@constants/constants"
+import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
 import {
   setFilteredListSearchField,
   setFilteredListSortingBy,
@@ -16,6 +16,7 @@ import {
 import { SortingAssetProps } from "@features/filterList-slice/types"
 import { useAppSelector } from "@features/store"
 import { filterMethod, sortMethod } from "@utils/index"
+import { AssetsArrayReducers as AssetsAR } from "@utils/Reducers/AssetsReducers"
 import axios from "axios"
 import { ChangeEvent } from "react"
 import { useQuery } from "react-query"
@@ -27,11 +28,7 @@ interface Props {
 }
 
 export const AssetList: React.FC<Props> = ({ toolbar }) => {
-  const {
-    data: assets,
-    isLoading,
-    isError,
-  } = useQuery<AssetType[]>(
+  const { data: assets, isLoading } = useQuery<AssetType[]>(
     "assets",
     async () => {
       const res = await axios.get(baseURL)
@@ -42,12 +39,14 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
     }
   )
 
+  const coloredAssets: AssetTypeColored[] = AssetsAR(assets!).colorize(tagCollorPallete)
+
   const dispatch = useDispatch()
   const { filteredList, context } = useAppSelector(state => state)
   const { fields, sortState, sortingBy } = filteredList
   const { current_asset_list_container: current } = context
-  
-  if (isLoading) {
+
+  if (isLoading || !coloredAssets) {
     return (
       <div className="flex justify-center p-3">
         <p>Loading...</p>
@@ -64,18 +63,17 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
     dispatch(setFilteredListSortState())
   }
 
-  const searchedAssets: AssetType[] = [...assets!]
+  const searchedAssets: AssetTypeColored[] = [...coloredAssets!]
     .sort(sortMethod(sortState, sortingBy))
     .filter(filterMethod(fields.searchField))!
 
-  const filteredAssets: AssetType[] = [...assets!].sort(sortMethod(sortState, sortingBy))
+  const filteredAssets: AssetTypeColored[] = [...coloredAssets!].sort(sortMethod(sortState, sortingBy))
 
   // useEffect(() => {
   //   if (fields.searchField.length === 0) {
   //     dispatch(setFilteredListSortState(0))
   //   }
   // }, [fields.searchField])
-
 
   return (
     <div className="sm:w-[560px] w-full flex flex-col gap-4">
@@ -106,7 +104,9 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
                   color={"#020202"}
                 />
               </IconHover>
-              <select onChange={e => dispatch(setFilteredListSortingBy(e.currentTarget.value as SortingAssetProps))}>
+              <select
+                onChange={e => dispatch(setFilteredListSortingBy(e.currentTarget.value as SortingAssetProps))}
+              >
                 {sortingOptions.map(option => (
                   <option
                     key={option.value}
@@ -138,15 +138,15 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
         </MainWrapper>
       </StickyBox>
 
-      {assets && current === "details" ? (
+      {coloredAssets && current === "details" ? (
         <AssetListDetailed
-          assets={assets}
+          assets={coloredAssets}
           filteredAssets={filteredAssets}
           searchedAssets={searchedAssets}
         />
-      ) : assets && current === "compact" ? (
+      ) : coloredAssets && current === "compact" ? (
         <AssetListCompact
-          assets={assets}
+          assets={coloredAssets}
           filteredAssets={filteredAssets}
           searchedAssets={searchedAssets}
         />

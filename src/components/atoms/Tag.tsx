@@ -1,6 +1,6 @@
 import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { TagType } from "@features/tag-slice/types"
+import { TagType, TagTypeColored } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
 import axios from "axios"
@@ -13,9 +13,8 @@ import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  bg?: `#${string}` | NamedColor
-  color?: `#${string}` | NamedColor
-  tag: TagType
+  textColor?: `#${string}` | NamedColor
+  tag: TagTypeColored
   asset: AssetType
   container?: Element | null
   popover?: boolean
@@ -23,7 +22,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Tag: React.FC<Props> = props => {
-  const { bg, color, tag, asset, container, popover, setState, ...rest } = props
+  const { textColor, tag, asset, container, popover, setState, ...rest } = props
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
   const actionAttributes = {
@@ -58,8 +57,8 @@ const Tag: React.FC<Props> = props => {
         <div
           className="leading-none p-1 rounded-sm text-xs flex gap-2 items-center"
           style={{
-            backgroundColor: bg ?? "#52525B",
-            color: color ?? "#fff",
+            backgroundColor: tag.color,
+            color: textColor ?? "#fff",
           }}
           {...rest}
         >

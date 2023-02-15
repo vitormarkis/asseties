@@ -1,4 +1,4 @@
-import { TagType } from "@features/tag-slice/types"
+import { TagType, TagTypeColored } from "@features/tag-slice/types"
 import { IdentificationProps } from "@myTypes/index"
 
 /**
@@ -11,6 +11,10 @@ export interface AssetState {
 
 export interface AssetType extends IdentificationProps, AssetFormFields {
   tags: TagType[]
+}
+
+export interface AssetTypeColored extends Omit<AssetType, "tags"> {
+  tags: TagTypeColored[]
 }
 
 /**

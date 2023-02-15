@@ -52,7 +52,9 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
           text-sm p-4 rounded-lg bg-zinc-100 flex flex-col z-20
           "
       >
-        <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">{actionAttrs.title}</Dialog.Title>
+        <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">
+          {actionAttrs.title}
+        </Dialog.Title>
         <Dialog.Description className="text-zinc-400 text-xs">{actionAttrs.description}</Dialog.Description>
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -76,7 +78,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
             <Button
               onClick={() => setIsPopoverOpen(false)}
               bg="red"
-              color="white"
+              textColor="white"
               rounded="md"
               value="Fechar"
               fontSize="extra-small"
@@ -84,7 +86,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
             <Button
               type="submit"
               bg="green"
-              color="white"
+              textColor="white"
               rounded="md"
               value="Salvar"
               fontSize="extra-small"

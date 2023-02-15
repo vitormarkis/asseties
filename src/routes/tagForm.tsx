@@ -1,10 +1,10 @@
 import { Button, Input, Select, Tag } from "@components/atoms"
-import { baseURL, categories } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
-import { TagFormFields } from "@features/tag-slice/types"
+import { baseURL, categories, tagCollorPallete } from "@constants/constants"
+import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
+import { TagFormFields, TagTypeColored } from "@features/tag-slice/types"
 import { queryClient } from "@services/queryClient"
 import { FieldsReducers, Formatter } from "@utils/index"
-import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
+import { AssetObjectReducers as aor, AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import { TagObjectReducers } from "@utils/Reducers/TagsReducers"
 import axios, { AxiosResponse } from "axios"
@@ -21,27 +21,27 @@ export default function TagsForm() {
   const navigate = useNavigate()
   const { data: rawAsset } = useLoaderData() as AxiosResponse<AssetType>
   const { register, handleSubmit, reset, formState } = useForm<TagFormFields>()
-  const { isSubmitSuccessful } = formState
-  const [asset, setAsset] = useState(rawAsset)
+  const [asset, setAsset] = useState<AssetTypeColored | AssetType>(rawAsset)
 
   async function handleBackButton() {
     navigate(-1)
   }
+
+  useEffect(() => {
+    setAsset(uncoloredAsset => AssetObjectReducers(uncoloredAsset).colorize(tagCollorPallete))
+  }, [])
 
   const onSubmit: SubmitHandler<TagFormFields> = (tagFormFields: TagFormFields) => {
     const formattedFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
     const newTag = TagObjectReducers().createTag(formattedFields)
     const updatedAsset = aor(asset).addTag(newTag)
     const refreshedAsset = aor(updatedAsset).refresh()
+    const colorizedAsset = aor(updatedAsset).colorize(tagCollorPallete)
 
-    setAsset(refreshedAsset)
+    setAsset(colorizedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     axios.put(baseURL + "/" + asset.id, refreshedAsset)
   }
-
-  useEffect(() => {
-    reset()
-  }, [isSubmitSuccessful, reset])
 
   return (
     <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen gap-12">
@@ -54,9 +54,8 @@ export default function TagsForm() {
           {asset?.tags.map(tag => (
             <Tag
               key={tag.id}
-              bg="blueviolet"
-              color="white"
-              tag={tag}
+              textColor="white"
+              tag={tag as TagTypeColored}
               asset={asset}
               popover
               setState={setAsset}
@@ -90,14 +89,14 @@ export default function TagsForm() {
             onClick={handleBackButton}
             type="button"
             bg="green"
-            color="white"
+            textColor="white"
             rounded="full"
             value="Voltar"
           />
           <Button
             type="submit"
             bg="blue"
-            color="white"
+            textColor="white"
             rounded="full"
             value="Enviar"
           />

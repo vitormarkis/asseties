@@ -81,7 +81,7 @@ export function AssetForm() {
             // onClick={handleBackButton}
             bg="green"
             rounded="full"
-            color="white"
+            textColor="white"
             value="Voltar"
           />
         )}
@@ -90,7 +90,7 @@ export function AssetForm() {
             type="submit"
             bg="blue"
             rounded="full"
-            color="white"
+            textColor="white"
             value={context.editing_asset_id ? "Atualizar" : "Enviar"}
           />
         )}

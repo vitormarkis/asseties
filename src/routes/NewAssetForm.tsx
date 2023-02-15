@@ -41,14 +41,14 @@ export function NewAssetForm() {
             type="reset"
             bg="green"
             value="Voltar"
-            color="white"
+            textColor="white"
             rounded="full"
           />
           <Button
             type="submit"
             bg="blue"
             value="Enviar"
-            color="white"
+            textColor="white"
             rounded="full"
           />
         </div>

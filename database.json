@@ -3,7 +3,7 @@
     {
       "id": "xatbmrerolp",
       "created_at": "Tue Feb 14 2023 15:43:11 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Tue Feb 14 2023 15:43:30 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Wed Feb 15 2023 00:29:11 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "system-tags-with-react",
       "tags": [
         {
@@ -11,14 +11,39 @@
           "created_at": "Tue Feb 14 2023 15:43:22 GMT-0300 (Horário Padrão de Brasília)",
           "updated_at": "Tue Feb 14 2023 15:43:22 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react",
-          "category": "framework"
+          "category": "framework",
+          "color": "darkcyan"
         },
         {
           "id": "7j6dqq1p0qt",
           "created_at": "Tue Feb 14 2023 15:43:30 GMT-0300 (Horário Padrão de Brasília)",
           "updated_at": "Tue Feb 14 2023 15:43:30 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "factory functions",
-          "category": "design_pattern"
+          "category": "design_pattern",
+          "color": "crimson"
+        },
+        {
+          "id": "zv4crytklb",
+          "created_at": "Wed Feb 15 2023 00:15:58 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 15 2023 00:15:58 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "react hook form",
+          "category": "library",
+          "color": "royalblue"
+        },
+        {
+          "id": "cea6vuut6ah",
+          "created_at": "Wed Feb 15 2023 00:29:00 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 15 2023 00:29:00 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "zod",
+          "category": "library",
+          "color": "royalblue"
+        },
+        {
+          "id": "x7b71lge17",
+          "created_at": "Wed Feb 15 2023 00:29:11 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 15 2023 00:29:11 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "tailwindcss",
+          "category": "style"
         }
       ]
     },

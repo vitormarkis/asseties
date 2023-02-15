@@ -66,7 +66,7 @@ export function EditAssetForm() {
             onClick={handleBackButtonClick}
             type="reset"
             value="Voltar"
-            color="white"
+            textColor="white"
             rounded="full"
             bg="green"
           />
@@ -74,7 +74,7 @@ export function EditAssetForm() {
             <Button
               type="submit"
               value="Atualizar"
-              color="white"
+              textColor="white"
               rounded="full"
               bg="blue"
             />

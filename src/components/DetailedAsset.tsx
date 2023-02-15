@@ -1,27 +1,27 @@
-import { baseURL } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
+import { baseURL, tagCollorPallete } from "@constants/constants"
+import { AssetTypeColored } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
 import { Animation } from "@utils/animations"
+import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import axios from "axios"
 import { motion } from "framer-motion"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Tag } from "./atoms"
 import { Circle } from "./quark/Circle"
 
 interface Props {
   container?: Element | null
-  asset: AssetType
+  asset: AssetTypeColored
   index: number
   animation?: boolean
 }
 
 export function DetailedAsset({ asset, index, animation = true }: Props) {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const { context } = useAppSelector(state => state)
+  const assetX = AssetObjectReducers(asset).colorize(tagCollorPallete)
 
   function handleRemoveAsset(assetId: string) {
     CacheReducers(queryClient, "assets").asset().remove(assetId)
@@ -66,9 +66,7 @@ export function DetailedAsset({ asset, index, animation = true }: Props) {
         {asset.tags.map(tag => (
           <Tag
             key={tag.id}
-            // container={container}
-            bg="blueviolet"
-            color="white"
+            textColor="white"
             tag={tag}
             asset={asset}
             popover

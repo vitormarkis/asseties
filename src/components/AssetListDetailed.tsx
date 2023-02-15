@@ -1,14 +1,13 @@
-import { AssetType } from "@features/asset-slice/types"
+import { AssetTypeColored } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
-import { sortMethod } from "@utils/index"
 import { AnimatePresence } from "framer-motion"
 import { DetailedAsset } from "./DetailedAsset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
 interface Props {
-  assets: AssetType[]
-  searchedAssets: AssetType[]
-  filteredAssets: AssetType[]
+  assets: AssetTypeColored[]
+  searchedAssets: AssetTypeColored[]
+  filteredAssets: AssetTypeColored[]
 }
 
 function AssetListDetailed({ assets, filteredAssets, searchedAssets }: Props) {

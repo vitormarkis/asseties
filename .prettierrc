@@ -1,6 +1,6 @@
 {
   "semi": false,
-  "printWidth": 120,
+  "printWidth": 110,
   "bracketSameLine": false,
   "singleAttributePerLine": true,
   "arrowParens": "avoid"
