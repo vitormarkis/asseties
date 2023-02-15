@@ -17,7 +17,7 @@ const PopoverButton: React.FC<Props> = ({ action, event, element, type = "button
       >
         <div>{action}</div>
       </Dialog.Trigger>
-      {element ? <Dialog.Portal>{element}</Dialog.Portal> : null}
+      {element ? element : null}
     </Dialog.Root>
   )
 }

@@ -1,9 +1,35 @@
+import { TagCategoryObject } from "@features/tag-slice/types"
 import { TagCollorPallete } from "@myTypes/colorTypes"
 import { SortingAssetObjectProps } from "@myTypes/index"
 
 export const baseURL = "http://localhost:3000/assets"
 
-export const categories = ["Technology", "Framework", "Design Pattern", "Approach", "Library", "Style"]
+export const tagCategories: TagCategoryObject[] = [
+  {
+    label: "Technology",
+    value: "technology",
+  },
+  {
+    label: "Framework",
+    value: "framework",
+  },
+  {
+    label: "Design Pattern",
+    value: "design_pattern",
+  },
+  {
+    label: "Approach",
+    value: "approach",
+  },
+  {
+    label: "Library",
+    value: "library",
+  },
+  {
+    label: "Style",
+    value: "style",
+  },
+]
 
 export const sortingOptions: SortingAssetObjectProps[] = [
   {

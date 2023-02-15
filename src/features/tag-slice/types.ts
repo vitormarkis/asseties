@@ -28,3 +28,11 @@ export type KeyofTagEditFields = keyof TagEditFields
 export interface TagTypeColored extends TagType {
   color: ColorType
 }
+
+export interface TagCategoryObject {
+  label: TagCategoryLabel
+  value: TagCategoryValue
+}
+
+export type TagCategoryLabel = "Technology" | "Framework" | "Design Pattern" | "Approach" | "Library" | "Style"
+export type TagCategoryValue = "technology" | "framework" | "design_pattern" | "approach" | "library" | "style"

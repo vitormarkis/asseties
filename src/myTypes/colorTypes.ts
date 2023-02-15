@@ -1,7 +1,8 @@
+import { TagCategoryValue } from "@features/tag-slice/types";
 import { ColorType } from ".";
 
 export interface TagCollorPallete {
-    category: string
+    category: TagCategoryValue
     color: ColorType
   }
 

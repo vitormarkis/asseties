@@ -1,5 +1,5 @@
 import { Button, Input, Select, Tag } from "@components/atoms"
-import { baseURL, categories, tagCollorPallete } from "@constants/constants"
+import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
 import { TagFormFields, TagTypeColored } from "@features/tag-slice/types"
 import { queryClient } from "@services/queryClient"
@@ -20,7 +20,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function TagsForm() {
   const navigate = useNavigate()
   const { data: rawAsset } = useLoaderData() as AxiosResponse<AssetType>
-  const { register, handleSubmit, reset, formState } = useForm<TagFormFields>()
+  const { register, handleSubmit, formState } = useForm<TagFormFields>()
   const [asset, setAsset] = useState<AssetTypeColored | AssetType>(rawAsset)
 
   async function handleBackButton() {
@@ -78,11 +78,11 @@ export default function TagsForm() {
         </div>
         <div className="flex text-sm items-center">
           <span>Category:</span>
-          <Select
+          {/* <Select
             field="category"
             options={categories}
             register={register}
-          />
+          /> */}
         </div>
         <div className="flex justify-end gap-2">
           <Button

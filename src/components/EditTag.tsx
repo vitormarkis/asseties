@@ -1,16 +1,15 @@
-import { baseURL, categories } from "@constants/constants"
+import { baseURL, sortingOptions, tagCategories } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { TagEditFields, TagType } from "@features/tag-slice/types"
+import { TagCategoryObject, TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
 import { queryClient } from "@services/queryClient"
-import { FieldsReducers, Formatter } from "@utils/index"
 import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import { TagObjectReducers as TagOR } from "@utils/Reducers/TagsReducers"
 import axios from "axios"
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { Button, Input, Select } from "./atoms"
+import { Button, FormFieldBox, Input } from "./atoms"
 
 export interface ActionAttributes {
   title: string
@@ -26,11 +25,17 @@ interface Props {
 }
 
 function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props) {
-  const { register, handleSubmit } = useForm<TagEditFields>()
+  const { register, handleSubmit, reset } = useForm<TagEditFields>()
+
+  const tagCategory = sortingOptions.find((option): string =>
+    option.value === tag.category ? option.label : ""
+  )
 
   const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
-    const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
-    const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
+    // const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
+    // const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
+    console.log(tagFormFields)
+    const updatedTag = TagOR(tag).updateTag(tagFormFields)
     const refreshedTag = TagOR(updatedTag).refresh()
     const updatedAsset = AssetOR(asset).updateTag(refreshedTag)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
@@ -41,16 +46,23 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
     setIsPopoverOpen(false)
   }
 
+  useEffect(() => {
+    reset({ category: tag.category, tag_name: tag.tag_name })
+  }, [])
+
+  function findCategoryLabel(tagCategory: string, tagCategories: TagCategoryObject[]): string {
+    const { label } = tagCategories.find(tagCat => tagCat.value === tagCategory) ?? {}
+    if (!label) throw new Error("Não foi encontrado um value correspondente ao Tag Category informado.")
+    return label
+  }
+
   return (
-    <>
+    <Dialog.Portal>
       <Dialog.Overlay className="inset-0 fixed bg-black/20" />
 
       <Dialog.Content
         onCloseAutoFocus={() => setIsPopoverOpen(false)}
-        className="
-          fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          text-sm p-4 rounded-lg bg-zinc-100 flex flex-col z-20
-          "
+        className=" fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm p-4 rounded-lg bg-zinc-200 flex flex-col z-20 "
       >
         <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">
           {actionAttrs.title}
@@ -63,16 +75,24 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
           <Input
             register={register}
             field="tag_name"
-            defaultValue={tag.tag_name}
             placeholder="react native"
           />
 
-          <Select
-            register={register}
-            field="category"
-            defaultValue={tag.category}
-            options={categories}
-          />
+          <FormFieldBox>
+            <select
+              className="w-full"
+              {...register("category")}
+            >
+              {tagCategories.map(tagCat => (
+                <option
+                  key={tagCat.value}
+                  value={tagCat.value}
+                >
+                  {tagCat.label}
+                </option>
+              ))}
+            </select>
+          </FormFieldBox>
 
           <div className="flex items-center justify-between">
             <Button
@@ -95,7 +115,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
           </div>
         </form>
       </Dialog.Content>
-    </>
+    </Dialog.Portal>
   )
 }
 

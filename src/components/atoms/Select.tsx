@@ -16,6 +16,8 @@ function Select<T extends FieldValues>(props: Props<T>) {
       <select
         {...register(field)}
         {...rest}
+        value="Design System"
+        defaultValue='Design System'
         className="w-full"
       >
         {options.map(option => (
