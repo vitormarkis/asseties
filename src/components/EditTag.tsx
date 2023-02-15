@@ -49,7 +49,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
         onCloseAutoFocus={() => setIsPopoverOpen(false)}
         className="
           fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-          text-sm p-4 rounded-lg bg-zinc-100 flex flex-col
+          text-sm p-4 rounded-lg bg-zinc-100 flex flex-col z-20
           "
       >
         <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">{actionAttrs.title}</Dialog.Title>

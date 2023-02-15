@@ -1,3 +1,10 @@
+import { ColorType } from ".";
+
+export interface TagCollorPallete {
+    category: string
+    color: ColorType
+  }
+
 export type NamedColor =
 | "aliceblue"
 | "antiquewhite"

@@ -1,4 +1,4 @@
-import { IdentificationProps } from "@myTypes/index"
+import { ColorType, IdentificationProps } from "@myTypes/index"
 
 /**
  * Global
@@ -24,3 +24,7 @@ export interface TagEditFields extends TagFormFields {}
 
 export type KeyofTagFormFields = keyof TagFormFields
 export type KeyofTagEditFields = keyof TagEditFields
+
+export interface TagTypeColored extends TagType {
+  color: ColorType
+}

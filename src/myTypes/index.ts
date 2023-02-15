@@ -1,4 +1,5 @@
 import { SortingAssetProps } from "@features/filterList-slice/types"
+import { NamedColor } from "./colorTypes"
 
 export interface IdentificationProps {
   id: string
@@ -17,3 +18,5 @@ export interface SortingAssetObjectProps {
   label: string
   value: SortingAssetProps
 }
+
+export type ColorType = `#${string}` | NamedColor

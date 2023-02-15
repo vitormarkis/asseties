@@ -23,4 +23,5 @@ export const AssetsArrayReducers = (assets: AssetType[]) => ({
   addAsset: (newAsset: AssetType) => [...assets, newAsset],
   updateAsset: (newAsset: AssetType) => assets.map(asset => (asset.id === newAsset.id ? newAsset : asset)),
   removeAsset: (assetId: string) => assets.filter(asset => asset.id !== assetId),
+  colorize: (collorPallete: []) => {},
 })
