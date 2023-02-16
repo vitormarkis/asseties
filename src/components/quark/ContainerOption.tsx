@@ -20,7 +20,7 @@ export const ContainerOption: React.FC<Props> = ({ title, className, data_id, ..
       onClick={() => dispatch(setListContainer(data_id))}
       className={clsx(
         `
-      ${className}
+      ${className ?? ''}
       w-1/2 px-2 flex font-light items-center justify-center z-10
       transition-all
       ${current === data_id ? "duration-300" : "delay-100"}

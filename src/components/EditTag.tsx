@@ -1,4 +1,4 @@
-import { baseURL, sortingOptions, tagCategories } from "@constants/constants"
+import { baseURL, sortingOptions, tagCategories, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { TagCategoryObject, TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
@@ -27,22 +27,23 @@ interface Props {
 function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props) {
   const { register, handleSubmit, reset } = useForm<TagEditFields>()
 
-  const tagCategory = sortingOptions.find((option): string =>
-    option.value === tag.category ? option.label : ""
-  )
+  // const tagCategory = sortingOptions.find((option): string =>
+  //   option.value === tag.category ? option.label : ""
+  // )
 
   const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
     // const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
     // const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
-    console.log(tagFormFields)
     const updatedTag = TagOR(tag).updateTag(tagFormFields)
     const refreshedTag = TagOR(updatedTag).refresh()
-    const updatedAsset = AssetOR(asset).updateTag(refreshedTag)
+    const coloredTag = TagOR(refreshedTag).colorize(tagCollorPallete)
+    const updatedAsset = AssetOR(asset).updateTag(coloredTag)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
+    const rawAsset = AssetOR(refreshedAsset).dryTags()
 
     if (setState) setState(refreshedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
-    axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
+    axios.put(baseURL + "/" + rawAsset.id, rawAsset)
     setIsPopoverOpen(false)
   }
 
@@ -50,11 +51,11 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
     reset({ category: tag.category, tag_name: tag.tag_name })
   }, [])
 
-  function findCategoryLabel(tagCategory: string, tagCategories: TagCategoryObject[]): string {
-    const { label } = tagCategories.find(tagCat => tagCat.value === tagCategory) ?? {}
-    if (!label) throw new Error("Não foi encontrado um value correspondente ao Tag Category informado.")
-    return label
-  }
+  // function findCategoryLabel(tagCategory: string, tagCategories: TagCategoryObject[]): string {
+  //   const { label } = tagCategories.find(tagCat => tagCat.value === tagCategory) ?? {}
+  //   if (!label) throw new Error("Não foi encontrado um value correspondente ao Tag Category informado.")
+  //   return label
+  // }
 
   return (
     <Dialog.Portal>
@@ -94,7 +95,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
             </select>
           </FormFieldBox>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2">
             <Button
               onClick={() => setIsPopoverOpen(false)}
               bg="red"

@@ -1,15 +1,12 @@
 import { AssetType } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
+import { AssetListProps } from "@routes/assetList"
 import { sortMethod } from "@utils/index"
 import { AnimatePresence } from "framer-motion"
 import { CompactAsset } from "./CompactAsset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
-interface Props {
-  assets: AssetType[]
-  searchedAssets: AssetType[]
-  filteredAssets: AssetType[]
-}
+interface Props extends AssetListProps {}
 
 function AssetListCompact({ assets, filteredAssets, searchedAssets }: Props) {
   const { fields, sortState } = useAppSelector(state => state.filteredList)

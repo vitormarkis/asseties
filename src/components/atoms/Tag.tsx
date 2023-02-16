@@ -1,5 +1,5 @@
 import { baseURL } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
+import { AssetTypeColored } from "@features/asset-slice/types"
 import { TagType, TagTypeColored } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
@@ -15,10 +15,10 @@ import { CacheReducers } from "@utils/Reducers/CacheReducers"
 interface Props extends HTMLAttributes<HTMLDivElement> {
   textColor?: `#${string}` | NamedColor
   tag: TagTypeColored
-  asset: AssetType
+  asset: AssetTypeColored
   container?: Element | null
   popover?: boolean
-  setState?: React.Dispatch<React.SetStateAction<AssetType>>
+  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>>
 }
 
 const Tag: React.FC<Props> = props => {
@@ -34,7 +34,7 @@ const Tag: React.FC<Props> = props => {
 
   function handleDeleteTag(tag: TagType) {
     const assetsWithoutRemovedOne = AssetOR(asset).removeTag(tag.id)
-    const refreshedAsset = AssetOR(assetsWithoutRemovedOne).refresh()
+    const refreshedAsset = AssetOR(assetsWithoutRemovedOne).refresh() as AssetTypeColored
 
     if (queryClient.getQueryData("assets")) {
       CacheReducers(queryClient, "assets").asset().update(refreshedAsset)

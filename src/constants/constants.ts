@@ -26,8 +26,16 @@ export const tagCategories: TagCategoryObject[] = [
     value: "library",
   },
   {
+    label: "Utilitary Library",
+    value: "utilitary_library",
+  },
+  {
     label: "Style",
     value: "style",
+  },
+  {
+    label: "Code Fragments",
+    value: "code_fragments",
   },
 ]
 
@@ -49,26 +57,34 @@ export const sortingOptions: SortingAssetObjectProps[] = [
 export const tagCollorPallete: TagCollorPallete[] = [
   {
     category: "technology",
-    color: "fuchsia",
+    color: "#2a4",
   },
   {
     category: "framework",
-    color: "darkcyan",
+    color: "#C455A8",
   },
   {
     category: "design_pattern",
-    color: "crimson",
+    color: "#084C61",
   },
   {
     category: "approach",
-    color: "darkcyan",
+    color: "#564787",
   },
   {
     category: "library",
-    color: "royalblue",
+    color: "#985277",
   },
   {
     category: "style",
-    color: "gold",
+    color: "#340068",
+  },
+  {
+    category: "code_fragments",
+    color: "#026",
+  },
+  {
+    category: "utilitary_library",
+    color: "#6E44FF",
   },
 ]

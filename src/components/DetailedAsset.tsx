@@ -1,5 +1,5 @@
 import { baseURL, tagCollorPallete } from "@constants/constants"
-import { AssetTypeColored } from "@features/asset-slice/types"
+import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
 import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
 import { Animation } from "@utils/animations"

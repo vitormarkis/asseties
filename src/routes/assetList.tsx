@@ -23,6 +23,12 @@ import { useQuery } from "react-query"
 import { useDispatch } from "react-redux"
 import StickyBox from "react-sticky-box"
 
+export interface AssetListProps {
+  assets: AssetTypeColored[]
+  searchedAssets: AssetTypeColored[]
+  filteredAssets: AssetTypeColored[]
+}
+
 interface Props {
   toolbar?: boolean
 }
@@ -123,7 +129,7 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
 
       <StickyBox className="z-10">
         <MainWrapper
-          className="h-[32px] sm:rounded-lg relative transition-all duration-700 border-y border-purple-400"
+          className="h-[32px] sm:rounded-lg relative transition-all duration-700 "
           style={{ padding: "0px" }}
         >
           <ContainerOption

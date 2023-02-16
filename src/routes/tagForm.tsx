@@ -1,7 +1,7 @@
-import { Button, Input, Select, Tag } from "@components/atoms"
-import { baseURL, tagCollorPallete } from "@constants/constants"
+import { Button, FormFieldBox, Input, Tag } from "@components/atoms"
+import { baseURL, tagCategories, tagCollorPallete } from "@constants/constants"
 import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
-import { TagFormFields, TagTypeColored } from "@features/tag-slice/types"
+import { TagFormFields } from "@features/tag-slice/types"
 import { queryClient } from "@services/queryClient"
 import { FieldsReducers, Formatter } from "@utils/index"
 import { AssetObjectReducers as aor, AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
@@ -20,8 +20,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export default function TagsForm() {
   const navigate = useNavigate()
   const { data: rawAsset } = useLoaderData() as AxiosResponse<AssetType>
-  const { register, handleSubmit, formState } = useForm<TagFormFields>()
-  const [asset, setAsset] = useState<AssetTypeColored | AssetType>(rawAsset)
+  const { register, handleSubmit, reset } = useForm<TagFormFields>()
+  const coloredAsset = AssetObjectReducers(rawAsset).colorize(tagCollorPallete)
+  const [asset, setAsset] = useState<AssetTypeColored>(coloredAsset)
 
   async function handleBackButton() {
     navigate(-1)
@@ -34,18 +35,21 @@ export default function TagsForm() {
   const onSubmit: SubmitHandler<TagFormFields> = (tagFormFields: TagFormFields) => {
     const formattedFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
     const newTag = TagObjectReducers().createTag(formattedFields)
-    const updatedAsset = aor(asset).addTag(newTag)
-    const refreshedAsset = aor(updatedAsset).refresh()
-    const colorizedAsset = aor(updatedAsset).colorize(tagCollorPallete)
+    const coloredTag = TagObjectReducers(newTag).colorize(tagCollorPallete)
+    const updatedAsset = aor(asset).addTag(coloredTag)
+    const refreshedAsset = aor(updatedAsset).refresh() as AssetTypeColored
+    const dryAsset = aor(refreshedAsset).dryTags()
 
-    setAsset(colorizedAsset)
+    setAsset(refreshedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
-    axios.put(baseURL + "/" + asset.id, refreshedAsset)
+    axios.put(baseURL + "/" + asset.id, dryAsset)
+
+    reset({ tag_name: "" })
   }
 
   return (
-    <div className="flex flex-col items-center p-12 bg-zinc-100 h-screen gap-12">
-      <div className=" w-[560px]">
+    <div className="flex flex-col items-center bg-zinc-100 h-screen gap-12">
+      <div className="sm:w-[560px] w-full flex flex-col justify-center p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-lg drop-shadow-md">{asset?.asset_name}</h1>
         </div>
@@ -55,7 +59,7 @@ export default function TagsForm() {
             <Tag
               key={tag.id}
               textColor="white"
-              tag={tag as TagTypeColored}
+              tag={tag}
               asset={asset}
               popover
               setState={setAsset}
@@ -66,7 +70,7 @@ export default function TagsForm() {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[480px] flex [&_span]:w-[110px] flex-col gap-3"
+        className="sm:w-[560px] w-full px-4 flex [&_span]:w-[110px] flex-col gap-3"
       >
         <div className="flex text-sm items-center">
           <span>Tag name:</span>
@@ -78,11 +82,21 @@ export default function TagsForm() {
         </div>
         <div className="flex text-sm items-center">
           <span>Category:</span>
-          {/* <Select
-            field="category"
-            options={categories}
-            register={register}
-          /> */}
+          <FormFieldBox>
+            <select
+              className="w-full"
+              {...register("category")}
+            >
+              {tagCategories.map(tagCat => (
+                <option
+                  key={tagCat.value}
+                  value={tagCat.value}
+                >
+                  {tagCat.label}
+                </option>
+              ))}
+            </select>
+          </FormFieldBox>
         </div>
         <div className="flex justify-end gap-2">
           <Button

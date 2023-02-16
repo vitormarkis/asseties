@@ -34,5 +34,5 @@ export interface TagCategoryObject {
   value: TagCategoryValue
 }
 
-export type TagCategoryLabel = "Technology" | "Framework" | "Design Pattern" | "Approach" | "Library" | "Style"
-export type TagCategoryValue = "technology" | "framework" | "design_pattern" | "approach" | "library" | "style"
+export type TagCategoryLabel = "Technology" | "Framework" | "Design Pattern" | "Approach" | "Library" | "Style" | "Code Fragments" | "Utilitary Library"
+export type TagCategoryValue = "technology" | "framework" | "design_pattern" | "approach" | "library" | "style" | "code_fragments" | "utilitary_library"

@@ -2,7 +2,7 @@ import { Button, Input } from "@components/atoms"
 import { baseURL } from "@constants/constants"
 import { AssetFormFields, AssetType } from "@features/asset-slice/types"
 import { queryClient } from "@services/queryClient"
-import { AssetObjectReducers as aor } from "@utils/Reducers/AssetsReducers"
+import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import axios, { AxiosResponse } from "axios"
 import _ from "lodash"
@@ -32,8 +32,9 @@ export function EditAssetForm() {
   }
 
   const onSubmit: SubmitHandler<AssetFormFields> = assetFormFields => {
-    const updatedAsset = aor(asset).updateAsset(assetFormFields)
-    const refreshedAsset = aor(updatedAsset).refresh()
+    const rawAsset = AssetOR(asset).dryTags()
+    const updatedAsset = AssetOR(rawAsset).updateAsset(assetFormFields)
+    const refreshedAsset = AssetOR(updatedAsset).refresh()
 
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     navigate("/")
