@@ -56,17 +56,16 @@ const Tag: React.FC<Props> = props => {
 
   const tagStyles = {
     hasInfo: {
-      // boxShadow: `0 0 0 1px ${chroma(tag.color).brighten(2)}`,
-      backgroundColor: `${chroma(tag.color).brighten(2.5)}`,
-      color: `${chroma(tag.color).darken(2)}`,
+      backgroundColor: `${chroma(tag.color).brighten(0.4)}`,
+      // color: `${chroma(tag.color).darken(2)}`,
+      color: `#fff`,
       borderRight: `4px solid ${chroma(tag.color)}`,
       borderWidth: '1px 4px 1px 1px',
-      borderColor: `${tag.color}`
+      borderColor: `${tag.color} ${chroma(tag.color).darken(0.6)} ${tag.color} ${tag.color}`
     },
     noInfo: {
       backgroundColor: tag.color,
       color: textColor ?? "white",
-      // borderRight: hasInfo ? `3px solid ${chroma(tag.color).darken(0.5)}` : "",
     },
   }
 

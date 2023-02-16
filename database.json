@@ -3,7 +3,7 @@
     {
       "id": "b1qkz2gdvr",
       "created_at": "Wed Feb 15 2023 22:55:31 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Thu Feb 16 2023 20:22:22 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Thu Feb 16 2023 20:23:33 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "asseties",
       "tags": [
         {
@@ -129,10 +129,10 @@
         {
           "id": "yi3w51xtnc",
           "created_at": "Thu Feb 16 2023 00:09:48 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 20:22:22 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Thu Feb 16 2023 20:23:33 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "axios",
           "category": "library",
-          "info": "vamos testar agora como ele fica salvo com formatação.\n\n    tab: {\n        width: 20px;\n}"
+          "info": ""
         },
         {
           "id": "8v3q2ti8f1g",
