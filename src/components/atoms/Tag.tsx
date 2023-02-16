@@ -7,11 +7,14 @@ import axios from "axios"
 import { HTMLAttributes, useState } from "react"
 
 import EditTag from "@components/EditTag"
+import { Circle } from "@components/quark/Circle"
 import PopoverButton from "@components/quark/PopoverButton"
 import * as Dialog from "@radix-ui/react-dialog"
 import * as Popover from "@radix-ui/react-popover"
 import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
+
+import chroma from "chroma-js"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   textColor?: `#${string}` | NamedColor
@@ -19,7 +22,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   asset: AssetTypeColored
   container?: Element | null
   popover?: boolean
-  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>> | React.Dispatch<React.SetStateAction<AssetType>>
+  setState?:
+    | React.Dispatch<React.SetStateAction<AssetTypeColored>>
+    | React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 const Tag: React.FC<Props> = props => {
@@ -32,6 +37,8 @@ const Tag: React.FC<Props> = props => {
       description: "Insira as novas informações da tag...",
     },
   }
+
+  const hasInfo = tag.info.length > 0
 
   function handleDeleteTag(tag: TagType) {
     const assetsWithoutRemovedOne = AssetOR(asset).removeTag(tag.id)
@@ -47,7 +54,21 @@ const Tag: React.FC<Props> = props => {
     axios.put(baseURL + "/" + refreshedAsset.id, refreshedAsset)
   }
 
-  function handleClickDownOutside() {}
+  const tagStyles = {
+    hasInfo: {
+      // boxShadow: `0 0 0 1px ${chroma(tag.color).brighten(2)}`,
+      backgroundColor: `${chroma(tag.color).brighten(2.5)}`,
+      color: `${chroma(tag.color).darken(2)}`,
+      borderRight: `4px solid ${chroma(tag.color)}`,
+      borderWidth: '1px 4px 1px 1px',
+      borderColor: `${tag.color}`
+    },
+    noInfo: {
+      backgroundColor: tag.color,
+      color: textColor ?? "white",
+      // borderRight: hasInfo ? `3px solid ${chroma(tag.color).darken(0.5)}` : "",
+    },
+  }
 
   return (
     <Popover.Root
@@ -56,24 +77,27 @@ const Tag: React.FC<Props> = props => {
     >
       <Popover.Trigger>
         <div
-          className="leading-none p-1 rounded-sm text-xs flex gap-2 items-center"
-          style={{
-            backgroundColor: tag.color,
-            color: textColor ?? "#fff",
-          }}
+          className={`leading-none py-1  rounded-sm text-xs flex gap-2 items-center
+          ${hasInfo ? "tag-has-info pr-2 pl-1" : "px-1"}
+          `}
+          style={hasInfo ? tagStyles.hasInfo : tagStyles.noInfo}
           {...rest}
         >
           <p>{tag.tag_name}</p>
-          <p
+
+          <Circle
             onClick={() => handleDeleteTag(tag)}
-            className="cursor-pointer p-1 rounded-full bg-black/20 mr-1 w-2.5 h-2.5"
+            style={{
+              backgroundColor: `${hasInfo ? tag.color : chroma(tag.color).darken(0.7)}`,
+              width: "0.5625rem",
+              height: "0.5625rem",
+            }}
           />
         </div>
       </Popover.Trigger>
       {popover && (
         <Popover.Portal>
           <Popover.Content
-            onPointerDownOutside={handleClickDownOutside}
             side="right"
             align="center"
             sticky="always"

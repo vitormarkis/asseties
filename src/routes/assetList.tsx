@@ -127,7 +127,7 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
         </MainWrapper>
       )}
 
-      <StickyBox className="z-10">
+      <StickyBox className="z-[15]">
         <MainWrapper
           className="h-[32px] sm:rounded-lg relative transition-all duration-700 "
           style={{ padding: "0px" }}

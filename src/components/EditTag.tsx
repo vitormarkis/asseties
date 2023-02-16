@@ -62,7 +62,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
       <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
 
       <Dialog.Content
-        onCloseAutoFocus={() => setIsPopoverOpen(false)}
+        // onCloseAutoFocus={() => setIsPopoverOpen(false)}
         className="modal px-8 flex"
       >
         <div className="container bg-zinc-200 max-w-[90vw] w-[320px] flex-col">
