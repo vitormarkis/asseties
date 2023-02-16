@@ -1,5 +1,5 @@
 import { baseURL, tagCategories, tagCollorPallete } from "@constants/constants"
-import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
+import { AssetType } from "@features/asset-slice/types"
 import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
 import { queryClient } from "@services/queryClient"
@@ -7,7 +7,7 @@ import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 import { TagObjectReducers as TagOR } from "@utils/Reducers/TagsReducers"
 import axios from "axios"
-import React, { Dispatch, SetStateAction, useEffect } from "react"
+import { Dispatch, SetStateAction, useEffect } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { Button, FormFieldBox, Input } from "./atoms"
 
@@ -21,19 +21,13 @@ interface Props {
   tag: TagType
   asset: AssetType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
-  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>> | React.Dispatch<React.SetStateAction<AssetType>>
+  setState?: any
 }
 
 function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props) {
   const { register, handleSubmit, reset } = useForm<TagEditFields>()
 
-  // const tagCategory = sortingOptions.find((option): string =>
-  //   option.value === tag.category ? option.label : ""
-  // )
-
   const onSubmit: SubmitHandler<TagEditFields> = tagFormFields => {
-    // const formattedTagFormFields = FieldsReducers(tagFormFields).formatFields(Formatter.fields)
-    // const updatedTag = TagOR(tag).updateTag(formattedTagFormFields)
     const updatedTag = TagOR(tag).updateTag(tagFormFields)
     const refreshedTag = TagOR(updatedTag).refresh()
     const coloredTag = TagOR(refreshedTag).colorize(tagCollorPallete)
@@ -48,7 +42,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
   }
 
   useEffect(() => {
-    reset({ category: tag.category, tag_name: tag.tag_name })
+    reset({ category: tag.category, tag_name: tag.tag_name, info: tag.info })
   }, [])
 
   // function findCategoryLabel(tagCategory: string, tagCategories: TagCategoryObject[]): string {
@@ -93,6 +87,13 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
                   </option>
                 ))}
               </select>
+            </FormFieldBox>
+            <FormFieldBox>
+              <textarea
+                {...register("info")}
+                className="w-full"
+                rows={4}
+              ></textarea>
             </FormFieldBox>
             <div className="flex items-center justify-between gap-2">
               <Button
