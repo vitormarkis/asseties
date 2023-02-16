@@ -40,15 +40,17 @@ export default function TagsForm() {
     const refreshedAsset = aor(updatedAsset).refresh() as AssetTypeColored
     const dryAsset = aor(refreshedAsset).dryTags()
 
+    console.log({tagFormFields, newTag, coloredTag, updatedAsset, refreshedAsset, dryAsset})
+    
     setAsset(refreshedAsset)
     CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
     axios.put(baseURL + "/" + asset.id, dryAsset)
 
-    reset({ tag_name: "" })
+    reset({ tag_name: "", info: "" })
   }
 
   return (
-    <div className="flex flex-col items-center bg-zinc-100 h-screen gap-12">
+    <div className="flex flex-col items-center bg-zinc-100 min-h-screen gap-12">
       <div className="sm:w-[560px] w-full flex flex-col justify-center p-4">
         <div className="flex items-center justify-between">
           <h1 className="text-lg drop-shadow-md">{asset?.asset_name}</h1>
@@ -96,6 +98,16 @@ export default function TagsForm() {
                 </option>
               ))}
             </select>
+          </FormFieldBox>
+        </div>
+        <div className="flex text-sm items-start">
+          <span>Information:</span>
+          <FormFieldBox>
+            <textarea
+              {...register("info")}
+              className="w-full"
+              rows={7}
+            ></textarea>
           </FormFieldBox>
         </div>
         <div className="flex justify-end gap-2">

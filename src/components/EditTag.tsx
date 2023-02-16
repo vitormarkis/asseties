@@ -1,5 +1,5 @@
 import { baseURL, tagCategories, tagCollorPallete } from "@constants/constants"
-import { AssetType } from "@features/asset-slice/types"
+import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
 import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
 import { queryClient } from "@services/queryClient"
@@ -21,7 +21,7 @@ interface Props {
   tag: TagType
   asset: AssetType
   setIsPopoverOpen: Dispatch<SetStateAction<boolean>>
-  setState?: React.Dispatch<React.SetStateAction<AssetType>>
+  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>> | React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props) {

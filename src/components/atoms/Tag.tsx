@@ -19,7 +19,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   asset: AssetTypeColored
   container?: Element | null
   popover?: boolean
-  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored | AssetType>>
+  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>> | React.Dispatch<React.SetStateAction<AssetType>>
 }
 
 const Tag: React.FC<Props> = props => {

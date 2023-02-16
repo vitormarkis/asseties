@@ -4,7 +4,7 @@ import { SortingAssetObjectProps } from "@myTypes/index"
 
 export const baseURL = "http://localhost:3000/assets"
 
-export const casingWhitelist = ["tag_name", "asset_name"]
+export const casingWhitelist = ["tag_name", "asset_name", "info"]
 
 export const tagCategories: TagCategoryObject[] = [
   {

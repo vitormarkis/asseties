@@ -9,9 +9,7 @@ export interface TagState {
   editFields: TagEditFields
 }
 
-export interface TagType extends IdentificationProps, TagFormFields {
-  info: string
-}
+export interface TagType extends IdentificationProps, TagFormFields {}
 
 export interface TagTypeColored extends TagType {
   color: ColorType
@@ -24,6 +22,7 @@ export interface TagTypeColored extends TagType {
 export interface TagFormFields {
   tag_name: string
   category: string
+  info: string
 }
 
 export interface TagEditFields extends TagFormFields {}
@@ -36,5 +35,21 @@ export interface TagCategoryObject {
   value: TagCategoryValue
 }
 
-export type TagCategoryLabel = "Technology" | "Framework" | "Design Pattern" | "Approach" | "Library" | "Style" | "Code Fragments" | "Utilitary Library"
-export type TagCategoryValue = "technology" | "framework" | "design_pattern" | "approach" | "library" | "style" | "code_fragments" | "utilitary_library"
+export type TagCategoryLabel =
+  | "Technology"
+  | "Framework"
+  | "Design Pattern"
+  | "Approach"
+  | "Library"
+  | "Style"
+  | "Code Fragments"
+  | "Utilitary Library"
+export type TagCategoryValue =
+  | "technology"
+  | "framework"
+  | "design_pattern"
+  | "approach"
+  | "library"
+  | "style"
+  | "code_fragments"
+  | "utilitary_library"
