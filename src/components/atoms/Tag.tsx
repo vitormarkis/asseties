@@ -1,5 +1,5 @@
 import { baseURL } from "@constants/constants"
-import { AssetTypeColored } from "@features/asset-slice/types"
+import { AssetType, AssetTypeColored } from "@features/asset-slice/types"
 import { TagType, TagTypeColored } from "@features/tag-slice/types"
 import { NamedColor } from "@myTypes/colorTypes"
 import { queryClient } from "@services/queryClient"
@@ -8,6 +8,7 @@ import { HTMLAttributes, useState } from "react"
 
 import EditTag from "@components/EditTag"
 import PopoverButton from "@components/quark/PopoverButton"
+import * as Dialog from "@radix-ui/react-dialog"
 import * as Popover from "@radix-ui/react-popover"
 import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
@@ -18,7 +19,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   asset: AssetTypeColored
   container?: Element | null
   popover?: boolean
-  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored>>
+  setState?: React.Dispatch<React.SetStateAction<AssetTypeColored | AssetType>>
 }
 
 const Tag: React.FC<Props> = props => {
@@ -83,8 +84,15 @@ const Tag: React.FC<Props> = props => {
           >
             <PopoverButton
               type="button"
-              action="Excluir"
-              event={() => handleDeleteTag(tag)}
+              action="Informações"
+              element={
+                <Dialog.Portal>
+                  <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
+                  <Dialog.Content className="modal max-w-[90vw] w-[320px] ">
+                    <div className="container bg-zinc-200">{tag.info}</div>
+                  </Dialog.Content>
+                </Dialog.Portal>
+              }
             />
             <PopoverButton
               type="button"
@@ -98,6 +106,11 @@ const Tag: React.FC<Props> = props => {
                   setState={setState}
                 />
               }
+            />
+            <PopoverButton
+              type="button"
+              action="Excluir"
+              event={() => handleDeleteTag(tag)}
             />
             <Popover.Arrow
               fill="#1E293B"

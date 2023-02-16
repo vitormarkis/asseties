@@ -31,6 +31,21 @@ input {
         inset 0 1px 0 1px #ffffff20;
 }
 
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+}
+
+.container {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
 .scroll-style::-webkit-scrollbar {
     width: 6px;
 }

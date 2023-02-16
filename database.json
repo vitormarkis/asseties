@@ -3,7 +3,7 @@
     {
       "id": "b1qkz2gdvr",
       "created_at": "Wed Feb 15 2023 22:55:31 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Thu Feb 16 2023 15:33:45 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Thu Feb 16 2023 15:59:18 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "asseties",
       "tags": [
         {
@@ -12,15 +12,8 @@
           "updated_at": "Wed Feb 15 2023 23:10:39 GMT-0300 (Horário Padrão de Brasília)",
           "category": "design_pattern",
           "tag_name": "factory function",
-          "info": ""
-        },
-        {
-          "id": "jap57bsalff",
-          "created_at": "Wed Feb 15 2023 23:12:04 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 15 2023 23:12:04 GMT-0300 (Horário Padrão de Brasília)",
-          "category": "framework",
-          "tag_name": "react",
-          "info": ""
+          "info": "eu utilizei factories functions para manipular arrays, tags e o cache",
+          "color": "#084C61"
         },
         {
           "id": "66wfuyh6g8r",
@@ -28,7 +21,8 @@
           "updated_at": "Wed Feb 15 2023 23:35:40 GMT-0300 (Horário Padrão de Brasília)",
           "category": "approach",
           "tag_name": "highier order functions",
-          "info": ""
+          "info": "",
+          "color": "#564787"
         },
         {
           "id": "nh3uxhpdvr",
@@ -36,7 +30,8 @@
           "updated_at": "Wed Feb 15 2023 23:42:03 GMT-0300 (Horário Padrão de Brasília)",
           "category": "utilitary_library",
           "tag_name": "radix dialog",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "39lq3hqd2jr",
@@ -44,7 +39,8 @@
           "updated_at": "Wed Feb 15 2023 23:49:19 GMT-0300 (Horário Padrão de Brasília)",
           "category": "utilitary_library",
           "tag_name": "radix popover",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "dyygz85qxu",
@@ -52,7 +48,8 @@
           "updated_at": "Thu Feb 16 2023 00:02:31 GMT-0300 (Horário Padrão de Brasília)",
           "category": "utilitary_library",
           "tag_name": "zodash",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "eyidsbh8pp",
@@ -60,7 +57,8 @@
           "updated_at": "Thu Feb 16 2023 00:02:45 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "typescript",
           "category": "technology",
-          "info": ""
+          "info": "",
+          "color": "#2a4"
         },
         {
           "id": "uzzln0qu84",
@@ -68,7 +66,8 @@
           "updated_at": "Thu Feb 16 2023 00:03:02 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "tailwindcss",
           "category": "style",
-          "info": ""
+          "info": "",
+          "color": "#340068"
         },
         {
           "id": "qszccj1ai5",
@@ -76,7 +75,8 @@
           "updated_at": "Thu Feb 16 2023 00:03:10 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "framer motion",
           "category": "style",
-          "info": ""
+          "info": "",
+          "color": "#340068"
         },
         {
           "id": "otbmkc85lpp",
@@ -84,7 +84,8 @@
           "updated_at": "Thu Feb 16 2023 00:07:01 GMT-0300 (Horário Padrão de Brasília)",
           "category": "utilitary_library",
           "tag_name": "react hook form",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "0lazti3qbmz",
@@ -92,7 +93,8 @@
           "updated_at": "Thu Feb 16 2023 00:07:32 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react query",
           "category": "library",
-          "info": ""
+          "info": "",
+          "color": "#985277"
         },
         {
           "id": "mv5n1rxql1",
@@ -100,7 +102,8 @@
           "updated_at": "Thu Feb 16 2023 00:07:44 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react sticky box",
           "category": "utilitary_library",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "7xasg94myfr",
@@ -108,7 +111,8 @@
           "updated_at": "Thu Feb 16 2023 00:08:56 GMT-0300 (Horário Padrão de Brasília)",
           "category": "library",
           "tag_name": "redux toolkit",
-          "info": ""
+          "info": "",
+          "color": "#985277"
         },
         {
           "id": "17z7y63jolj",
@@ -116,7 +120,8 @@
           "updated_at": "Thu Feb 16 2023 00:09:08 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "react router dom",
           "category": "library",
-          "info": ""
+          "info": "",
+          "color": "#985277"
         },
         {
           "id": "iy49ewte3gd",
@@ -124,7 +129,8 @@
           "updated_at": "Thu Feb 16 2023 00:09:33 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "json server",
           "category": "technology",
-          "info": ""
+          "info": "",
+          "color": "#2a4"
         },
         {
           "id": "wm4h4t9as3",
@@ -132,7 +138,8 @@
           "updated_at": "Thu Feb 16 2023 00:09:41 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "clsx",
           "category": "utilitary_library",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         },
         {
           "id": "yi3w51xtnc",
@@ -140,7 +147,8 @@
           "updated_at": "Thu Feb 16 2023 00:09:48 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "axios",
           "category": "library",
-          "info": ""
+          "info": "",
+          "color": "#985277"
         },
         {
           "id": "8v3q2ti8f1g",
@@ -148,7 +156,8 @@
           "updated_at": "Thu Feb 16 2023 00:10:52 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "styled icons",
           "category": "style",
-          "info": ""
+          "info": "",
+          "color": "#340068"
         },
         {
           "id": "vyba8qyyfm",
@@ -156,7 +165,8 @@
           "updated_at": "Thu Feb 16 2023 00:22:55 GMT-0300 (Horário Padrão de Brasília)",
           "category": "approach",
           "tag_name": "responsive",
-          "info": ""
+          "info": "",
+          "color": "#564787"
         },
         {
           "id": "6rhkv7wpwm",
@@ -164,7 +174,8 @@
           "updated_at": "Thu Feb 16 2023 00:24:07 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "typed dynamic sort criteria",
           "category": "code_fragments",
-          "info": ""
+          "info": "",
+          "color": "#026"
         },
         {
           "id": "62fmhgisokj",
@@ -172,7 +183,8 @@
           "updated_at": "Thu Feb 16 2023 00:24:40 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "highier order filter method",
           "category": "code_fragments",
-          "info": ""
+          "info": "",
+          "color": "#026"
         },
         {
           "id": "2seeyqsxpsa",
@@ -180,7 +192,8 @@
           "updated_at": "Thu Feb 16 2023 00:25:06 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "loader (react router dom)",
           "category": "code_fragments",
-          "info": ""
+          "info": "",
+          "color": "#026"
         },
         {
           "id": "17ry86608qy",
@@ -188,7 +201,8 @@
           "updated_at": "Thu Feb 16 2023 00:26:23 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "render element inside element",
           "category": "approach",
-          "info": ""
+          "info": "",
+          "color": "#564787"
         },
         {
           "id": "gxtx31v3hcv",
@@ -196,7 +210,8 @@
           "updated_at": "Thu Feb 16 2023 00:27:11 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "ts paths (vite)",
           "category": "approach",
-          "info": ""
+          "info": "",
+          "color": "#564787"
         },
         {
           "id": "w0za2mw751j",
@@ -204,7 +219,8 @@
           "updated_at": "Thu Feb 16 2023 15:33:45 GMT-0300 (Horário Padrão de Brasília)",
           "category": "utilitary_library",
           "tag_name": "outra tag",
-          "info": ""
+          "info": "",
+          "color": "#6E44FF"
         }
       ]
     }

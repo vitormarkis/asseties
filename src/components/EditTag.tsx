@@ -1,6 +1,6 @@
-import { baseURL, sortingOptions, tagCategories, tagCollorPallete } from "@constants/constants"
+import { baseURL, tagCategories, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
-import { TagCategoryObject, TagEditFields, TagType } from "@features/tag-slice/types"
+import { TagEditFields, TagType } from "@features/tag-slice/types"
 import * as Dialog from "@radix-ui/react-dialog"
 import { queryClient } from "@services/queryClient"
 import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
@@ -59,62 +59,62 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="inset-0 fixed bg-black/20" />
+      <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
 
       <Dialog.Content
         onCloseAutoFocus={() => setIsPopoverOpen(false)}
-        className=" fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm p-4 rounded-lg bg-zinc-200 flex flex-col z-20 "
+        className="modal px-8 flex"
       >
-        <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">
-          {actionAttrs.title}
-        </Dialog.Title>
-        <Dialog.Description className="text-zinc-400 text-xs">{actionAttrs.description}</Dialog.Description>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-2 my-2"
-        >
-          <Input
-            register={register}
-            field="tag_name"
-            placeholder="react native"
-          />
-
-          <FormFieldBox>
-            <select
-              className="w-full"
-              {...register("category")}
-            >
-              {tagCategories.map(tagCat => (
-                <option
-                  key={tagCat.value}
-                  value={tagCat.value}
-                >
-                  {tagCat.label}
-                </option>
-              ))}
-            </select>
-          </FormFieldBox>
-
-          <div className="flex items-center justify-between gap-2">
-            <Button
-              onClick={() => setIsPopoverOpen(false)}
-              bg="red"
-              textColor="white"
-              rounded="md"
-              value="Fechar"
-              fontSize="extra-small"
+        <div className="container bg-zinc-200 max-w-[90vw] w-[320px] flex-col">
+          <Dialog.Title className="text-lg text-zinc-600 tracking-wide leading-4 mb-1">
+            {actionAttrs.title}
+          </Dialog.Title>
+          <Dialog.Description className="text-zinc-400 text-xs">{actionAttrs.description}</Dialog.Description>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-2 my-2"
+          >
+            <Input
+              register={register}
+              field="tag_name"
+              placeholder="react native"
             />
-            <Button
-              type="submit"
-              bg="green"
-              textColor="white"
-              rounded="md"
-              value="Salvar"
-              fontSize="extra-small"
-              autoFocus={true}
-            />
-          </div>
-        </form>
+            <FormFieldBox>
+              <select
+                className="w-full"
+                {...register("category")}
+              >
+                {tagCategories.map(tagCat => (
+                  <option
+                    key={tagCat.value}
+                    value={tagCat.value}
+                  >
+                    {tagCat.label}
+                  </option>
+                ))}
+              </select>
+            </FormFieldBox>
+            <div className="flex items-center justify-between gap-2">
+              <Button
+                onClick={() => setIsPopoverOpen(false)}
+                bg="red"
+                textColor="white"
+                rounded="md"
+                value="Fechar"
+                fontSize="extra-small"
+              />
+              <Button
+                type="submit"
+                bg="green"
+                textColor="white"
+                rounded="md"
+                value="Salvar"
+                fontSize="extra-small"
+                autoFocus={true}
+              />
+            </div>
+          </form>
+        </div>
       </Dialog.Content>
     </Dialog.Portal>
   )
