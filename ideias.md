@@ -6,3 +6,5 @@
 
 30215/ [ ] no tagForm, caso ele nao tenha cache, fazer uma requisição http
 30215/ [ ] adicionar autocomplete de nome de tags ja existentes para guiar o usuario de quais tags ja existem
+
+30216/ [ ] adicionar edição em massa

@@ -28,7 +28,7 @@ export const AssetObjectReducers = (asset: AssetType | AssetTypeColored) => ({
     ...asset,
     tags: asset.tags.filter(tag => tag.id !== tagId),
   }),
-  patchTag: (tagId: string, tagFormFields: TagFormFields): AssetType => ({
+  patchTag: (tagId: string, tagFormFields: object): AssetType => ({
     ...asset,
     tags: asset.tags.map(tag => (tag.id === tagId ? { ...tag, ...tagFormFields } : tag)),
   }),

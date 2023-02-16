@@ -9,7 +9,13 @@ export interface TagState {
   editFields: TagEditFields
 }
 
-export interface TagType extends IdentificationProps, TagFormFields {}
+export interface TagType extends IdentificationProps, TagFormFields {
+  info: string
+}
+
+export interface TagTypeColored extends TagType {
+  color: ColorType
+}
 
 /**
  * Complementaries
@@ -24,10 +30,6 @@ export interface TagEditFields extends TagFormFields {}
 
 export type KeyofTagFormFields = keyof TagFormFields
 export type KeyofTagEditFields = keyof TagEditFields
-
-export interface TagTypeColored extends TagType {
-  color: ColorType
-}
 
 export interface TagCategoryObject {
   label: TagCategoryLabel

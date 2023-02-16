@@ -1,6 +1,6 @@
+import { casingWhitelist } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { mapTuple } from "@myTypes/index"
-import { casingWhitelist } from "./contants"
 
 export function eraseFields<T extends { [K: string]: string }>(fields: T): { [K: string]: "" } {
   const resetedValues = Object.entries(fields!).map(keyPair => [keyPair[0], ""])
