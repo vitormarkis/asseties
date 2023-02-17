@@ -25,7 +25,7 @@
         0 0 0 1px white,
         0 0 0 2px #999
         ; */
-    
+
     font-weight: 500;
 }
 
@@ -80,4 +80,23 @@ input {
 .scroll-style::-webkit-scrollbar-thumb {
     border-radius: 99px;
     background: rgb(0, 0, 0, 0.1);
+}
+
+#layout {
+    display: grid;
+    grid-template-columns: minmax(160px, 260px);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+        'navbar outlet'
+        'navbar main'
+    ;
+}
+
+#tags-library {
+    display: grid;
+    grid-template-columns: minmax(160px, 260px) minmax(120px, max-content) minmax(340px, 1fr);
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        'navbar tags assets'
+    ;
 }

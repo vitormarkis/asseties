@@ -12,6 +12,7 @@ import { store } from "./features/store"
 import { NewAssetForm } from "@routes/NewAssetForm"
 import TagsForm, { loader as addTagsFormLoader } from "@routes/tagForm"
 import { EditAssetForm, loader as editAssetFormLoader } from "@routes/EditAssetForm"
+import TagsLibrary from "@routes/tagsLibrary"
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
     path: "/addTags/:id",
     element: <TagsForm />,
     loader: addTagsFormLoader,
+  },
+  {
+    path: "/tags-library",
+    element: <TagsLibrary />,
   },
 ])
 
