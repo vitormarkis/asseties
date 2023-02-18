@@ -1,5 +1,5 @@
 import AssetLibraryList from "@components/AssetLibraryList"
-import { Navbar } from "@components/Navbar"
+import Navbar from "@components/Navbar"
 import TagLibraryList from "@components/TagsList"
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"

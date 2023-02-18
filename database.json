@@ -3,7 +3,7 @@
     {
       "id": "b1qkz2gdvr",
       "created_at": "Wed Feb 15 2023 22:55:31 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Thu Feb 16 2023 20:23:33 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Sat Feb 18 2023 17:22:07 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "asseties",
       "tags": [
         {
@@ -201,50 +201,18 @@
         {
           "id": "63fvqjkhu7j",
           "created_at": "Thu Feb 16 2023 16:34:54 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 20:20:29 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 17 2023 17:05:10 GMT-0300 (Horário Padrão de Brasília)",
           "category": "technology",
-          "info": "Tagie tagi!zzz",
+          "info": "Tagie tagi!xx",
           "tag_name": "tagie"
-        }
-      ]
-    },
-    {
-      "id": "gzuf6dd7yoo",
-      "created_at": "Thu Feb 16 2023 21:41:08 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Thu Feb 16 2023 22:21:45 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "NOVO TAG",
-      "tags": [
-        {
-          "id": "fg9tfeeh33v",
-          "created_at": "Thu Feb 16 2023 21:41:17 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 21:41:17 GMT-0300 (Horário Padrão de Brasília)",
-          "category": "approach",
-          "info": "",
-          "tag_name": "NOVO TAG"
         },
         {
-          "id": "96lqchw3abe",
-          "created_at": "Thu Feb 16 2023 21:41:22 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 21:41:22 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "NOVA TAG",
-          "info": "",
-          "category": "utilitary_library"
-        },
-        {
-          "id": "8hkafttbc76",
-          "created_at": "Thu Feb 16 2023 22:21:39 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 22:21:39 GMT-0300 (Horário Padrão de Brasília)",
-          "category": "technology",
-          "info": "",
-          "tag_name": "NOVO TAG"
-        },
-        {
-          "id": "7exo31kw10l",
-          "created_at": "Thu Feb 16 2023 22:21:45 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 22:21:45 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "framer motion",
-          "info": "",
-          "category": "approach"
+          "id": "xvuztqaio",
+          "created_at": "Sat Feb 18 2023 17:22:07 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Sat Feb 18 2023 17:22:07 GMT-0300 (Horário Padrão de Brasília)",
+          "category": "style",
+          "info": "usei o styled components para estilizar os icones da navbar, porque eles precisam de uma estilização mais low level, e em vez de criar varias classes separadas, eu usei o styled components para justamente essas classes ficarem à nível de componente",
+          "tag_name": "styled components"
         }
       ]
     }

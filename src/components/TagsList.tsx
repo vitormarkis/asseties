@@ -9,7 +9,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 interface UniqueTagsInterface {
-  uniqueTagNames: string[]
   uniqueTags: TagTypeColored[]
 }
 
@@ -19,35 +18,34 @@ const TagLibraryList: React.FC<Props> = ({ assets, seeingTagName, setSeeingTagNa
   const uniqueTagsInterface: UniqueTagsInterface = [...assets].reduce(
     (acc, asset) => {
       asset.tags.forEach(tag => {
-        const allowed = acc.uniqueTagNames.includes(tag.tag_name)
-        acc.uniqueTagNames = allowed ? acc.uniqueTagNames : [...acc.uniqueTagNames, tag.tag_name]
+        const allowed = acc.uniqueTags.find(uniTag => uniTag.tag_name === tag.tag_name)
         acc.uniqueTags = allowed ? acc.uniqueTags : [...acc.uniqueTags, tag]
       })
       return acc
     },
-    { uniqueTagNames: [], uniqueTags: [] } as UniqueTagsInterface
+    { uniqueTags: [] } as UniqueTagsInterface
   )
-
+  
   const { uniqueTags } = uniqueTagsInterface
 
   const finalAssets = uniqueTags.sort((a, b) =>
-    a.category.toLowerCase() > b.category.toLowerCase()
-      ? -1
-      : a.category.toLowerCase() < b.category.toLowerCase()
+    a.tag_name.toLowerCase() > b.tag_name.toLowerCase()
       ? 1
+      : a.tag_name.toLowerCase() < b.tag_name.toLowerCase()
+      ? -1
       : 0
   )
 
   return (
     <div
-      className="flex flex-col"
+      className="flex flex-col gap-1 text-xs"
       {...rest}
     >
       {seeingTagName}
       {finalAssets.map(tag => (
         <div
           key={tag.id}
-          className="cursor-pointer py-1 px-2 text-white"
+          className="cursor-pointer py-1 px-1 text-white rounded-sm"
           onClick={() => setSeeingTagName(tag.tag_name)}
           style={{ backgroundColor: tag.color }}
         >

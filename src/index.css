@@ -84,7 +84,7 @@ input {
 
 #layout {
     display: grid;
-    grid-template-columns: minmax(160px, 260px);
+    grid-template-columns: auto 1fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas:
         'navbar outlet'
@@ -94,9 +94,19 @@ input {
 
 #tags-library {
     display: grid;
-    grid-template-columns: minmax(160px, 260px) minmax(120px, max-content) minmax(340px, 1fr);
+    grid-template-columns: auto minmax(120px, max-content) minmax(340px, 1fr);
     grid-template-rows: 1fr;
     grid-template-areas:
         'navbar tags assets'
     ;
 }
+
+#asset-page {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+        'navbar main'
+    ;
+}
+

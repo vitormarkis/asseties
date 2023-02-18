@@ -10,9 +10,11 @@ import { queryClient } from "@services/queryClient"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
 import { NewAssetForm } from "@routes/NewAssetForm"
-import TagsForm, { loader as addTagsFormLoader } from "@routes/tagForm"
+import TagsForm, { loader as addTagsFormLoader, loader } from "@routes/tagForm"
 import { EditAssetForm, loader as editAssetFormLoader } from "@routes/EditAssetForm"
 import TagsLibrary from "@routes/tagsLibrary"
+import AssetPage from "@routes/AssetPage"
+import { loader as assetPageLoader } from "@routes/AssetPage"
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,11 @@ const router = createBrowserRouter([
   {
     path: "/tags-library",
     element: <TagsLibrary />,
+  },
+  {
+    path: "/asset/:id",
+    element: <AssetPage />,
+    loader: assetPageLoader,
   },
 ])
 

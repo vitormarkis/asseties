@@ -46,14 +46,20 @@ export function CompactAsset({ asset, index, animation = true }: Props) {
       exit="exit"
       id="assets-list"
       key={asset.id}
-      className="border-b-zinc-300 border-b mb-3 flex items-center justify-between pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
+      className="cursor-pointer border-b-zinc-300 border-b mb-3 flex items-center justify-between pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
+      onClick={() => {
+        queryClient.invalidateQueries('asset')
+        navigate(`/asset/${asset.id}`)
+      }}
     >
       <div className="flex gap-2 items-center">
         <Circle
           onClick={() => handleEditAsset(asset.id)}
           className="bg-blue-600"
         />
-        <p className={`leading-3 ${context.editing_asset_id === asset.id ? "editing" : ""}`}>{asset.asset_name}</p>
+        <p className={`leading-3 ${context.editing_asset_id === asset.id ? "editing" : ""}`}>
+          {asset.asset_name}
+        </p>
       </div>
       <div className="flex items-center gap-2">
         <p className="text-zinc-400 text-[10px] leading-3 truncate">{localeDate}</p>
