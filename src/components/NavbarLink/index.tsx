@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom"
 
-import { Home, TagsLibrary } from "./styles"
+import { Asset, Home, TagsLibrary } from "./styles"
 
-export type Icon = "home" | "library"
+export type Icon = "home" | "library" | "asset"
 
 interface Props {
   to: string
@@ -14,6 +14,7 @@ const NavbarLink: React.FC<Props> = ({ to, label, icon, ...rest }: Props) => {
   const renderIcon: Record<Icon, React.ReactNode> = {
     home: <Home />,
     library: <TagsLibrary />,
+    asset: <Asset />,
   }
 
   return (
@@ -25,7 +26,9 @@ const NavbarLink: React.FC<Props> = ({ to, label, icon, ...rest }: Props) => {
     `}
       {...rest}
     >
+      <div className="flex items-center justify-center">
       {renderIcon[icon]}
+      </div>
       <p>{label}</p>
     </NavLink>
   )

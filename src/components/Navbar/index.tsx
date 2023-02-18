@@ -1,10 +1,16 @@
 import NavbarLink from "@components/NavbarLink"
-import { HTMLAttributes, useState } from "react"
+import { baseURL } from "@constants/constants"
+import { AssetType } from "@features/asset-slice/types"
+import { queryClient } from "@services/queryClient"
+import axios from "axios"
+import { HTMLAttributes } from "react"
 import { NavbarContainer } from "./styles"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const Navbar: React.FC<Props> = ({ ...rest }) => {
+  const asset = queryClient.getQueryData<AssetType>("asset")!
+  const { id } = asset ?? {}
 
   return (
     <div
@@ -22,6 +28,11 @@ const Navbar: React.FC<Props> = ({ ...rest }) => {
           to="/tags-library"
           icon="library"
           label="Tags Library"
+        />
+        <NavbarLink
+          to={"/asset/" + `${id ?? ""}`}
+          icon="asset"
+          label="Asset"
         />
       </NavbarContainer>
     </div>

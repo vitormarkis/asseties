@@ -2,32 +2,62 @@ import { Tag } from "@components/atoms"
 import Navbar from "@components/Navbar"
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
+import { queryClient } from "@services/queryClient"
 import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
 import axios, { AxiosResponse } from "axios"
-import { useMemo } from "react"
 import { useQuery } from "react-query"
 import { LoaderFunctionArgs, useParams } from "react-router-dom"
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const { id } = params
-  return await axios.get(baseURL + "/" + id)
+  const { id } = params ?? {}
+  if (!id) {
+    return null
+  } else {
+    return await axios.get(baseURL + "/" + id)
+  }
 }
 
 const AssetPage: React.FC = () => {
   const { id } = useParams() as { id: string }
-  const { isLoading, data: rawAsset } = useQuery(
-    "asset",
-    async () => {
+
+  console.log(id)
+
+  if (!id) {
+    return (
+      <div
+        id="asset-page"
+        className="h-screen w-screen gap-4"
+      >
+        <Navbar style={{ gridArea: "navbar" }} />
+        <div
+          style={{ gridArea: "main" }}
+          className="p-4"
+        >
+          Você não abriu nenhum asset.
+        </div>
+      </div>
+    )
+  }
+
+  // const assetInCache = queryClient.getQueryData<AssetType>("asset")
+
+  const res = useQuery({
+    queryKey: "asset",
+    queryFn: async () => {
       const res = (await axios.get(baseURL + "/" + id)) as AxiosResponse<AssetType>
       return res.data
     },
-    { staleTime: 1000 * 60 }
-  )
+    staleTime: 1000 * 600,
+  })
+
+  if (!res.data) return <div></div>
+
+  const { isLoading, data: rawAsset } = res
 
   if (isLoading || !rawAsset) return <div></div>
 
   const asset = AssetObjectReducers(rawAsset).colorize(tagCollorPallete)
-    // const asset = useMemo(() => AssetObjectReducers({...rawAsset}).colorize(tagCollorPallete), [tagCollorPallete])
+  // const asset = useMemo(() => AssetObjectReducers({...rawAsset}).colorize(tagCollorPallete), [tagCollorPallete])
 
   return (
     <div

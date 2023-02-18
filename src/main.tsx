@@ -46,6 +46,10 @@ const router = createBrowserRouter([
     element: <TagsLibrary />,
   },
   {
+    path: "/asset/",
+    element: <AssetPage />,
+  },
+  {
     path: "/asset/:id",
     element: <AssetPage />,
     loader: assetPageLoader,

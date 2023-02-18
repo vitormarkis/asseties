@@ -63,11 +63,11 @@ export const tagCollorPallete: TagCollorPallete[] = [
   },
   {
     category: "framework",
-    color: "#C455A8",
+    color: "#2F2963",
   },
   {
     category: "design_pattern",
-    color: "#084C61",
+    color: "#1F2421",
   },
   {
     category: "approach",
@@ -75,18 +75,18 @@ export const tagCollorPallete: TagCollorPallete[] = [
   },
   {
     category: "library",
-    color: "#985277",
+    color: "#9B1D20",
   },
   {
     category: "style",
-    color: "#340068",
+    color: "#1D84B5",
   },
   {
     category: "code_fragments",
-    color: "#026",
+    color: "#F75C03",
   },
   {
     category: "utilitary_library",
-    color: "#6E44FF",
+    color: "#8F3985",
   },
 ]
