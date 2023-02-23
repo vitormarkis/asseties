@@ -15,6 +15,7 @@ import { AssetObjectReducers as AssetOR } from "@utils/Reducers/AssetsReducers"
 import { CacheReducers } from "@utils/Reducers/CacheReducers"
 
 import chroma from "chroma-js"
+import Button from "./Button"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   textColor?: `#${string}` | NamedColor
@@ -60,8 +61,8 @@ const Tag: React.FC<Props> = props => {
       // color: `${chroma(tag.color).darken(2)}`,
       color: `#fff`,
       borderRight: `4px solid ${chroma(tag.color)}`,
-      borderWidth: '1px 4px 1px 1px',
-      borderColor: `${tag.color} ${chroma(tag.color).darken(0.6)} ${tag.color} ${tag.color}`
+      borderWidth: "1px 4px 1px 1px",
+      borderColor: `${tag.color} ${chroma(tag.color).darken(0.6)} ${tag.color} ${tag.color}`,
     },
     noInfo: {
       backgroundColor: tag.color,
@@ -105,18 +106,32 @@ const Tag: React.FC<Props> = props => {
             hideWhenDetached={true}
             className="plate py-2 rounded-md bg-slate-800 shadow-md shadow-black/20 flex flex-col text-xs"
           >
-            <PopoverButton
-              type="button"
-              action="Informações"
-              element={
-                <Dialog.Portal>
-                  <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
-                  <Dialog.Content className="modal max-w-[90vw] w-[320px] ">
-                    <div className="container bg-zinc-200">{tag.info}</div>
-                  </Dialog.Content>
-                </Dialog.Portal>
-              }
-            />
+            {tag.info.length > 0 ? (
+              <PopoverButton
+                type="button"
+                action="Informações"
+                element={
+                  <Dialog.Portal>
+                    <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
+                    <Dialog.Content className="modal max-w-[90vw] w-[320px] ">
+                      <div className="container bg-white cursor-default">
+                        <h1 className="text-lg text-zinc-600 tracking-wide leading-4 mb-2">Informações</h1>
+                        <p>{tag.info}</p>
+                        <div className="flex justify-end mt-6">
+                          <Button
+                            onClick={() => setIsPopoverOpen(false)}
+                            rounded="full"
+                            textColor="white"
+                            value="Voltar"
+                            bg="green"
+                          />
+                        </div>
+                      </div>
+                    </Dialog.Content>
+                  </Dialog.Portal>
+                }
+              />
+            ) : null}
             <PopoverButton
               type="button"
               action="Editar"

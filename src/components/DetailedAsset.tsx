@@ -61,7 +61,7 @@ export function DetailedAsset({ asset, index, animation = true }: Props) {
           className="bg-green-600 ml-auto"
         />
       </div>
-      <p className="text-zinc-400 text-xs truncate">{String(asset.created_at)}</p>
+      <p className="text-zinc-400 text-xs">{String(asset.created_at)}</p>
       <div className="my-2 flex gap-2 flex-wrap">
         {asset.tags.map(tag => (
           <Tag

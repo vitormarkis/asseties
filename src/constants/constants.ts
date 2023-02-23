@@ -2,7 +2,7 @@ import { TagCategoryObject } from "@features/tag-slice/types"
 import { TagCollorPallete } from "@myTypes/colorTypes"
 import { SortingAssetObjectProps } from "@myTypes/index"
 
-export const baseURL = "http://localhost:3000/assets"
+export const baseURL = "http://192.168.1.16:3000/assets"
 
 export const casingWhitelist = ["tag_name", "asset_name", "info"]
 

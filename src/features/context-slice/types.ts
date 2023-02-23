@@ -9,4 +9,5 @@ export interface ContextState {
   current_asset: AssetType | null
   current_tag: TagType | null
   current_asset_list_container: AssetListContainerType
+  last_asset_cache_id: string | null
 }

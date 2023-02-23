@@ -1,5 +1,6 @@
 import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
+import { setLastAssetCacheId } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
 import { Animation } from "@utils/animations"
@@ -49,6 +50,7 @@ export function CompactAsset({ asset, index, animation = true }: Props) {
       className="cursor-pointer border-b-zinc-300 border-b mb-3 flex items-center justify-between pb-2 gap-0.5 last:border-none last:mb-0 last:pb-0"
       onClick={() => {
         queryClient.invalidateQueries('asset')
+        dispatch(setLastAssetCacheId(asset.id))
         navigate(`/asset/${asset.id}`)
       }}
     >

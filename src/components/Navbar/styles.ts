@@ -67,9 +67,17 @@ export const NavbarContainer = styled.div`
   }
 
   @media (max-width: 760px) {
+
+
     p {
         display: none;
     }
+  }
+
+  @media (max-width: 560px) {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
   }
 
 `

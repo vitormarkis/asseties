@@ -8,7 +8,8 @@ export const initialState: ContextState = {
   editing_tag_id: null,
   current_tag: null,
   current_asset: null,
-  current_asset_list_container: 'details'
+  current_asset_list_container: "details",
+  last_asset_cache_id: null,
 }
 
 export const contextSlice = createSlice({
@@ -39,9 +40,12 @@ export const contextSlice = createSlice({
     resetCurrentAsset: state => {
       state.current_asset = null
     },
-    setContextAssetListContainer: (state, action:PayloadAction<AssetListContainerType>) => {
+    setContextAssetListContainer: (state, action: PayloadAction<AssetListContainerType>) => {
       state.current_asset_list_container = action.payload
-    }
+    },
+    setLastAssetCacheId: (state, action: PayloadAction<string>) => {
+      state.last_asset_cache_id = action.payload
+    },
   },
 })
 
@@ -55,6 +59,7 @@ export const {
   resetCurrentAsset,
   setCurrentAsset,
   setContextAssetListContainer,
+  setLastAssetCacheId,
 } = contextSlice.actions
 
 export const contextReducer = contextSlice.reducer

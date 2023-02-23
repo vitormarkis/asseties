@@ -126,7 +126,7 @@ export const AssetList: React.FC<Props> = ({ toolbar }) => {
           </div>
         </MainWrapper>
       )}
-
+      
       <StickyBox className="z-[15]">
         <MainWrapper
           className="h-[32px] sm:rounded-lg relative transition-all duration-700 "

@@ -1,6 +1,6 @@
 import AssetLibraryList from "@components/AssetLibraryList"
 import Navbar from "@components/Navbar"
-import TagLibraryList from "@components/TagsList"
+import TagLibraryList from "@components/TagLibraryList"
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { AssetsArrayReducers } from "@utils/Reducers/AssetsReducers"

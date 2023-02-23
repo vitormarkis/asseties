@@ -3,7 +3,7 @@
     {
       "id": "b1qkz2gdvr",
       "created_at": "Wed Feb 15 2023 22:55:31 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sat Feb 18 2023 17:22:07 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Sat Feb 18 2023 20:32:27 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "asseties",
       "tags": [
         {
@@ -201,9 +201,9 @@
         {
           "id": "63fvqjkhu7j",
           "created_at": "Thu Feb 16 2023 16:34:54 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Fri Feb 17 2023 17:05:10 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Sat Feb 18 2023 20:32:27 GMT-0300 (Horário Padrão de Brasília)",
           "category": "technology",
-          "info": "Tagie tagi!xx",
+          "info": "",
           "tag_name": "tagie"
         },
         {
@@ -213,6 +213,126 @@
           "category": "style",
           "info": "usei o styled components para estilizar os icones da navbar, porque eles precisam de uma estilização mais low level, e em vez de criar varias classes separadas, eu usei o styled components para justamente essas classes ficarem à nível de componente",
           "tag_name": "styled components"
+        }
+      ]
+    },
+    {
+      "id": "3g0r3gmhqk",
+      "created_at": "Wed Feb 22 2023 23:22:43 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Wed Feb 22 2023 23:27:57 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "Agendamentos Ike",
+      "tags": [
+        {
+          "id": "6lxtu2fpjj2",
+          "created_at": "Wed Feb 22 2023 23:23:00 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:23:00 GMT-0300 (Horário Padrão de Brasília)",
+          "category": "library",
+          "info": "",
+          "tag_name": "react router dom"
+        },
+        {
+          "id": "mvpy3o79x8e",
+          "created_at": "Wed Feb 22 2023 23:23:18 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:23:18 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "react hook form",
+          "info": "",
+          "category": "utilitary_library"
+        },
+        {
+          "id": "wph3tsz7ga",
+          "created_at": "Wed Feb 22 2023 23:23:28 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:23:28 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "react query",
+          "info": "",
+          "category": "library"
+        },
+        {
+          "id": "7b45p5e9ey",
+          "created_at": "Wed Feb 22 2023 23:23:34 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:23:34 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "axios",
+          "info": "",
+          "category": "library"
+        },
+        {
+          "id": "uwf89e8v8ld",
+          "created_at": "Wed Feb 22 2023 23:23:44 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:23:44 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "styled components",
+          "info": "",
+          "category": "style"
+        },
+        {
+          "id": "asdt8nfridj",
+          "created_at": "Wed Feb 22 2023 23:23:51 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:27:57 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "styled icons",
+          "info": "",
+          "category": "style"
+        },
+        {
+          "id": "rws6zewaqvr",
+          "created_at": "Wed Feb 22 2023 23:24:14 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:24:14 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "MySQL",
+          "info": "",
+          "category": "technology"
+        }
+      ]
+    },
+    {
+      "id": "3aslpxitise",
+      "created_at": "Wed Feb 22 2023 23:26:04 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Wed Feb 22 2023 23:27:17 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "teste, novo projeto",
+      "tags": [
+        {
+          "id": "3no9w754cso",
+          "created_at": "Wed Feb 22 2023 23:26:12 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:26:12 GMT-0300 (Horário Padrão de Brasília)",
+          "category": "design_pattern",
+          "info": "",
+          "tag_name": "taggie"
+        },
+        {
+          "id": "d3nbez0k73v",
+          "created_at": "Wed Feb 22 2023 23:26:17 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:26:17 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "nova tag",
+          "info": "",
+          "category": "utilitary_library"
+        },
+        {
+          "id": "hgd2qqgcyzb",
+          "created_at": "Wed Feb 22 2023 23:26:22 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:26:22 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "outra tag",
+          "info": "",
+          "category": "design_pattern"
+        },
+        {
+          "id": "csv3r4jm2ul",
+          "created_at": "Wed Feb 22 2023 23:26:27 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:26:27 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "dois preto",
+          "info": "",
+          "category": "technology"
+        },
+        {
+          "id": "ei5kp5kkvcm",
+          "created_at": "Wed Feb 22 2023 23:26:32 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:26:32 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "verde",
+          "info": "",
+          "category": "approach"
+        },
+        {
+          "id": "6fmq724s95d",
+          "created_at": "Wed Feb 22 2023 23:27:06 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Wed Feb 22 2023 23:27:17 GMT-0300 (Horário Padrão de Brasília)",
+          "tag_name": "novo paradigma",
+          "info": "eu adicionei esse paradigma porque eu achei ele muito util para respolver varios problemas...",
+          "category": "code_fragments"
         }
       ]
     }

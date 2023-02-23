@@ -1,21 +1,22 @@
 import NavbarLink from "@components/NavbarLink"
-import { baseURL } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
+import { useAppSelector } from "@features/store"
 import { queryClient } from "@services/queryClient"
-import axios from "axios"
 import { HTMLAttributes } from "react"
 import { NavbarContainer } from "./styles"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {}
 
 const Navbar: React.FC<Props> = ({ ...rest }) => {
-  const asset = queryClient.getQueryData<AssetType>("asset")!
+  const { last_asset_cache_id } = useAppSelector(state => state.context)
+  const asset = queryClient.getQueryData<AssetType>(['asset', last_asset_cache_id])
   const { id } = asset ?? {}
 
   return (
     <div
+    id="navbar"
       className={`
-      p-4 flex flex-col cursor-pointer shadow-lg shadow-black/30`}
+      p-4 flex flex-row cursor-pointer shadow-lg shadow-black/30 w-full z-20 bg-white`}
       {...rest}
     >
       <NavbarContainer>
