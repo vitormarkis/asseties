@@ -27,7 +27,7 @@ export function CompactAsset({ asset, index, animation = true }: Props) {
   const localeDate = parsedData.toLocaleDateString()
 
   function handleRemoveAsset(assetId: string) {
-    CacheReducers(queryClient, "assets").asset().remove(assetId)
+    CacheReducers(queryClient, ["assets"]).asset().remove(assetId)
     axios.delete(baseURL + "/" + assetId)
   }
 

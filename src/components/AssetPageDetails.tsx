@@ -1,32 +1,34 @@
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
+import { queryClient } from "@services/queryClient"
+import { useQuery } from "@tanstack/react-query"
 import { AssetObjectReducers } from "@utils/Reducers/AssetsReducers"
-import axios, { AxiosResponse } from "axios"
-import { useQuery } from "react-query"
+import axios from "axios"
 import { Tag } from "./atoms"
 
 interface Props {
   id: string
 }
 
-const TagList: React.FC<Props> = ({ id }) => {
+const AssetPageDetails: React.FC<Props> = ({ id }) => {
   const res = useQuery<AssetType>({
     queryKey: ["asset", id],
     queryFn: async () => {
-      const res = (await axios.get(baseURL + "/" + id)) as AxiosResponse<AssetType>
+      const res = await axios.get(baseURL + '/' + id)
       return res.data
     },
     staleTime: 1000 * 600,
+    initialData: () => queryClient.getQueryData<AssetType[]>(["assets"])?.find(asset => asset.id === id)
   })
 
+  
   const { isLoading, data: rawAsset } = res
 
-  if(isLoading || !rawAsset) {
-    return (
-      <div>Carregando...</div>
-    )
+  if (isLoading || !rawAsset) {
+    return <div>Carregando...</div>
   }
-  
+  console.log({rawAsset})
+
   const asset = AssetObjectReducers(rawAsset).colorize(tagCollorPallete)
 
   return (
@@ -50,4 +52,4 @@ const TagList: React.FC<Props> = ({ id }) => {
   )
 }
 
-export default TagList
+export default AssetPageDetails

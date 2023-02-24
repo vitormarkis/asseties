@@ -1,20 +1,21 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import { QueryClientProvider } from "react-query"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import "§/index.css"
 
 import { HomeOutlet } from "@components/HomeOutlet"
+import AssetPage, { loader as assetPageLoader } from "@routes/AssetPage"
+import { EditAssetForm, loader as editAssetFormLoader } from "@routes/EditAssetForm"
+import { NewAssetForm } from "@routes/NewAssetForm"
 import Home from "@routes/root"
-import { queryClient } from "@services/queryClient"
+import TagsForm, { loader as addTagsFormLoader } from "@routes/tagForm"
+import TagsLibrary from "@routes/tagsLibrary"
 import { Provider } from "react-redux"
 import { store } from "./features/store"
-import { NewAssetForm } from "@routes/NewAssetForm"
-import TagsForm, { loader as addTagsFormLoader, loader } from "@routes/tagForm"
-import { EditAssetForm, loader as editAssetFormLoader } from "@routes/EditAssetForm"
-import TagsLibrary from "@routes/tagsLibrary"
-import AssetPage from "@routes/AssetPage"
-import { loader as assetPageLoader } from "@routes/AssetPage"
+
+import { queryClient } from "@services/queryClient"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>
 )

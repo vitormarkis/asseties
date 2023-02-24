@@ -3,6 +3,7 @@ import { setAssetFormFields } from "@features/asset-slice"
 import { AssetFormFields, AssetType } from "@features/asset-slice/types"
 import { resetCurrentAsset } from "@features/context-slice"
 import { useAppSelector } from "@features/store"
+import { queryClient } from "@services/queryClient"
 import {
   addNewAssetToCache,
   checkDifference,
@@ -14,7 +15,6 @@ import {
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { useQueryClient } from "react-query"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Input } from "./atoms"
@@ -26,10 +26,9 @@ export function AssetForm() {
   const { register, handleSubmit } = useForm<AssetFormFields>()
   const navigate = useNavigate()
 
-  const queryClient = useQueryClient()
   const [isDifferent, setIsDifferent] = useState(false)
 
-  const assetsInCache = queryClient.getQueryData<AssetType[]>("assets")!
+  const assetsInCache = queryClient.getQueryData<AssetType[]>(["assets"])!
 
   useEffect(() => {
     if (!assetsInCache) return
@@ -49,7 +48,6 @@ export function AssetForm() {
       // Add new asset
       const newAsset = generateNewAsset(asset.fields)
       addNewAssetToCache(newAsset, queryClient)
-      dispatch(setAssetFormFields(eraseFields(asset.fields)))
       await axios.post(baseURL, newAsset)
       navigate("/")
     } else {
@@ -58,7 +56,6 @@ export function AssetForm() {
       axios.patch(baseURL + "/" + context.editing_asset_id, updatedAsset)
       updateAssetInCache(queryClient, updatedAsset)
       dispatch(resetCurrentAsset())
-      dispatch(setAssetFormFields(eraseFields(asset.fields)))
     }
   }
 

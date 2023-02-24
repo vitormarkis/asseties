@@ -36,7 +36,7 @@ export function EditAssetForm() {
     const updatedAsset = AssetOR(rawAsset).updateAsset(assetFormFields)
     const refreshedAsset = AssetOR(updatedAsset).refresh()
 
-    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    CacheReducers(queryClient, ["assets"]).asset().update(refreshedAsset)
     navigate("/")
     axios.put(baseURL + "/" + asset.id, refreshedAsset)
   }

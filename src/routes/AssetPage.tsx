@@ -1,22 +1,23 @@
-import AssetListCompact from "@components/AssetListCompact"
+import AssetPageDetails from "@components/AssetPageDetails"
 import ListAsset from "@components/ListAssets"
 import Navbar from "@components/Navbar"
-import TagList from "@components/TagList"
 import { baseURL } from "@constants/constants"
+import { setLastAssetCacheId } from "@features/context-slice"
+import { useAppSelector } from "@features/store"
 import axios from "axios"
+import { useDispatch } from "react-redux"
 import { LoaderFunctionArgs, useParams } from "react-router-dom"
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { id } = params ?? {}
-  if (!id) {
-    return null
-  } else {
-    return await axios.get(baseURL + "/" + id)
-  }
+  return id ? await axios.get(baseURL + '/' + id) : null
 }
 
 const AssetPage: React.FC = () => {
   const { id } = useParams() as { id: string }
+  const { last_asset_cache_id } = useAppSelector(state => state.context)
+  const dispatch = useDispatch()
+  dispatch(setLastAssetCacheId(last_asset_cache_id ?? id))
 
   return (
     <div
@@ -28,9 +29,7 @@ const AssetPage: React.FC = () => {
         style={{ gridArea: "main" }}
         className="p-4"
       >
-        {id ? <TagList id={id} /> : (
-          <ListAsset />
-        )}
+        {id ? <AssetPageDetails id={id} /> : <ListAsset />}
       </div>
     </div>
   )

@@ -43,7 +43,7 @@ export default function TagsForm() {
     console.log({tagFormFields, newTag, coloredTag, updatedAsset, refreshedAsset, dryAsset})
     
     setAsset(refreshedAsset)
-    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    CacheReducers(queryClient, ["assets"]).asset().update(refreshedAsset)
     axios.put(baseURL + "/" + asset.id, dryAsset)
 
     reset({ tag_name: "", info: "" })

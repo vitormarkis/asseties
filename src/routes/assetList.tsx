@@ -15,11 +15,11 @@ import {
 } from "@features/filterList-slice"
 import { SortingAssetProps } from "@features/filterList-slice/types"
 import { useAppSelector } from "@features/store"
+import { useQuery } from "@tanstack/react-query"
 import { filterMethod, sortMethod } from "@utils/index"
 import { AssetsArrayReducers as AssetsAR } from "@utils/Reducers/AssetsReducers"
 import axios from "axios"
 import { ChangeEvent } from "react"
-import { useQuery } from "react-query"
 import { useDispatch } from "react-redux"
 import StickyBox from "react-sticky-box"
 
@@ -35,7 +35,7 @@ interface Props {
 
 export const AssetList: React.FC<Props> = ({ toolbar }) => {
   const { data: assets, isLoading } = useQuery<AssetType[]>(
-    "assets",
+    ["assets"],
     async () => {
       const res = await axios.get(baseURL)
       return res.data

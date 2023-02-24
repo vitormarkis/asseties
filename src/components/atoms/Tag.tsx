@@ -46,7 +46,7 @@ const Tag: React.FC<Props> = props => {
     const refreshedAsset = AssetOR(assetsWithoutRemovedOne).refresh() as AssetTypeColored
 
     if (queryClient.getQueryData("assets")) {
-      CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+      CacheReducers(queryClient, ["assets"]).asset().update(refreshedAsset)
     } else {
       throw new Error("Não existe cache para assets!")
     }

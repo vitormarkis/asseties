@@ -1,8 +1,8 @@
 import { AssetType } from "@features/asset-slice/types"
-import { QueryClient } from "react-query"
+import { QueryClient, QueryKey } from "@tanstack/react-query"
 import { AssetsArrayReducers } from "./AssetsReducers"
 
-export const CacheReducers = (queryClient: QueryClient, queryKey: string) => {
+export const CacheReducers = (queryClient: QueryClient, queryKey: QueryKey) => {
   const assets = queryClient.getQueryData<AssetType[]>(queryKey)!
   if (!assets) {
     const msg = "Não foi encontrado nenhum cache para sua sessão."

@@ -1,14 +1,14 @@
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
+import { useQuery } from "@tanstack/react-query"
 import { AssetsArrayReducers } from "@utils/Reducers/AssetsReducers"
 import axios from "axios"
-import { useQuery } from "react-query"
 import { CompactAsset } from "./CompactAsset"
 import { MainWrapper } from "./Wrappers/MainWrapper"
 
 const ListAsset: React.FC = () => {
   const { data: assets, isLoading } = useQuery<AssetType[]>(
-    "assets",
+    ["assets"],
     async () => {
       const res = await axios.get(baseURL)
       return res.data

@@ -36,7 +36,7 @@ function EditTag({ actionAttrs, tag, asset, setState, setIsPopoverOpen }: Props)
     const rawAsset = AssetOR(refreshedAsset).dryTags()
 
     if (setState) setState(refreshedAsset)
-    CacheReducers(queryClient, "assets").asset().update(refreshedAsset)
+    CacheReducers(queryClient, ["assets"]).asset().update(refreshedAsset)
     axios.put(baseURL + "/" + rawAsset.id, rawAsset)
     setIsPopoverOpen(false)
   }

@@ -24,7 +24,7 @@ export function DetailedAsset({ asset, index, animation = true }: Props) {
   const assetX = AssetObjectReducers(asset).colorize(tagCollorPallete)
 
   function handleRemoveAsset(assetId: string) {
-    CacheReducers(queryClient, "assets").asset().remove(assetId)
+    CacheReducers(queryClient, ["assets"]).asset().remove(assetId)
     axios.delete(baseURL + "/" + assetId)
   }
 

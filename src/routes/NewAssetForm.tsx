@@ -14,7 +14,7 @@ export function NewAssetForm() {
 
   const onSubmit: SubmitHandler<AssetFormFields> = assetFormFields => {
     const newAsset = aor().createAsset(assetFormFields)
-    CacheReducers(queryClient, "assets").asset().add(newAsset)
+    CacheReducers(queryClient, ["assets"]).asset().add(newAsset)
     axios.post(baseURL, newAsset)
     navigate("/")
   }

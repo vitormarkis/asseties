@@ -125,7 +125,19 @@ input {
       'navbar'
     ;
   }
+
+  #asset-page {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas:
+      'main'
+      'navbar'
+    ;
+  }
 }
+
+
 
 #asset-page {
   display: grid;
