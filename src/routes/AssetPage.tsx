@@ -1,5 +1,5 @@
+import { ArrowBack } from "@assets/icons"
 import AssetPageDetails from "@components/AssetPageDetails"
-import { Button } from "@components/atoms"
 import ListAsset from "@components/ListAssets"
 import Navbar from "@components/Navbar"
 import { baseURL } from "@constants/constants"
@@ -24,20 +24,20 @@ const AssetPage: React.FC = () => {
   return (
     <div
       id="asset-page"
-      className="h-screen w-screen gap-4"
+      className="h-screen w-screen"
     >
       <Navbar style={{ gridArea: "navbar" }} />
       <div
         style={{ gridArea: "main" }}
         className="p-4"
       >
-        <Button
-          bg="green"
-          rounded="full"
-          textColor="white"
-          value="Voltar"
-          onClick={() => navigate(-1)}
-        />
+        <button className="p-1 rounded-full flex items-center justify-center bg-emerald-600 mb-6">
+          <ArrowBack
+            width={16}
+            color="#fff"
+            onClick={() => navigate(-1)}
+          />
+        </button>
         {id ? <AssetPageDetails id={id} /> : <ListAsset />}
       </div>
     </div>

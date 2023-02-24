@@ -3,7 +3,7 @@
     {
       "id": "b1qkz2gdvr",
       "created_at": "Wed Feb 15 2023 22:55:31 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Sat Feb 18 2023 20:32:27 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Fri Feb 24 2023 00:39:19 GMT-0300 (Horário Padrão de Brasília)",
       "asset_name": "asseties",
       "tags": [
         {
@@ -153,7 +153,7 @@
         {
           "id": "6rhkv7wpwm",
           "created_at": "Thu Feb 16 2023 00:24:07 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Thu Feb 16 2023 00:24:07 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 24 2023 00:05:11 GMT-0300 (Horário Padrão de Brasília)",
           "tag_name": "typed dynamic sort criteria",
           "category": "code_fragments",
           "info": ""
@@ -213,6 +213,14 @@
           "category": "style",
           "info": "usei o styled components para estilizar os icones da navbar, porque eles precisam de uma estilização mais low level, e em vez de criar varias classes separadas, eu usei o styled components para justamente essas classes ficarem à nível de componente",
           "tag_name": "styled components"
+        },
+        {
+          "id": "um3ag6n62p",
+          "created_at": "Fri Feb 24 2023 00:39:19 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 24 2023 00:39:19 GMT-0300 (Horário Padrão de Brasília)",
+          "category": "style",
+          "info": "so teste no celular mesmo",
+          "tag_name": "Nova tag"
         }
       ]
     },
@@ -277,6 +285,22 @@
           "tag_name": "MySQL",
           "info": "",
           "category": "technology"
+        }
+      ]
+    },
+    {
+      "id": "bc1m4ffoj38",
+      "created_at": "Fri Feb 24 2023 00:39:33 GMT-0300 (Horário Padrão de Brasília)",
+      "updated_at": "Fri Feb 24 2023 00:39:59 GMT-0300 (Horário Padrão de Brasília)",
+      "asset_name": "robots.txt",
+      "tags": [
+        {
+          "id": "9rep4eld4g",
+          "created_at": "Fri Feb 24 2023 00:39:54 GMT-0300 (Horário Padrão de Brasília)",
+          "updated_at": "Fri Feb 24 2023 00:39:59 GMT-0300 (Horário Padrão de Brasília)",
+          "category": "library",
+          "info": "no cell",
+          "tag_name": "framer motion"
         }
       ]
     }

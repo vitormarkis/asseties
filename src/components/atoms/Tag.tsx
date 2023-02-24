@@ -16,6 +16,7 @@ import { CacheReducers } from "@utils/Reducers/CacheReducers"
 
 import chroma from "chroma-js"
 import Button from "./Button"
+import Title from "./Title"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   textColor?: `#${string}` | NamedColor
@@ -45,7 +46,7 @@ const Tag: React.FC<Props> = props => {
     const assetsWithoutRemovedOne = AssetOR(asset).removeTag(tag.id)
     const refreshedAsset = AssetOR(assetsWithoutRemovedOne).refresh() as AssetTypeColored
 
-    if (queryClient.getQueryData("assets")) {
+    if (queryClient.getQueryData(["assets"])) {
       CacheReducers(queryClient, ["assets"]).asset().update(refreshedAsset)
     } else {
       throw new Error("Não existe cache para assets!")
@@ -115,7 +116,7 @@ const Tag: React.FC<Props> = props => {
                     <Dialog.Overlay className="inset-0 fixed bg-black/40 z-20" />
                     <Dialog.Content className="modal max-w-[90vw] w-[320px] ">
                       <div className="container bg-white cursor-default">
-                        <h1 className="text-lg text-zinc-600 tracking-wide leading-4 mb-2">Informações</h1>
+                        <Title>Informações</Title>
                         <p>{tag.info}</p>
                         <div className="flex justify-end mt-6">
                           <Button

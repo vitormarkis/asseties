@@ -93,10 +93,10 @@ input {
 
 #tags-library {
   display: grid;
-  grid-template-columns: auto minmax(120px, max-content) minmax(340px, 1fr);
+  grid-template-columns: auto 1fr;
   grid-template-rows: 1fr;
   grid-template-areas:
-    'navbar tags assets'
+    'navbar main'
   ;
 }
 
@@ -118,11 +118,9 @@ input {
 
   #tags-library {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(minmax(auto-fill, 1fr));
     grid-template-areas:
       'tags'
-      'assets'
-      'navbar'
+      'main'
     ;
   }
 

@@ -1,6 +1,7 @@
 import AssetLibraryList from "@components/AssetLibraryList"
 import Navbar from "@components/Navbar"
 import TagLibraryList from "@components/TagLibraryList"
+import { MainWrapper } from "@components/Wrappers/MainWrapper"
 import { baseURL, tagCollorPallete } from "@constants/constants"
 import { AssetType } from "@features/asset-slice/types"
 import { useQuery } from "@tanstack/react-query"
@@ -24,7 +25,7 @@ const TagsLibrary: React.FC<Props> = ({ ...rest }) => {
     }
   )
 
-  if(isLoading) {
+  if (isLoading) {
     return <>Loading...</>
   }
 
@@ -33,29 +34,25 @@ const TagsLibrary: React.FC<Props> = ({ ...rest }) => {
   return (
     <div
       id="tags-library"
-      className="w-screen h-screen gap-4"
+      className="w-screen h-screen overflow-auto bg-gray-100"
       {...rest}
     >
       <Navbar style={{ gridArea: "navbar" }} />
-      <div
-        className="container bg-zinc-200 overflow-auto"
-        style={{ gridArea: "tags" }}
-      >
-        <TagLibraryList
-          seeingTagName={seeingTagName}
-          setSeeingTagName={setSeeingTagName}
-          assets={coloredAssets}
-        />
-      </div>
-      <div
-        className="container bg-zinc-200"
-        style={{ gridArea: "assets" }}
-      >
-        <AssetLibraryList
-          assets={coloredAssets}
-          seeingTagName={seeingTagName}
-          setSeeingTagName={setSeeingTagName}
-        />
+      <div style={{ gridArea: "main" }} className='h-screen p-4 flex gap-4 [&>div]:basis-0'>
+        <div className="overflow-scroll scroll-style p-4" style={{flexBasis: 240}}>
+          <TagLibraryList
+            seeingTagName={seeingTagName}
+            setSeeingTagName={setSeeingTagName}
+            assets={coloredAssets}
+          />
+        </div>
+        <MainWrapper className="grow overflow-scroll">
+          <AssetLibraryList
+            assets={coloredAssets}
+            seeingTagName={seeingTagName}
+            setSeeingTagName={setSeeingTagName}
+          />
+        </MainWrapper>
       </div>
     </div>
   )

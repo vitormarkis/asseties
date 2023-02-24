@@ -32,7 +32,7 @@ const AssetPageDetails: React.FC<Props> = ({ id }) => {
   const asset = AssetObjectReducers(rawAsset).colorize(tagCollorPallete)
 
   return (
-    <div className="sm:w-[560px] w-full flex flex-col justify-center p-4">
+    <div className="sm:w-[560px] w-full flex flex-col justify-center">
       <div className="flex items-center justify-between">
         <h1 className="text-lg drop-shadow-md">{asset.asset_name}</h1>
       </div>

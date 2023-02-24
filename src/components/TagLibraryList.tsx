@@ -1,6 +1,8 @@
 import { AssetTypeColored } from "@features/asset-slice/types"
 import { TagTypeColored } from "@features/tag-slice/types"
-import { HTMLAttributes } from "react"
+import { HTMLAttributes, useState } from "react"
+import { FormFieldBox } from "./atoms"
+import Title from "./atoms/Title"
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   assets: AssetTypeColored[]
@@ -13,6 +15,8 @@ interface UniqueTagsInterface {
 }
 
 const TagLibraryList: React.FC<Props> = ({ assets, seeingTagName, setSeeingTagName, ...rest }) => {
+  const [searchInput, setSearchInput] = useState('');
+  
   if (!assets) return <div>Loading...</div>
 
   const uniqueTagsInterface: UniqueTagsInterface = [...assets].reduce(
@@ -25,13 +29,17 @@ const TagLibraryList: React.FC<Props> = ({ assets, seeingTagName, setSeeingTagNa
     },
     { uniqueTags: [] } as UniqueTagsInterface
   )
-  
+
   const { uniqueTags } = uniqueTagsInterface
 
-  const finalAssets = uniqueTags.sort((a, b) =>
-    a.tag_name.toLowerCase() > b.tag_name.toLowerCase()
+  const filteredAssets = uniqueTags.filter(tag => {
+    return tag.tag_name.toLowerCase().includes(searchInput.toLowerCase()) ?? tag
+  })
+  
+  const finalAssets = filteredAssets.sort((a, b) =>
+    a.category.toLowerCase() > b.category.toLowerCase()
       ? 1
-      : a.tag_name.toLowerCase() < b.tag_name.toLowerCase()
+      : a.category.toLowerCase() < b.category.toLowerCase()
       ? -1
       : 0
   )
@@ -41,7 +49,19 @@ const TagLibraryList: React.FC<Props> = ({ assets, seeingTagName, setSeeingTagNa
       className="flex flex-col gap-1 text-xs"
       {...rest}
     >
-      {seeingTagName}
+      <div className="mb-4">
+        <Title>Pesquise por tags:</Title>
+        <FormFieldBox>
+          <input
+            autoComplete="off"
+            onChange={e => setSearchInput(e.currentTarget.value)}
+            value={searchInput}
+            type="text"
+            placeholder="framer motion"
+            className="w-full"
+          />
+        </FormFieldBox>
+      </div>
       {finalAssets.map(tag => (
         <div
           key={tag.id}

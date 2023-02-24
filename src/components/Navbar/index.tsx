@@ -16,7 +16,7 @@ const Navbar: React.FC<Props> = ({ ...rest }) => {
     <div
     id="navbar"
       className={`
-      p-4 flex flex-row cursor-pointer shadow-lg shadow-black/30 w-full z-20 bg-white`}
+      p-2 flex flex-row cursor-pointer shadow-lg shadow-black/30 w-full z-20 bg-white`}
       {...rest}
     >
       <NavbarContainer>

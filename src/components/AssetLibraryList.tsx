@@ -14,7 +14,7 @@ const AssetLibraryList: React.FC<Props> = ({ assets, seeingTagName, setSeeingTag
   return (
     <div {...rest}>
       {finalAssets.map(asset => (
-        <DetailedAsset index={0} asset={asset} />
+        <DetailedAsset index={0} asset={asset} key={asset.id} />
       ))}
     </div>
   )
