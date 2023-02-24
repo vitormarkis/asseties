@@ -279,62 +279,6 @@
           "category": "technology"
         }
       ]
-    },
-    {
-      "id": "3aslpxitise",
-      "created_at": "Wed Feb 22 2023 23:26:04 GMT-0300 (Horário Padrão de Brasília)",
-      "updated_at": "Wed Feb 22 2023 23:27:17 GMT-0300 (Horário Padrão de Brasília)",
-      "asset_name": "teste, novo projeto",
-      "tags": [
-        {
-          "id": "3no9w754cso",
-          "created_at": "Wed Feb 22 2023 23:26:12 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:26:12 GMT-0300 (Horário Padrão de Brasília)",
-          "category": "design_pattern",
-          "info": "",
-          "tag_name": "taggie"
-        },
-        {
-          "id": "d3nbez0k73v",
-          "created_at": "Wed Feb 22 2023 23:26:17 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:26:17 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "nova tag",
-          "info": "",
-          "category": "utilitary_library"
-        },
-        {
-          "id": "hgd2qqgcyzb",
-          "created_at": "Wed Feb 22 2023 23:26:22 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:26:22 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "outra tag",
-          "info": "",
-          "category": "design_pattern"
-        },
-        {
-          "id": "csv3r4jm2ul",
-          "created_at": "Wed Feb 22 2023 23:26:27 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:26:27 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "dois preto",
-          "info": "",
-          "category": "technology"
-        },
-        {
-          "id": "ei5kp5kkvcm",
-          "created_at": "Wed Feb 22 2023 23:26:32 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:26:32 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "verde",
-          "info": "",
-          "category": "approach"
-        },
-        {
-          "id": "6fmq724s95d",
-          "created_at": "Wed Feb 22 2023 23:27:06 GMT-0300 (Horário Padrão de Brasília)",
-          "updated_at": "Wed Feb 22 2023 23:27:17 GMT-0300 (Horário Padrão de Brasília)",
-          "tag_name": "novo paradigma",
-          "info": "eu adicionei esse paradigma porque eu achei ele muito util para respolver varios problemas...",
-          "category": "code_fragments"
-        }
-      ]
     }
   ]
 }
