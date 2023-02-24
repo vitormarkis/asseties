@@ -6,6 +6,10 @@ module.exports = {
       boxShadow: {
         sh: "0 1px 2px rgba(0, 0, 0, 0.3), 0 0 0 1px #f7f7f7",
       },
+      screens: {
+        xxs: "520px",
+        // => @media (min-width: 520px) { ... }
+      },
     },
   },
   plugins: [],

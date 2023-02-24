@@ -38,8 +38,14 @@ const TagsLibrary: React.FC<Props> = ({ ...rest }) => {
       {...rest}
     >
       <Navbar style={{ gridArea: "navbar" }} />
-      <div style={{ gridArea: "main" }} className='h-screen p-4 flex gap-4 [&>div]:basis-0'>
-        <div className="overflow-scroll scroll-style p-4" style={{flexBasis: 240}}>
+      <div
+        style={{ gridArea: "main" }}
+        className="h-screen p-4 flex flex-col xxs:flex-row gap-4 [&>div]:basis-0"
+      >
+        <div
+          className="overflow-scroll scroll-style p-4"
+          style={{ flexBasis: 240 }}
+        >
           <TagLibraryList
             seeingTagName={seeingTagName}
             setSeeingTagName={setSeeingTagName}
